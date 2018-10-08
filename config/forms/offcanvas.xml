@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<fields name="form">
+        <fieldset name="fsOffcanvas">
+            <field name="posname" type="text" label="TPL_MASTER3_OFFCANVAS_FORM_POSNAME" readonly="true" />
+            <field name="overlay" type="checkbox" label="TPL_MASTER3_OFFCANVAS_FORM_OVERLAY" checked="true" />
+            <field name="flip" type="checkbox" label="TPL_MASTER3_OFFCANVAS_FORM_FLIP" />
+            <field name="mode" type="list" label="TPL_MASTER3_OFFCANVAS_FORM_MODE" default="slide" class="input-small">
+                <option value="slide">TPL_MASTER3_OFFCANVAS_FORM_MODE_SLIDE</option>
+                <option value="push">TPL_MASTER3_OFFCANVAS_FORM_MODE_PUSH</option>
+                <option value="reveal">TPL_MASTER3_OFFCANVAS_FORM_MODE_REVEAL</option>
+                <option value="none">TPL_MASTER3_OFFCANVAS_FORM_MODE_NONE</option>
+            </field>
+            <field name="class" type="text" label="TPL_MASTER3_OFFCANVAS_FORM_CLASS" class="input-xlarge" />
+        </fieldset>
+    </fields>
+</form>
