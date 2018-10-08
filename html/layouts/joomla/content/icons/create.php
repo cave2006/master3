@@ -9,7 +9,6 @@
 
 defined('JPATH_BASE') or die;
 
-$params = $displayData[ 'params' ];
-$legacy = $displayData[ 'legacy' ];
+use Joomla\CMS\Language\Text;
 
 echo trim( Text::_( 'JNEW' ) );
