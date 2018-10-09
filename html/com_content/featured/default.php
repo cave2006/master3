@@ -9,88 +9,87 @@
 
 defined('_JEXEC') or die;
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Layout\FileLayout;
 
-//JHtml::_('behavior.caption');
+HTMLHelper::addIncludePath(  JPATH_COMPONENT . '/helpers'  );
 
 // If the page class is defined, add to class as suffix.
 // It will be a separate class if the user starts it with a space
 ?>
 <div class="blog-featured<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="https://schema.org/Blog">
-<?php if ($this->params->get('show_page_heading') != 0) : ?>
-<div class="page-header">
-	<h1>
-	<?php echo $this->escape($this->params->get('page_heading')); ?>
-	</h1>
-</div>
-<?php endif; ?>
+	
+	<?php if ( $this->params->get( 'show_page_heading' ) ) { ?>
+	<h1 class="uk-article-title"><?php echo $this->escape( $this->params->get( 'page_heading' ) ); ?></h1>
+	<?php
+	}
+	
 
-<?php $leadingcount = 0; ?>
-<?php if (!empty($this->lead_items)) : ?>
-<div class="items-leading clearfix">
-	<?php foreach ($this->lead_items as &$item) : ?>
-		<div class="leading-<?php echo $leadingcount; ?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?> clearfix"
-			itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+	$leadingcount = 0;
+	if ( !empty( $this->lead_items ) )
+	{
+	?>
+	<div class="uk-child-width-1-1" data-uk-grid>
+		<?php foreach ( $this->lead_items as &$item ) { ?>
+		<div itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
 			<?php
-				$this->item = &$item;
-				echo $this->loadTemplate('item');
+			$this->item = &$item;
+			echo $this->loadTemplate( 'item' );
 			?>
 		</div>
 		<?php
 			$leadingcount++;
+		}
 		?>
-	<?php endforeach; ?>
-</div>
-<?php endif; ?>
-<?php
-	$introcount = count($this->intro_items);
-	$counter = 0;
-?>
-<?php if (!empty($this->intro_items)) : ?>
-	<?php foreach ($this->intro_items as $key => &$item) : ?>
+	</div>
+	<?php
+	}
 
-		<?php
-		$key = ($key - $leadingcount) + 1;
-		$rowcount = (((int) $key - 1) % (int) $this->columns) + 1;
-		$row = $counter / $this->columns;
 
-		if ($rowcount === 1) : ?>
-
-		<div class="items-row cols-<?php echo (int) $this->columns; ?> <?php echo 'row-' . $row; ?> row-fluid">
-		<?php endif; ?>
-			<div class="item column-<?php echo $rowcount; ?><?php echo $item->state == 0 ? ' system-unpublished' : null; ?> span<?php echo round(12 / $this->columns); ?>"
-				itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+	if ( !empty( $this->intro_items ) )
+	{
+	?>
+	<div class="uk-child-width-1-<?php echo ( int ) $this->columns; ?>@m uk-child-width-1-<?php echo ( int ) round( $this->columns / 2 ); ?>@s" data-uk-grid>
+	<?php
+		foreach ( $this->intro_items as $key => &$item )
+		{
+		?>
+		<div itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
 			<?php
-					$this->item = &$item;
-					echo $this->loadTemplate('item');
+			$this->item = &$item;
+			echo $this->loadTemplate( 'item' );
 			?>
-			</div>
-			<?php $counter++; ?>
-
-			<?php if (($rowcount == $this->columns) or ($counter == $introcount)) : ?>
-
 		</div>
-		<?php endif; ?>
-
-	<?php endforeach; ?>
-<?php endif; ?>
-
-<?php if (!empty($this->link_items)) : ?>
-	<div class="items-more">
-	<?php echo $this->loadTemplate('links'); ?>
+		<?php
+		}
+	?>
 	</div>
-<?php endif; ?>
+	<?php
+	}
 
-<?php if ($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2 && $this->pagination->pagesTotal > 1)) : ?>
-	<div class="pagination">
+	
+	if ( !empty( $this->link_items ) )
+	{
+		echo $this->loadTemplate( 'links' );
+	}
 
-		<?php if ($this->params->def('show_pagination_results', 1)) : ?>
-			<p class="counter pull-right">
-				<?php echo $this->pagination->getPagesCounter(); ?>
-			</p>
-		<?php endif; ?>
-				<?php echo $this->pagination->getPagesLinks(); ?>
+	
+	$show_pagination = $this->params->def( 'show_pagination', 2 ) == 1 || ( $this->params->get( 'show_pagination' ) == 2 );
+	$show_pagination_results = $this->params->def( 'show_pagination_results', 1 );
+
+	if ( $show_pagination && ( $this->pagination->pagesTotal > 1 ) )
+	{
+	?>
+	<div class="uk-margin-top uk-flex uk-flex-center<?php if ( $show_pagination_results ) { echo ' uk-flex-between@s'; } ?>">
+
+		<div><?php echo $this->pagination->getPagesLinks(); ?></div>
+		
+		<?php if ( $show_pagination_results ) { ?>
+		<div><?php echo $this->pagination->getPagesCounter(); ?></div>
+		<?php } ?>
+		
 	</div>
-<?php endif; ?>
+	<?php } ?>
 
 </div>
