@@ -16,10 +16,8 @@ JHtml::_('formbehavior.chosen', 'select');
 
 $fieldSets = $this->form->getFieldsets('params');
 
-?>
-<legend class="uk-h4 uk-text-primary"><?php echo Text::_('COM_CONFIG_TEMPLATE_SETTINGS'); ?></legend>
+$tabs = [];
 
-<?php
 // Search for com_config field set
 if (!empty($fieldSets['com_config']))
 {
@@ -27,7 +25,6 @@ if (!empty($fieldSets['com_config']))
 }
 else
 {
-	// Fall-back to display all in params
 	foreach ($fieldSets as $name => $fieldSet)
 	{
 		$label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_CONFIG_' . $name . '_FIELDSET_LABEL';

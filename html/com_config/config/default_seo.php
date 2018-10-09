@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 
 ?>
 <legend class="uk-h4 uk-text-primary"><?php echo Text::_('COM_CONFIG_SEO_SETTINGS'); ?></legend>
-<?php foreach ($this->form->getFieldset('site') as $field) { ?>
+<?php foreach ($this->form->getFieldset('seo') as $field) { ?>
 <div class="uk-form-stacked uk-margin">
 	<div class="uk-form-label"><?php echo $field->label; ?></div>
 	<div class="uk-form-controls"><?php echo $field->input; ?></div>

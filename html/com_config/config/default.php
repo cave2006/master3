@@ -27,19 +27,26 @@ Factory::getDocument()->addScriptDeclaration("
 ");
 
 ?>
+<h1 class="uk-article title"><?php echo Text::_('COM_CONFIG_CONFIGURATION'); ?></h1>
+
 <form action="<?php echo Route::_('index.php?option=com_config'); ?>" id="application-form" method="post" name="adminForm" class="form-validate">
 
-	<div class="btn-toolbar" role="toolbar" aria-label="<?php echo Text::_('JTOOLBAR'); ?>" data-uk-margin>
-		<button type="button" class="uk-button uk-button-default uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton('config.save.config.apply')"><span class="uk-text-success uk-margin-small-right" data-uk-icon="icon:check"></span><span><?php echo Text::_('JSAVE') ?></span></button>
-		<button type="button" class="uk-button uk-button-default uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton('config.cancel')"><span class="uk-text-danger uk-margin-small-right" data-uk-icon="icon:close"></span><span><?php echo Text::_('JCANCEL') ?></span></button>
-	</div>
+	<ul data-uk-tab="connect:#com-config-config-content">
+		<li><a href="#"><?php echo Text::_('COM_CONFIG_SITE_SETTINGS'); ?></a></li>
+		<li><a href="#"><?php echo Text::_('COM_CONFIG_METADATA_SETTINGS'); ?></a></li>
+		<li><a href="#"><?php echo Text::_('COM_CONFIG_SEO_SETTINGS'); ?></a></li>
+	</ul>
+	<ul id="com-config-config-content" class="uk-switcher">
+		<li><?php echo $this->loadTemplate('site'); ?></li>
+		<li><?php echo $this->loadTemplate('metadata'); ?></li>
+		<li><?php echo $this->loadTemplate('seo'); ?></li>
+	</ul>
 
-	<hr class="hr-condensed" />
+	<hr class="uk-margin-medium">
 
-	<div id="page-site" class="tab-pane active">
-		<?php echo $this->loadTemplate('site'); ?>
-		<?php echo $this->loadTemplate('metadata'); ?>
-		<?php echo $this->loadTemplate('seo'); ?>
+	<div class="uk-flex">
+		<button type="button" class="uk-button uk-button-primary uk-margin-small-right uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton('config.save.config.apply')"><span class="uk-text-success uk-margin-small-right" data-uk-icon="icon:check"></span><span><?php echo Text::_('JSAVE') ?></span></button>
+		<button type="button" class="uk-button uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton('config.cancel')"><span class="uk-text-danger uk-margin-small-right" data-uk-icon="icon:close"></span><span><?php echo Text::_('JCANCEL') ?></span></button>
 	</div>
 
 	<input type="hidden" name="task" value="" />
