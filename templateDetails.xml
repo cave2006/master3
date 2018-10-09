@@ -8,7 +8,7 @@
 	<authorUrl>https://github.com/AlekVolsk/master3</authorUrl>
 	<copyright>Copyright (C) 2018 Aleksey A. Morozov. All rights reserved.</copyright>
 	<license>GNU GPL v3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-	<description>TPL_MASTER3_XML_DESCRIPTION</description>
+	<description>Master3 is the Joomla 3 site template based on UIkit 3.</description>
 	
 	<files>
 		<filename>index.php</filename>
