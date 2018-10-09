@@ -53,7 +53,7 @@ HTMLHelper::_('script', 'system/html5fallback.js', array('version' => 'auto', 'r
  *     %3 - value
  *     %4 = any other attributes
  */
-$format = '<input type="radio" id="%1$s" name="%2$s" value="%3$s" %4$s />';
+$format = '<input type="radio" class="uk-radio" id="%1$s" name="%2$s" value="%3$s" %4$s />';
 $alt    = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 ?>
 <div id="<?php echo $id; ?>" class="<?php echo trim($class . ' radio' . ($readonly || $disabled ? ' disabled' : '') . ($readonly ? ' readonly' : '')); ?>"
@@ -71,7 +71,7 @@ $alt    = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 				$style          = $disabled ? 'style="pointer-events: none"' : '';
 				$option->class  = !empty($option->class) ? $option->class : '';
 				$option->class  = trim($option->class . ' ' . $disabled);
-				$optionClass    = !empty($option->class) ? 'class="uk-radio ' . $option->class . '"' : 'class="uk-radio"';
+				$optionClass    = !empty($option->class) ? 'class="uk-margin-small-right' . $option->class . '"' : 'class="uk-margin-small-right"';
 
 				// Initialize some JavaScript option attributes.
 				$onclick    = !empty($option->onclick) ? 'onclick="' . $option->onclick . '"' : '';

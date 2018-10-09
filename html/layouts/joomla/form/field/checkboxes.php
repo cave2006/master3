@@ -55,7 +55,7 @@ HTMLHelper::_('script', 'system/html5fallback.js', array('version' => 'auto', 'r
  *     %3 - value
  *     %4 = any other attributes
  */
-$format = '<input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s />';
+$format = '<input type="checkbox" class="uk-checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s />';
 
 // The alt option for Text::alt
 $alt = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
@@ -72,7 +72,7 @@ $alt = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
 
 			// In case there is no stored value, use the option's default state.
 			$checked        = (!$hasValue && $option->checked) ? 'checked' : $checked;
-			$optionClass    = !empty($option->class) ? 'class="uk-checkbox ' . $option->class . '"' : 'class="uk-checkbox"';
+			$optionClass    = !empty($option->class) ? 'class="uk-margin-small-right' . $option->class . '"' : 'class="uk-margin-small-right"';
 			$optionDisabled = !empty($option->disable) || $disabled ? 'disabled' : '';
 
 			// Initialize some JavaScript option attributes.
