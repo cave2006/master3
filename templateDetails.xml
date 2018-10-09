@@ -61,7 +61,6 @@
 	
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.tpl_master3.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.tpl_master3.sys.ini</language>
 	</languages>
 	
 	<config>
