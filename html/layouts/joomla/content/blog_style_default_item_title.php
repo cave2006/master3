@@ -21,31 +21,37 @@ HTMLHelper::addIncludePath( JPATH_COMPONENT.'/helpers/html' );
 
 if ( $displayData->state == 0 || $params->get( 'show_title' ) || ( $params->get( 'show_author' ) && !empty( $displayData->author  ) ) )
 {
+	if ( $params->get( 'show_title' ) )
+	{
 ?>
-	<div class="page-header">
-		<?php if ( $params->get( 'show_title' ) ) { ?>
-			<h2 itemprop="name">
-				<?php if ( $params->get( 'link_titles' ) && ( $params->get( 'access-view' ) || $params->get( 'show_noauth', '0' ) == '1' ) ) { ?>
-					<a href="<?php echo Route::_( ContentHelperRoute::getArticleRoute( $displayData->slug, $displayData->catid, $displayData->language ) ); ?>" itemprop="url">
-						<?php echo $this->escape( $displayData->title ); ?>
-					</a>
-				<?php }else { ?>
-					<?php echo $this->escape( $displayData->title ); ?>
-				<?php } ?>
-			</h2>
+	<h2 itemprop="name">
+		<?php if ( $params->get( 'link_titles' ) && ( $params->get( 'access-view' ) || $params->get( 'show_noauth', '0' ) == '1' ) ) { ?>
+		<a href="<?php echo Route::_( ContentHelperRoute::getArticleRoute( $displayData->slug, $displayData->catid, $displayData->language ) ); ?>" itemprop="url"><?php echo $this->escape( $displayData->title ); ?></a>
+		<?php } else { ?>
+		<?php echo $this->escape( $displayData->title ); ?>
 		<?php } ?>
-		
-		<?php if ( $displayData->state == 0 ) { ?>
-			<span class="label label-warning"><?php echo Text::_( 'JUNPUBLISHED' ); ?></span>
-		<?php } ?>
-
-		<?php if ( strtotime( $displayData->publish_up ) > strtotime( Factory::getDate() ) ) { ?>
-			<span class="label label-warning"><?php echo Text::_( 'JNOTPUBLISHEDYET' ); ?></span>
-		<?php } ?>
-		
-		<?php if ( $displayData->publish_down != Factory::getDbo()->getNullDate() && ( strtotime( $displayData->publish_down ) < strtotime( Factory::getDate() ) ) ) { ?>
-			<span class="label label-warning"><?php echo Text::_( 'JEXPIRED' ); ?></span>
-		<?php } ?>
-	</div>
+	</h2>
 <?php
+	}
+		
+	if ( $displayData->state == 0 )
+	{
+	?>
+	<span class="uk-button uk-buttom-text uk-text-warning"><?php echo Text::_( 'JUNPUBLISHED' ); ?></span>
+	<?php
+	}
+
+	if ( strtotime( $displayData->publish_up ) > strtotime( Factory::getDate() ) )
+	{
+	?>
+	<span class="uk-button uk-buttom-text uk-text-warning"><?php echo Text::_( 'JNOTPUBLISHEDYET' ); ?></span>
+	<?php
+	}
+		
+	if ( $displayData->publish_down != Factory::getDbo()->getNullDate() && ( strtotime( $displayData->publish_down ) < strtotime( Factory::getDate() ) ) )
+	{
+	?>
+	<span class="uk-button uk-buttom-text uk-text-warning"><?php echo Text::_( 'JEXPIRED' ); ?></span>
+	<?php
+	}
 }

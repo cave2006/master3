@@ -13,10 +13,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
 ?>
-<ol class="uk-subnav uk-subnav-divider">
+<ul class="uk-subnav">
 	<?php foreach ( $displayData->get( 'link_items' ) as $item ) { ?>
 	<li>
 		<?php echo HTMLHelper::_( 'link', Route::_( ContentHelperRoute::getArticleRoute( $item->slug, $item->catid, $item->language ) ), $item->title ); ?>
 	</li>
 	<?php } ?>
-</ol>
+</ul>
