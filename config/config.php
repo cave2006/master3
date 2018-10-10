@@ -178,6 +178,47 @@ final class Master3Config
         $this->params->set( 'offcanvas', $offcanvas );
     }
 
+
+    /*
+     * Get mime-type
+     * 
+     * @param string $file
+     * 
+     * @retutn string
+     */
+    protected function getMime( $file )
+    {
+        if ( function_exists( 'mime_content_type' ) )
+        {
+            return @mime_content_type( $file );
+        }
+        else
+        {
+            $ext = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+            switch ( $ext )
+            {
+                case 'png': $mime = 'image/png'; break;
+                
+                case 'jpeg':
+                case 'jpe':
+                case 'jpg': $mime = 'image/jpeg'; break;
+                
+                case 'gif': $mime = 'image/gif'; break;
+                
+                case 'svg':
+                case 'svgz': $mime = 'image/svg+xml'; break;
+                
+                case 'tiff':
+                case 'tif': $mime = 'image/tiff'; break;
+
+                case 'ico': $mime = 'image/vnd.microsoft.icon'; break;
+
+                default: $mime = '';
+            }
+            return $mime;
+        }
+    }
+
     
     /*
      * Head section data
@@ -318,7 +359,9 @@ final class Master3Config
         $favicon = $this->params->get( 'favicon', '' );
         if ( $favicon && is_file( Path::clean( JPATH_BASE . '/' . $favicon ) ) )
         {
-            $out[ 'metas' ][] = '<link rel="shortcut icon" href="' . $favicon . '" type="' . mime_content_type( Path::clean( JPATH_BASE . '/' . $favicon ) ) . '">';
+            $type = $this->getMime( Path::clean( JPATH_BASE . '/' . $favicon ) );
+            $type = $type ? ' " type="' . $type . '"' : '';
+            $out[ 'metas' ][] = '<link rel="shortcut icon" href="' . $favicon . $type . '>';
         }
         
         // favicon for apple devices
@@ -559,8 +602,8 @@ final class Master3Config
 
                 if ( $logoFile )
                 {
-                    $mime = mime_content_type( Path::clean( JPATH_BASE . '/' . $logoFile ) );
-                    if ( $mime == 'image/svg' )
+                    $mime = $this->getMime( Path::clean( JPATH_BASE . '/' . $logoFile ) );
+                    if ( $mime == 'image/svg' || $mime == 'image/svg+xml' )
                     {
                         $out .= file_get_contents( Path::clean( JPATH_BASE . '/' . $logoFile ) );
                     }
@@ -739,6 +782,8 @@ final class Master3Config
     /*
      * Get modile params
      * 
+     * @param string $moduleId
+     * 
      * @return array
      */
     public function getModuleParams( $moduleId )
@@ -779,6 +824,8 @@ final class Master3Config
     /*
      * Get menuitem params
      * 
+     * @param int $itemId
+     * 
      * @retutn array
      */
     public function getMenuItemParams( $itemId )
@@ -808,6 +855,8 @@ final class Master3Config
     /*
      * Get off-canvas params
      * 
+     * @param string $position
+     * 
      * @retutn array
      */
     public function getOffcanvasParams( $position )
@@ -828,6 +877,17 @@ final class Master3Config
         $oc->id = $position;
         
         return $oc;
+    }
+
+
+    /*
+     * Get DUA params
+     * 
+     * @retutn string
+     */
+    public function getDUA()
+    {
+        return (int) $this->params->get( 'denyUserAuthorization', 0 );
     }
 
 }
