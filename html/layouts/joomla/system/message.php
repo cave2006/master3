@@ -37,7 +37,7 @@ if ( is_array( $msgList ) && count( $msgList ) )
 			$htype = ' uk-text-' . $msgtype;
 		}
 
-        $buffer[] = '<div class="uk-alert-large' . $msgtype . '" data-uk-alert>';
+        $buffer[] = '<div class="uk-margin-remove uk-alert-large' . $msgtype . '" data-uk-alert>';
 		$buffer[] = '<div class="' . $section->container . '">';
 		$buffer[] = '<div class="uk-panel">';
 
