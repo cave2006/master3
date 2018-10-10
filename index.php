@@ -330,12 +330,14 @@ $head = $config->getHead();
 					<?php } ?>
 
 				</div>
-				
-				<?php if ($this->params->get('totop')) { ?>
-				<div class="uk-flex uk-flex-right uk-margin-top"><a data-uk-totop data-uk-scroll></a></div>
-				<?php } ?>
-
 			</div>
+			
+			<?php if ($this->params->get('totop')) { ?>
+			<div class="uk-container uk-container-expand uk-margin-top">
+				<a data-uk-totop data-uk-scroll></a>
+			</div>
+			<?php } ?>
+
 		</div>
 		<?php } ?>
 
@@ -376,9 +378,6 @@ $head = $config->getHead();
 	?>
 	<jdoc:include type="modules" name="debug" style="none" />
 	<?php } ?>
-	
-	<?php //vd( $ ); ?>
-	<?php //vd( $config->getFonts() ); ?>
 
 </body>
 </html>

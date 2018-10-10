@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site">
 	<name>Master3</name>
-	<version>0.1.0</version>
+	<version>0.1.2</version>
 	<creationDate>August 2018</creationDate>
 	<author>Aleksey A. Morozov</author>
 	<authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -72,7 +72,7 @@
 
 				<field name="noteLogo" type="note" label="TPL_MASTER3_SUBTITLE_LOGO" />
 				<field name="logoFile" type="media" label="TPL_MASTER3_LOGO_LABEL" description="TPL_MASTER3_LOGO_DESC" class="input-xlarge" />
-				<field name="siteTitle" type="text" label="TPL_MASTER3_TITLE_LABEL" description="TPL_MASTER3_TITLE_DESC" class="input-xlarge" default="master3" filter="string" />
+				<field name="siteTitle" type="text" label="TPL_MASTER3_TITLE_LABEL" description="TPL_MASTER3_TITLE_DESC" class="input-xlarge" default="" filter="string" />
 				<field name="spacerLogo" type="spacer" hr="true" />
 
 				<field name="noteIcons" type="note" label="TPL_MASTER3_SUBTITLE_ICONS" />
@@ -102,6 +102,7 @@
 				<field name="noComponentMain" type="checkbox" label="TPL_MASTER3_COMPONENT_MAIN_LABEL" checked="false" />
 				<field name="totop" type="checkbox" label="TPL_MASTER3_TOTOP_LABEL" checked="true" />
 				<field name="offlineLoginForm" type="checkbox" label="TPL_MASTER3_OLF_LABEL" />
+				<field name="denyUserAuthorization" type="checkbox" label="TPL_MASTER3_DUA_LABEL" />
 			</fieldset>
 
 			<fieldset name="head" label="TPL_MASTER3_TAB_HEAD_LABEL">
@@ -185,7 +186,7 @@
 					<option value="uikit.js">TPL_MASTER3_JS_UIKIT_BASED</option>
 					<option value="uikit.min.js">TPL_MASTER3_JS_UIKIT_MINIFIED</option>
 				</field>
-				<field name="jsIcons" type="list" label="TPL_MASTER3_JS_ICONS_LABEL" default="none">
+				<field name="jsIcons" type="list" label="TPL_MASTER3_JS_ICONS_LABEL" default="uikit-icons.min.js">
 					<option value="none">TPL_MASTER3_JS_ICONS_NO</option>
 					<option value="uikit-icons.js">TPL_MASTER3_JS_ICONS_BASED</option>
 					<option value="uikit-icons.min.js">TPL_MASTER3_JS_ICONS_MINIFIED</option>
