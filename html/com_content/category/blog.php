@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\FileLayout;
 
-HTMLHelper::addIncludePath(  JPATH_COMPONENT . '/helpers'  );
+HTMLHelper::addIncludePath( JPATH_COMPONENT . '/helpers' );
 
 $dispatcher = JEventDispatcher::getInstance();
 

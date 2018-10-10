@@ -9,11 +9,21 @@
 
 defined( '_JEXEC' ) or die;
 
+use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
+include_once realpath( Path::clean( __DIR__ . '/../../config/config.php' ) ); 
+
+$templateConfig = \Master3Config::getInstance();
+
+$denyUserAuthorization = $templateConfig->getDUA();
+
+if ( !$denyUserAuthorization )
+{
 ?>
+
 <form action="<?php echo Route::_( 'index.php', true, $params->get( 'usesecure', 0 ) ); ?>" method="post" id="login-form">
 	
 	<?php if ( $params->get( 'greeting', 1 ) ) { ?>
@@ -42,3 +52,6 @@ use Joomla\CMS\Router\Route;
 	<?php echo HTMLHelper::_( 'form.token' ); ?>
 
 </form>
+
+<?php
+}

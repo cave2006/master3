@@ -9,6 +9,7 @@
 
 defined( '_JEXEC' ) or die;
 
+use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
@@ -17,7 +18,16 @@ use Joomla\CMS\Plugin\PluginHelper;
 
 JLoader::register( 'UsersHelperRoute', JPATH_SITE . '/components/com_users/helpers/route.php' );
 
+include_once realpath( Path::clean( __DIR__ . '/../../config/config.php' ) ); 
+
+$templateConfig = \Master3Config::getInstance();
+
+$denyUserAuthorization = $templateConfig->getDUA();
+
+if ( !$denyUserAuthorization )
+{
 ?>
+
 <form action="<?php echo Route::_( 'index.php', true, $params->get( 'usesecure', 0 ) ); ?>" method="post" id="login-form">
 	
 	<?php if ( $params->get( 'pretext' ) ) { ?>
@@ -27,16 +37,16 @@ JLoader::register( 'UsersHelperRoute', JPATH_SITE . '/components/com_users/helpe
 	<?php } ?>
 	
 	<div>
-		<input id="modlgn-username" type="text" name="username" class="uk-input" placeholder="<?php echo Text::_( 'MOD_LOGIN_VALUE_USERNAME' ); ?>" />
+		<input id="modlgn-username" type="text" name="username" class="uk-input" placeholder="<?php echo Text::_( 'MOD_LOGIN_VALUE_USERNAME' ); ?> *" required />
 	</div>
 
 	<div class="uk-margin-top">
-		<input id="modlgn-passwd" type="password" name="password" class="uk-input" placeholder="<?php echo Text::_( 'JGLOBAL_PASSWORD' ); ?>" />
+		<input id="modlgn-passwd" type="password" name="password" class="uk-input" placeholder="<?php echo Text::_( 'JGLOBAL_PASSWORD' ); ?> *" required />
 	</div>
 
 	<?php if ( count( $twofactormethods ) > 1 ) { ?>
 	<div class="uk-margin-top">
-		<input id="modlgn-secretkey" autocomplete="off" type="text" name="secretkey" class="uk-input" placeholder="<?php echo Text::_( 'JGLOBAL_SECRETKEY' ); ?>" data-uk-tooltip="<?php echo Text::_( 'JGLOBAL_SECRETKEY_HELP' ); ?>" />
+		<input id="modlgn-secretkey" autocomplete="off" type="text" name="secretkey" class="uk-input" placeholder="<?php echo Text::_( 'JGLOBAL_SECRETKEY' ); ?> *" data-uk-tooltip="<?php echo Text::_( 'JGLOBAL_SECRETKEY_HELP' ); ?>" required />
 	</div>
 	<?php } ?>
 
@@ -88,3 +98,6 @@ JLoader::register( 'UsersHelperRoute', JPATH_SITE . '/components/com_users/helpe
 	<?php } ?>
 
 </form>
+
+<?php
+}
