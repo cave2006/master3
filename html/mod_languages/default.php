@@ -3,84 +3,156 @@
  * @package     Joomla.Site
  * @subpackage  mod_languages
  *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright ( C ) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+defined( '_JEXEC' ) or die;
 
-JHtml::_('stylesheet', 'mod_languages/template.css', array('version' => 'auto', 'relative' => true));
+use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
-if ($params->get('dropdown', 0) && !$params->get('dropdownimage', 1))
-{
-	JHtml::_('formbehavior.chosen');
-}
 ?>
 <div class="mod-languages<?php echo $moduleclass_sfx; ?>">
-<?php if ($headerText) : ?>
-	<div class="pretext"><p><?php echo $headerText; ?></p></div>
-<?php endif; ?>
 
-<?php if ($params->get('dropdown', 0) && !$params->get('dropdownimage', 1)) : ?>
-	<form name="lang" method="post" action="<?php echo htmlspecialchars(JUri::current(), ENT_COMPAT, 'UTF-8'); ?>">
-	<select class="inputbox advancedSelect" onchange="document.location.replace(this.value);" >
-	<?php foreach ($list as $language) : ?>
-		<option dir=<?php echo $language->rtl ? '"rtl"' : '"ltr"'; ?> value="<?php echo htmlspecialchars($language->link, ENT_QUOTES, 'UTF-8'); ?>" <?php echo $language->active ? 'selected="selected"' : ''; ?>>
-		<?php echo $language->title_native; ?></option>
-	<?php endforeach; ?>
-	</select>
+	<?php if ( $headerText ) { ?>
+	<div class="uk-margin-bottom pretext"><p><?php echo $headerText; ?></p></div>
+	<?php
+	}
+
+	if ( $params->get( 'dropdown', 0 ) && !$params->get( 'dropdownimage', 1 ) )
+	{
+	?>
+	
+	<form name="lang" method="post" action="<?php echo htmlspecialchars( Uri::current(), ENT_COMPAT, 'UTF-8' ); ?>">
+		<select class="uk-select uk-width-auto" onchange="document.location.replace( this.value );" >
+			<?php foreach ( $list as $language ) { ?>
+			<option dir=<?php echo $language->rtl ? '"rtl"' : '"ltr"'; ?> value="<?php echo htmlspecialchars( $language->link, ENT_QUOTES, 'UTF-8' ); ?>" <?php echo $language->active ? 'selected="selected"' : ''; ?>><?php echo $language->title_native; ?></option>
+			<?php } ?>
+		</select>
 	</form>
-<?php elseif ($params->get('dropdown', 0) && $params->get('dropdownimage', 1)) : ?>
-	<div class="btn-group">
-		<?php foreach ($list as $language) : ?>
-			<?php if ($language->active) : ?>
-				<a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
-					<span class="caret"></span>
-					<?php if ($language->image) : ?>
-						&nbsp;<?php echo JHtml::_('image', 'mod_languages/' . $language->image . '.gif', '', null, true); ?>
-					<?php endif; ?>
-					<?php echo $language->title_native; ?>
-				</a>
-			<?php endif; ?>
-		<?php endforeach; ?>
-		<ul class="<?php echo $params->get('lineheight', 0) ? 'lang-block' : 'lang-inline'; ?> dropdown-menu" dir="<?php echo JFactory::getLanguage()->isRtl() ? 'rtl' : 'ltr'; ?>">
-		<?php foreach ($list as $language) : ?>
-			<?php if (!$language->active || $params->get('show_active', 1)) : ?>
-				<li<?php echo $language->active ? ' class="lang-active"' : ''; ?>>
-				<a href="<?php echo htmlspecialchars($language->link, ENT_QUOTES, 'UTF-8'); ?>">
-					<?php if ($language->image) : ?>
-						<?php echo JHtml::_('image', 'mod_languages/' . $language->image . '.gif', '', null, true); ?>
-					<?php endif; ?>
-					<?php echo $language->title_native; ?>
-				</a>
-				</li>
-			<?php endif; ?>
-		<?php endforeach; ?>
-		</ul>
-	</div>
-<?php else : ?>
-	<ul class="<?php echo $params->get('inline', 1) ? 'lang-inline' : 'lang-block'; ?>">
-	<?php foreach ($list as $language) : ?>
-		<?php if (!$language->active || $params->get('show_active', 1)) : ?>
-			<li<?php echo $language->active ? ' class="lang-active"' : ''; ?> dir="<?php echo $language->rtl ? 'rtl' : 'ltr'; ?>">
-			<a href="<?php echo htmlspecialchars($language->link, ENT_QUOTES, 'UTF-8'); ?>">
-			<?php if ($params->get('image', 1)) : ?>
-				<?php if ($language->image) : ?>
-					<?php echo JHtml::_('image', 'mod_languages/' . $language->image . '.gif', $language->title_native, array('title' => $language->title_native), true); ?>
-				<?php else : ?>
-					<span class="label"><?php echo strtoupper($language->sef); ?></span>
-				<?php endif; ?>
-			<?php else : ?>
-				<?php echo $params->get('full_name', 1) ? $language->title_native : strtoupper($language->sef); ?>
-			<?php endif; ?>
-			</a>
-			</li>
-		<?php endif; ?>
-	<?php endforeach; ?>
-	</ul>
-<?php endif; ?>
 
-<?php if ($footerText) : ?>
-	<div class="posttext"><p><?php echo $footerText; ?></p></div>
-<?php endif; ?>
+	<?php
+	}
+	elseif ( $params->get( 'dropdown', 0 ) && $params->get( 'dropdownimage', 1 ) )
+	{
+	?>
+
+	<div class="uk-inline">
+		<?php
+		foreach ( $list as $language )
+		{
+			if ( $language->active )
+			{
+		?>
+		<a href="#" class="uk-button uk-button-link uk-flex uk-flex-middle">
+			<?php if ( $language->image ) { ?>
+			<span class="uk-border-circle uk-display-inline-block uk-margin-small-right" style="width:20px;">
+				<?php
+				$lang_image = realpath( __DIR__ . '/images/' . $language->image . '.svg' );
+				if ( $lang_image )
+				{
+					echo file_get_contents( $lang_image );
+				}
+				?>
+			</span>
+			<?php } ?>
+			<span class="uk-display-inline-block"><?php echo $language->title_native; ?></span>
+		</a>
+		<?php
+				break;
+			}
+		}
+		?>
+		<div data-uk-dropdown="pos:bottom-<?php echo Factory::getLanguage()->isRtl() ? 'left' : 'right'; ?>">
+			<ul class="uk-nav uk-dropdown-nav">
+				<?php
+				foreach ( $list as $language )
+				{
+					if ( !$language->active || $params->get( 'show_active', 1 ) )
+					{
+				?>
+				<li <?php echo $language->active ? ' class="uk-active"' : ''; ?>>
+					<a href="<?php echo htmlspecialchars( $language->link, ENT_QUOTES, 'UTF-8' ); ?>" class="uk-flex uk-flex-middle"<?php echo $params->get( 'lineheight', 1 ) ? '' : ' style="font-size:1rem"'; ?>>
+						<?php if ( $language->image ) { ?>
+						<span class="uk-border-circle uk-display-inline-block uk-margin-small-right" style="width:20px;">
+							<?php
+							$lang_image = realpath( __DIR__ . '/images/' . $language->image . '.svg' );
+							if ( $lang_image )
+							{
+								echo file_get_contents( $lang_image );
+							}
+							?>
+						</span>
+						<?php } ?>
+						<span class="uk-display-inline-block"><?php echo $language->title_native; ?></span>
+					</a>
+				</li>
+				<?php
+					}
+				}
+				?>
+			</ul>
+		</div>
+	</div>
+	
+	<?php
+	}
+	else
+	{
+	?>
+
+	<ul class="<?php echo $params->get( 'inline', 1 ) ? 'uk-subnav' : 'uk-list';?>">
+		<?php
+		foreach ( $list as $language )
+		{
+			if ( !$language->active || $params->get( 'show_active', 1 ) )
+			{
+		?>
+		<li  class="<?php echo $language->active ? 'uk-active ' : ''; ?>" dir="<?php echo $language->rtl ? 'rtl' : 'ltr'; ?>">
+			<a href="<?php echo htmlspecialchars( $language->link, ENT_QUOTES, 'UTF-8' ); ?>">
+				<?php
+				if ( $params->get( 'image', 1 ) )
+				{
+					if ( $language->image )
+					{
+				?>
+				<span class="uk-border-circle uk-display-inline-block" style="width:20px;" data-uk-tooltip="<?php echo $language->title_native ?>">
+					<?php
+					$lang_image = realpath( __DIR__ . '/images/' . $language->image . '.svg' );
+					if ( $lang_image )
+					{
+						echo file_get_contents( $lang_image );
+					}
+					?>
+				</span>
+				<?php
+					}
+					else
+					{
+						echo strtoupper( $language->sef );
+					}
+				}
+				else
+				{
+					echo $params->get( 'full_name', 1 ) ? $language->title_native : strtoupper( $language->sef );
+				}
+				?>
+			</a>
+		</li>
+		<?php
+			}
+		}
+		?>
+	</ul>
+
+	<?php
+	}
+
+	if ( $footerText )
+	{
+	?>
+	<div class="uk-margin-top posttext"><p><?php echo $footerText; ?></p></div>
+	<?php } ?>
+
 </div>
