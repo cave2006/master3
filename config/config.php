@@ -10,6 +10,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\Path;
+use Joomla\CMS\Language\LanguageHelper;
 
 defined('_JEXEC') or die;
 
@@ -580,9 +581,27 @@ final class Master3Config
      */
     public function getLogo()
     {
-		$isMain = Uri::current() == Uri::base();
+        $lang = Factory::getLanguage();
+        $langDefault = $lang->getDefault();
+        $langActive = $lang->getTag();
+
+        $langSef = '';
+        if ( $langActive !== $langDefault )
+        {
+            $langList = LanguageHelper::getLanguages();
+            foreach ( $langList as $langItem )
+            {
+                if ( $langItem->lang_code === $langActive )
+                {
+                    $langSef = $langItem->sef . '/';
+                    break;
+                }
+            }
+        }
+        
+        $isMain = ( Uri::current() == Uri::base() ) || ( Uri::current() == Uri::base() . $langSef );
 		$logotag = $isMain ? 'span' : 'a';
-        $logohref = $isMain ? '' : ' href="/"';
+        $logohref = $isMain ? '' : ' href="/' . $langSef . '"';
         $out = '';
 		
 		if ( $this->doc->countModules( 'logo' ) )
