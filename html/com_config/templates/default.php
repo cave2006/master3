@@ -14,7 +14,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
-$user = Factory::getUser();
+HTMLHelper::_( 'behavior.formvalidator' );
+HTMLHelper::_( 'behavior.keepalive' );
 
 Factory::getDocument()->addScriptDeclaration("
 	Joomla.submitbutton = function(task)

@@ -45,8 +45,8 @@ Factory::getDocument(  )->addScriptDeclaration( "
 	<hr class="uk-margin-medium">
 
 	<div class="uk-flex">
-		<button type="button" class="uk-button uk-button-primary uk-margin-small-right uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton( 'config.save.config.apply' )"><span class="uk-text-success uk-margin-small-right" data-uk-icon="icon:check"></span><span><?php echo Text::_( 'JSAVE' ) ?></span></button>
-		<button type="button" class="uk-button uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton( 'config.cancel' )"><span class="uk-text-danger uk-margin-small-right" data-uk-icon="icon:close"></span><span><?php echo Text::_( 'JCANCEL' ) ?></span></button>
+		<button type="button" class="uk-button uk-button-primary uk-margin-small-right uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton( 'config.save.config.apply' )"><?php echo Text::_( 'JSAVE' ) ?></button>
+		<button type="button" class="uk-button uk-flex-inline uk-flex-middle" onclick="Joomla.submitbutton( 'config.cancel' )"><?php echo Text::_( 'JCANCEL' ) ?></button>
 	</div>
 
 	<input type="hidden" name="task" value="" />

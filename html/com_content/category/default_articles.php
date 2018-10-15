@@ -21,8 +21,6 @@ HTMLHelper::addIncludePath( JPATH_COMPONENT . '/helpers/html' );
 // Create some shortcuts.
 $params    = &$this->item->params;
 $n         = count( $this->items );
-$listOrder = $this->escape( $this->state->get( 'list.ordering' ) );
-$listDirn  = $this->escape( $this->state->get( 'list.direction' ) );
 
 // Check for at least one editable article
 $isEditable = false;
