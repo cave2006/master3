@@ -1,7 +1,7 @@
 # Master3
 Master3 is the Joomla 3 site template based on UIkit 3
 
-Template version 0.2.1 **BETA**
+Template version 0.2.2-**beta**
 
 UIkit version 3.0.0-rc.19
 
