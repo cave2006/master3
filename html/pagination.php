@@ -174,8 +174,18 @@ function pagination_item_active( &$item )
 		$cls = "last";
 		$title = Text::_( 'JLIB_HTML_END' );
 	}
+	
+	if ( $cls )
+	{
+		$title = ' class="' . $cls . '"';
+	}
+	
+	if ( $cls )
+	{
+		$title = ' data-uk-tooltip="' . $title . '"';
+	}
 
-	return '<li><a class="' . $cls . '" href="' . $item->link . '" data-uk-tooltip="' . $title . '">' . $item->text . '</a></li>';
+	return '<li><a' . ' href="' . $item->link . '"' . $cls . $title . '>' . $item->text . '</a></li>';
 }
 
 /**
