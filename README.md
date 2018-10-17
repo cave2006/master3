@@ -11,4 +11,4 @@ PHP **5.6** or later
 
 Positions:
 
-![positions.png]
+![positions](positions.png)
