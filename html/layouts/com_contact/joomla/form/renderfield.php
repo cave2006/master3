@@ -17,15 +17,15 @@ extract( $displayData );
 /**
  * Layout variables
  * ---------------------
- * 	$options         : (array)  Optional parameters
- * 	$label           : (string) The html code for the label (not required if $options['hiddenLabel'] is true)
- * 	$input           : (string) The input field html code
+ *     $options         : (array)  Optional parameters
+ *     $label           : (string) The html code for the label (not required if $options['hiddenLabel'] is true)
+ *     $input           : (string) The input field html code
  */
 
 if ( !empty( $options[ 'showonEnabled' ] ) )
 {
-	HTMLHelper::_( 'jquery.framework' );
-	HTMLHelper::_( 'script', 'jui/cms.js', [ 'version' => 'auto', 'relative' => true ] );
+    HTMLHelper::_( 'jquery.framework' );
+    HTMLHelper::_( 'script', 'jui/cms.js', [ 'version' => 'auto', 'relative' => true ] );
 }
 
 $class = empty( $options[ 'class' ] ) ? '' : ' ' . $options[ 'class' ];
@@ -48,16 +48,16 @@ $typeOfSpacer  = ( strpos( $label, 'spacer-lbl') !== false );
 
 ?>
 <div class="uk-form-stacked uk-margin <?php echo $class; ?>"<?php echo $rel; ?>>
-	<?php if ( empty( $options[ 'hiddenLabel' ] ) ) { ?>
-	<div class="uk-form-label">
-		<?php
-		echo $label;
-		if ( !$required && !$typeOfSpacer )
-		{
-		?>
-		<span class="uk-text-danger"><?php echo Text::_( 'COM_CONTACT_OPTIONAL' ); ?></span>
-		<?php } ?>
-	</div>
-	<?php } ?>
-	<div class="uk-form-controls"><?php echo $input; ?></div>
+    <?php if ( empty( $options[ 'hiddenLabel' ] ) ) { ?>
+    <div class="uk-form-label">
+        <?php
+        echo $label;
+        if ( !$required && !$typeOfSpacer )
+        {
+        ?>
+        <span class="uk-text-danger"><?php echo Text::_( 'COM_CONTACT_OPTIONAL' ); ?></span>
+        <?php } ?>
+    </div>
+    <?php } ?>
+    <div class="uk-form-controls"><?php echo $input; ?></div>
 </div>

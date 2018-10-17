@@ -19,19 +19,19 @@ $tabs = [];
 // Search for com_config field set
 if ( !empty( $fieldSets[ 'com_config' ] ) )
 {
-	echo $this->form->renderFieldset( 'com_config' );
+    echo $this->form->renderFieldset( 'com_config' );
 }
 else
 {
-	foreach  ($fieldSets as $name => $fieldSet )
-	{
-		$label = !empty( $fieldSet->label ) ? $fieldSet->label : 'COM_CONFIG_' . $name . '_FIELDSET_LABEL';
+    foreach  ($fieldSets as $name => $fieldSet )
+    {
+        $label = !empty( $fieldSet->label ) ? $fieldSet->label : 'COM_CONFIG_' . $name . '_FIELDSET_LABEL';
 
-		if ( isset( $fieldSet->description ) && trim( $fieldSet->description ) )
-		{
-			echo '<p class="uk-text-small">' . $this->escape( Text::_( $fieldSet->description ) ) . '</p>';
-		}
-		
-		echo $this->form->renderFieldset( $name );
-	}
+        if ( isset( $fieldSet->description ) && trim( $fieldSet->description ) )
+        {
+            echo '<p class="uk-text-small">' . $this->escape( Text::_( $fieldSet->description ) ) . '</p>';
+        }
+        
+        echo $this->form->renderFieldset( $name );
+    }
 }

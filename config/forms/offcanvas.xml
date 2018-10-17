@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-	<fields name="form">
+    <fields name="form">
         <fieldset name="fsOffcanvas">
             <field name="posname" type="text" label="TPL_MASTER3_OFFCANVAS_FORM_POSNAME" readonly="true" />
             <field name="overlay" type="checkbox" label="TPL_MASTER3_OFFCANVAS_FORM_OVERLAY" checked="true" />

@@ -12,8 +12,8 @@ defined('_JEXEC') or die;
 ?>
 <?php if ( !empty( $names ) ) { ?>
 <ul class="uk-list latestusers<?php echo $moduleclass_sfx; ?>">
-	<?php foreach ($names as $name) { ?>
-	<li><?php echo $name->username; ?></li>
-	<?php } ?>
+    <?php foreach ($names as $name) { ?>
+    <li><?php echo $name->username; ?></li>
+    <?php } ?>
 </ul>
 <?php } ?>

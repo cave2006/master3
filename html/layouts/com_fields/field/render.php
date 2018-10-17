@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 if (!key_exists('field', $displayData))
 {
-	return;
+    return;
 }
 
 $field = $displayData['field'];
@@ -20,11 +20,11 @@ $showLabel = $field->params->get('showlabel');
 
 if ($value == '')
 {
-	return;
+    return;
 }
 
 ?>
 <?php if ($showLabel == 1) : ?>
-	<span class="field-label"><?php echo htmlentities($label, ENT_QUOTES | ENT_IGNORE, 'UTF-8'); ?>: </span>
+    <span class="field-label"><?php echo htmlentities($label, ENT_QUOTES | ENT_IGNORE, 'UTF-8'); ?>: </span>
 <?php endif; ?>
 <span class="field-value"><?php echo $value; ?></span>

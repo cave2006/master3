@@ -52,14 +52,14 @@ HTMLHelper::_('script', 'system/html5fallback.js', array('version' => 'auto', 'r
 
 // Initialize some field attributes.
 $attributes = array(
-	$class ? 'class="uk-range ' . $class . '"' : 'class="uk-range"',
-	$disabled ? 'disabled' : '',
-	$readonly ? 'readonly' : '',
-	!empty($onchange) ? 'onchange="' . $onchange . '"' : '',
-	!empty($max) ? 'max="' . $max . '"' : '',
-	!empty($step) ? 'step="' . $step . '"' : '',
-	!empty($min) ? 'min="' . $min . '"' : '',
-	$autofocus ? 'autofocus' : '',
+    $class ? 'class="uk-range ' . $class . '"' : 'class="uk-range"',
+    $disabled ? 'disabled' : '',
+    $readonly ? 'readonly' : '',
+    !empty($onchange) ? 'onchange="' . $onchange . '"' : '',
+    !empty($max) ? 'max="' . $max . '"' : '',
+    !empty($step) ? 'step="' . $step . '"' : '',
+    !empty($min) ? 'min="' . $min . '"' : '',
+    $autofocus ? 'autofocus' : '',
 );
 
 $value = (float) $value;

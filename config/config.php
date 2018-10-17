@@ -236,7 +236,7 @@ final class Master3Config
         $cssUikit = $this->params->get( 'cssUikit' );
         if ( $cssUikit !== 'none' )
         {
-            $this->doc->addStyleSheet( $tpath . '/uikit/css/' . $cssUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
+            $this->doc->addStyleSheet( $tpath . '/uikit/dist/css/' . $cssUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
         
         if ( $this->params->get( 'cssTheme' ) )
@@ -268,13 +268,13 @@ final class Master3Config
         $jsUikit = $this->params->get( 'jsUikit' );
         if ( $jsUikit !== 'none' )
         {
-            $this->doc->addScript( $tpath . '/uikit/js/' . $jsUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
+            $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $jsIcons = $this->params->get( 'jsIcons' );
         if ( $jsIcons !== 'none' )
         {
-            $this->doc->addScript( $tpath . '/uikit/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
+            $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
         
         if ( $this->params->get( 'jsCustom' ) )
@@ -332,9 +332,9 @@ final class Master3Config
 
         // meta tags
         foreach ( $head[ 'metaTags' ] as $attr => $vals )
-		{
-			foreach ( $vals as $name => $content )
-			{
+        {
+            foreach ( $vals as $name => $content )
+            {
                 if ( $attr == 'http-equiv' && $name != 'content-type' )
                 {
                     $out[ 'metas' ][] = '<meta http-equiv="' . $name . '" content="' . htmlspecialchars( $content, ENT_COMPAT, 'UTF-8' ) . '" />';
@@ -600,18 +600,18 @@ final class Master3Config
         }
         
         $isMain = ( Uri::current() == Uri::base() ) || ( Uri::current() == Uri::base() . $langSef );
-		$logotag = $isMain ? 'span' : 'a';
+        $logotag = $isMain ? 'span' : 'a';
         $logohref = $isMain ? '' : ' href="/' . $langSef . '"';
         $out = '';
-		
-		if ( $this->doc->countModules( 'logo' ) )
-		{
+        
+        if ( $this->doc->countModules( 'logo' ) )
+        {
             $out .= "<{$logotag}{$logohref} class=\"uk-logo uk-display-inline-block\">";
-			$out .= '<jdoc:include type="modules" name="logo" style="none" />';
+            $out .= '<jdoc:include type="modules" name="logo" style="none" />';
             $out .= "</{$logotag}>";
-		}
-		else
-		{
+        }
+        else
+        {
             $logoFile = $this->params->get( 'logoFile', '' );
             $siteTitle = $this->params->get( 'siteTitle', '' );
             
@@ -806,7 +806,7 @@ final class Master3Config
      * @return array
      */
     public function getModuleParams( $moduleId )
-	{
+    {
         $modules = (array)$this->params->get( 'modules' );
         
         if ( isset( $modules[ $moduleId ] ) )

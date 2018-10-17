@@ -20,44 +20,44 @@ $buffer = [];
 
 if ( is_array( $msgList ) && count( $msgList ) )
 {
-		
-	foreach ( $msgList as $type => $msgs )
-	{
+        
+    foreach ( $msgList as $type => $msgs )
+    {
         $msgtype = $type;
-		$htype = '';
+        $htype = '';
 
         if ($msgtype == 'message') $msgtype = 'success';
         if ($msgtype == 'notice')  $msgtype = 'primary';
         if ($msgtype == 'warning') $msgtype = 'warning';
         if ($msgtype == 'error')   $msgtype = 'danger';
-			
-		if ($msgtype)
-		{
-			$msgtype = ' uk-alert-' . $msgtype;
-			$htype = ' uk-text-' . $msgtype;
-		}
+            
+        if ($msgtype)
+        {
+            $msgtype = ' uk-alert-' . $msgtype;
+            $htype = ' uk-text-' . $msgtype;
+        }
 
         $buffer[] = '<div class="uk-margin-remove uk-alert-large' . $msgtype . '" data-uk-alert>';
-		$buffer[] = '<div class="' . $section->container . '">';
-		$buffer[] = '<div class="uk-panel">';
+        $buffer[] = '<div class="' . $section->container . '">';
+        $buffer[] = '<div class="uk-panel">';
 
-		$buffer[] = '<a class="uk-alert-close" data-uk-close></a>';
+        $buffer[] = '<a class="uk-alert-close" data-uk-close></a>';
 
-		if ( count( $msgs ) )
-		{
-	        $buffer[] = '<p class="uk-h3' . $htype . '">' . Text::_( $type ) . '</p>';
+        if ( count( $msgs ) )
+        {
+            $buffer[] = '<p class="uk-h3' . $htype . '">' . Text::_( $type ) . '</p>';
 
-			foreach ( $msgs as $msg )
-			{
-				$buffer[] = '<p>'.$msg.'</p>';
-			}
+            foreach ( $msgs as $msg )
+            {
+                $buffer[] = '<p>'.$msg.'</p>';
+            }
         }
 
         $buffer[] = '</div>';
         $buffer[] = '</div>';
         $buffer[] = '</div>';
     }
-		
+        
 }
 
 echo implode("\n", $buffer);

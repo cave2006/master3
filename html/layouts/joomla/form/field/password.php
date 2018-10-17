@@ -50,21 +50,21 @@ extract($displayData);
 
 if ($meter)
 {
-	HTMLHelper::_('script', 'system/passwordstrength.js', array('version' => 'auto', 'relative' => true, 'framework' => true));
+    HTMLHelper::_('script', 'system/passwordstrength.js', array('version' => 'auto', 'relative' => true, 'framework' => true));
 
-	// Load script on document load.
-	Factory::getDocument()->addScriptDeclaration(
-		"
-		jQuery(document).ready(function() {
-			new Form.PasswordStrength('" . $id . "',
-				{
-					threshold: " . $threshold . ",
-					onUpdate: function(element, strength, threshold) {
-						element.set('data-passwordstrength', strength);
-					}
-				});
-		});"
-	);
+    // Load script on document load.
+    Factory::getDocument()->addScriptDeclaration(
+        "
+        jQuery(document).ready(function() {
+            new Form.PasswordStrength('" . $id . "',
+                {
+                    threshold: " . $threshold . ",
+                    onUpdate: function(element, strength, threshold) {
+                        element.set('data-passwordstrength', strength);
+                    }
+                });
+        });"
+    );
 }
 
 // Including fallback code for HTML5 non supported browsers.
@@ -72,15 +72,15 @@ HTMLHelper::_('jquery.framework');
 HTMLHelper::_('script', 'system/html5fallback.js', array('version' => 'auto', 'relative' => true, 'conditional' => 'lt IE 9'));
 
 $attributes = array(
-	strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
-	!$autocomplete ? 'autocomplete="off"' : '',
-	!empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
-	$readonly ? 'readonly' : '',
-	$disabled ? 'disabled' : '',
-	!empty($size) ? 'size="' . $size . '"' : '',
-	!empty($maxLength) ? 'maxlength="' . $maxLength . '"' : '',
-	$required ? 'required aria-required="true"' : '',
-	$autofocus ? 'autofocus' : '',
+    strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
+    !$autocomplete ? 'autocomplete="off"' : '',
+    !empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
+    $readonly ? 'readonly' : '',
+    $disabled ? 'disabled' : '',
+    !empty($size) ? 'size="' . $size . '"' : '',
+    !empty($maxLength) ? 'maxlength="' . $maxLength . '"' : '',
+    $required ? 'required aria-required="true"' : '',
+    $autofocus ? 'autofocus' : '',
 );
 
 ?>

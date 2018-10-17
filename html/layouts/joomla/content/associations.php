@@ -15,8 +15,8 @@ if ( !empty( $items ) )
 {
 ?>
 <ul class="uk-list item-associations">
-	<?php foreach ( $items as $id => $item ) { ?>
-	<li><?php echo is_array( $item ) ? $item[ 'link' ] : $item->link; ?></li>
-	<?php } ?>
+    <?php foreach ( $items as $id => $item ) { ?>
+    <li><?php echo is_array( $item ) ? $item[ 'link' ] : $item->link; ?></li>
+    <?php } ?>
 </ul>
 <?php }

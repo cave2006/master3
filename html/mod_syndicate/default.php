@@ -14,20 +14,20 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 ?>
 <a href="<?php echo $link; ?>" class="syndicate-module<?php echo $moduleclass_sfx; ?>">
-	<?php
-	echo HTMLHelper::_( 'image', 'system/livemarks.png', 'feed-image', null, true );
-	if ( $params->get( 'display_text', 1 ) )
-	{
-		echo '<span>';
-		if ( str_replace( ' ', '', $text ) !== '' )
-		{
-			echo $text;
-		}
-		else
-		{
-			echo Text::_( 'MOD_SYNDICATE_DEFAULT_FEED_ENTRIES' );
-		}
-		echo '</span>';
-	}
-	?>
+    <?php
+    echo HTMLHelper::_( 'image', 'system/livemarks.png', 'feed-image', null, true );
+    if ( $params->get( 'display_text', 1 ) )
+    {
+        echo '<span>';
+        if ( str_replace( ' ', '', $text ) !== '' )
+        {
+            echo $text;
+        }
+        else
+        {
+            echo Text::_( 'MOD_SYNDICATE_DEFAULT_FEED_ENTRIES' );
+        }
+        echo '</span>';
+    }
+    ?>
 </a>

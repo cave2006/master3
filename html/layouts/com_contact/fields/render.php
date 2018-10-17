@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 // Check if we have all the data
 if (!key_exists('item', $displayData) || !key_exists('context', $displayData))
 {
-	return;
+    return;
 }
 
 // Setting up for display
@@ -19,14 +19,14 @@ $item = $displayData['item'];
 
 if (!$item)
 {
-	return;
+    return;
 }
 
 $context = $displayData['context'];
 
 if (!$context)
 {
-	return;
+    return;
 }
 
 JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
@@ -37,16 +37,16 @@ $fields    = null;
 
 if (key_exists('fields', $displayData))
 {
-	$fields = $displayData['fields'];
+    $fields = $displayData['fields'];
 }
 else
 {
-	$fields = $item->jcfields ?: FieldsHelper::getFields($context, $item, true);
+    $fields = $item->jcfields ?: FieldsHelper::getFields($context, $item, true);
 }
 
 if (!$fields)
 {
-	return;
+    return;
 }
 
 // Check if we have mail context in first element
@@ -54,25 +54,25 @@ $isMail = (reset($fields)->context == 'com_contact.mail');
 
 if (!$isMail)
 {
-	// Print the container tag
-	echo '<dl class="uk-description-list fields-container contact-fields dl-horizontal">';
+    // Print the container tag
+    echo '<dl class="uk-description-list fields-container contact-fields dl-horizontal">';
 }
 
 // Loop through the fields and print them
 foreach ($fields as $field)
 {
-	// If the value is empty do nothing
-	if (!strlen($field->value) && !$isMail)
-	{
-		continue;
-	}
+    // If the value is empty do nothing
+    if (!strlen($field->value) && !$isMail)
+    {
+        continue;
+    }
 
-	echo FieldsHelper::render($context, 'field.render', array('field' => $field));
+    echo FieldsHelper::render($context, 'field.render', array('field' => $field));
 }
 
 if (!$isMail)
 {
-	// Close the container
-	echo '</dl>';
+    // Close the container
+    echo '</dl>';
 }
 

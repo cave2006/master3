@@ -3,7 +3,7 @@
  * @package     Joomla.Site
  * @subpackage  Layout
  *
- * @copyright   Copyright ( C ) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -18,62 +18,62 @@ $display = $item->text;
 
 switch ( ( string ) $item->text )
 {
-	// Check for "Prev" item
-	case $item->text === Text::_( 'JPREV' ) :
-		$item->text = Text::_( 'JPREVIOUS' );
-		$icon = '<span data-uk-pagination-previous></span>';
-		break;
+    // Check for "Prev" item
+    case $item->text === Text::_( 'JPREV' ) :
+        $item->text = Text::_( 'JPREVIOUS' );
+        $icon = '<span data-uk-pagination-previous></span>';
+        break;
 
-	// Check for "Next" item
-	case Text::_( 'JNEXT' ) :
-		$icon = '<span data-uk-pagination-next></span>';
-		break;
+    // Check for "Next" item
+    case Text::_( 'JNEXT' ) :
+        $icon = '<span data-uk-pagination-next></span>';
+        break;
 
-	default:
-		$icon = null;
-		break;
+    default:
+        $icon = null;
+        break;
 }
 
 if ( $icon !== null )
 {
-	$display = $icon;
+    $display = $icon;
 }
 
 if ( $displayData[ 'active' ] )
 {
-	if ( $item->base > 0 )
-	{
-		$limit = 'limitstart.value=' . $item->base;
-	}
-	else
-	{
-		$limit = 'limitstart.value=0';
-	}
+    if ( $item->base > 0 )
+    {
+        $limit = 'limitstart.value=' . $item->base;
+    }
+    else
+    {
+        $limit = 'limitstart.value=0';
+    }
 
-	$cssClasses = [];
+    $cssClasses = [];
 
-	$title = '';
+    $title = '';
 
-	if ( !is_numeric( $item->text ) )
-	{
-		$title = ' data-uk-tooltip="' . $item->text . '" ';
-	}
+    if ( !is_numeric( $item->text ) )
+    {
+        $title = ' data-uk-tooltip="' . $item->text . '" ';
+    }
 
-	$onClick = 'document.adminForm.' . $item->prefix . 'limitstart.value=' . ( $item->base > 0 ? $item->base : '0' ) . '; Joomla.submitform(  );return false;';
+    $onClick = 'document.adminForm.' . $item->prefix . 'limitstart.value=' . ( $item->base > 0 ? $item->base : '0' ) . '; Joomla.submitform(  );return false;';
 }
 else
 {
-	$class = ( property_exists( $item, 'active' ) && $item->active ) ? 'uk-active' : 'uk-disabled';
+    $class = ( property_exists( $item, 'active' ) && $item->active ) ? 'uk-active' : 'uk-disabled';
 }
 ?>
 <?php if ( $displayData[ 'active' ] ) { ?>
-	<li>
-		<a <?php echo $cssClasses ? 'class="' . implode( ' ', $cssClasses ) . '"' : ''; ?> <?php echo $title; ?> href="#" onclick="<?php echo $onClick; ?>">
-			<?php echo $display; ?>
-		</a>
-	</li>
+    <li>
+        <a <?php echo $cssClasses ? 'class="' . implode( ' ', $cssClasses ) . '"' : ''; ?> <?php echo $title; ?> href="#" onclick="<?php echo $onClick; ?>">
+            <?php echo $display; ?>
+        </a>
+    </li>
 <?php } else { ?>
-	<li class="<?php echo $class; ?>">
-		<span><?php echo $display; ?></span>
-	</li>
+    <li class="<?php echo $class; ?>">
+        <span><?php echo $display; ?></span>
+    </li>
 <?php }

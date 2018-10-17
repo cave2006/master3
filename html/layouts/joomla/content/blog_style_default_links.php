@@ -14,9 +14,9 @@ use Joomla\CMS\Router\Route;
 
 ?>
 <ul class="uk-subnav">
-	<?php foreach ( $displayData->get( 'link_items' ) as $item ) { ?>
-	<li>
-		<?php echo HTMLHelper::_( 'link', Route::_( ContentHelperRoute::getArticleRoute( $item->slug, $item->catid, $item->language ) ), $item->title ); ?>
-	</li>
-	<?php } ?>
+    <?php foreach ( $displayData->get( 'link_items' ) as $item ) { ?>
+    <li>
+        <?php echo HTMLHelper::_( 'link', Route::_( ContentHelperRoute::getArticleRoute( $item->slug, $item->catid, $item->language ) ), $item->title ); ?>
+    </li>
+    <?php } ?>
 </ul>

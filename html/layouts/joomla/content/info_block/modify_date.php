@@ -13,9 +13,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
 ?>
-			<dd class="modified">
-				<span data-uk-icon="icon:calendar"></span>
-				<time datetime="<?php echo HTMLHelper::_( 'date', $displayData[ 'item' ]->modified, 'c' ); ?>" itemprop="dateModified">
-					<?php echo Text::sprintf( 'COM_CONTENT_LAST_UPDATED', HTMLHelper::_( 'date', $displayData[ 'item' ]->modified, Text::_( 'd.m.Y' ) ) ); ?>
-				</time>
-			</dd>
+            <dd class="modified">
+                <span data-uk-icon="icon:calendar"></span>
+                <time datetime="<?php echo HTMLHelper::_( 'date', $displayData[ 'item' ]->modified, 'c' ); ?>" itemprop="dateModified">
+                    <?php echo Text::sprintf( 'COM_CONTENT_LAST_UPDATED', HTMLHelper::_( 'date', $displayData[ 'item' ]->modified, Text::_( 'd.m.Y' ) ) ); ?>
+                </time>
+            </dd>

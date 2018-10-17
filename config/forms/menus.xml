@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-	<fields name="form">
+    <fields name="form">
         <fieldset name="fsMenu">
             <field name="menutitle" type="text" label="TPL_MASTER3_MENU_FORM_MENUTITLE" readonly="true" />
             <field name="menuid" type="text" label="TPL_MASTER3_MENU_FORM_ID" class="input-mini text-danger" readonly="true" />

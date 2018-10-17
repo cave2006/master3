@@ -14,25 +14,25 @@ extract($displayData);
 /**
  * Layout variables
  * ---------------------
- * 	$options         : (array)  Optional parameters
- * 	$label           : (string) The html code for the label (not required if $options['hiddenLabel'] is true)
- * 	$input           : (string) The input field html code
+ *     $options         : (array)  Optional parameters
+ *     $label           : (string) The html code for the label (not required if $options['hiddenLabel'] is true)
+ *     $input           : (string) The input field html code
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
 
 if (!empty($options['showonEnabled']))
 {
-	HTMLHelper::_('jquery.framework');
-	HTMLHelper::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true));
+    HTMLHelper::_('jquery.framework');
+    HTMLHelper::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true));
 }
 
 $class = empty($options['class']) ? '' : ' ' . $options['class'];
 $rel   = empty($options['rel']) ? '' : ' ' . $options['rel'];
 ?>
 <div class="uk-form-stacked uk-margin <?php echo $class; ?>"<?php echo $rel; ?>>
-	<?php if (empty($options['hiddenLabel'])) : ?>
-		<div class="uk-form-label"><?php echo $label; ?></div>
-	<?php endif; ?>
-	<div class="uk-form-controls"><?php echo $input; ?></div>
+    <?php if (empty($options['hiddenLabel'])) : ?>
+        <div class="uk-form-label"><?php echo $label; ?></div>
+    <?php endif; ?>
+    <div class="uk-form-controls"><?php echo $input; ?></div>
 </div>

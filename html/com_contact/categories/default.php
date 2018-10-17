@@ -21,8 +21,8 @@ if ( $this->params->get( 'show_page_heading' ) && !$params->get( 'show_title' ) 
 <?php } ?>
 
 <ul class="categories-list<?php echo $this->pageclass_sfx; ?>" data-uk-nav="multiple:true">
-	<?php
-	echo LayoutHelper::render( 'joomla.content.categories_default', $this );
-	echo $this->loadTemplate( 'items' );
-	?>
+    <?php
+    echo LayoutHelper::render( 'joomla.content.categories_default', $this );
+    echo $this->loadTemplate( 'items' );
+    ?>
 </ul>

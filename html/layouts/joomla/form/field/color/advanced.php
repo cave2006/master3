@@ -47,12 +47,12 @@ extract($displayData);
 
 if ($validate !== 'color' && in_array($format, array('rgb', 'rgba'), true))
 {
-	$alpha = ($format === 'rgba');
-	$placeholder = $alpha ? 'rgba(0, 0, 0, 0.5)' : 'rgb(0, 0, 0)';
+    $alpha = ($format === 'rgba');
+    $placeholder = $alpha ? 'rgba(0, 0, 0, 0.5)' : 'rgb(0, 0, 0)';
 }
 else
 {
-	$placeholder = '#rrggbb';
+    $placeholder = '#rrggbb';
 }
 
 $inputclass   = ($keywords && ! in_array($format, array('rgb', 'rgba'), true)) ? ' keywords' : ' ' . $format;

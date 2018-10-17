@@ -10,8 +10,8 @@
 defined('_JEXEC') or die;
 ?>
 <dl class="uk-description-list <?php echo $moduleclass_sfx; ?>">
-	<?php foreach ($list as $item) { ?>
-	<dt><?php echo $item->title; ?></dt>
-	<dd><?php echo $item->data; ?></dd>
-	<?php } ?>
+    <?php foreach ($list as $item) { ?>
+    <dt><?php echo $item->title; ?></dt>
+    <dd><?php echo $item->data; ?></dd>
+    <?php } ?>
 </dl>

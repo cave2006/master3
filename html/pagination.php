@@ -3,7 +3,7 @@
  * @package     Joomla.Site
  * @subpackage  Templates.protostar
  *
- * @copyright   Copyright ( C ) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -15,46 +15,46 @@ use Joomla\CMS\Language\Text;
  * This is a file to add template specific chrome to pagination rendering.
  *
  * pagination_list_footer
- * 	Input variable $list is an array with offsets:
- * 		$list[ limit ]		: int
- * 		$list[ limitstart ]	: int
- * 		$list[ total ]		: int
- * 		$list[ limitfield ]	: string
- * 		$list[ pagescounter ]	: string
- * 		$list[ pageslinks ]	: string
+ *     Input variable $list is an array with offsets:
+ *         $list[ limit ]        : int
+ *         $list[ limitstart ]    : int
+ *         $list[ total ]        : int
+ *         $list[ limitfield ]    : string
+ *         $list[ pagescounter ]    : string
+ *         $list[ pageslinks ]    : string
  *
  * pagination_list_render
- * 	Input variable $list is an array with offsets:
- * 		$list[ all ]
- * 			[ data ]		: string
- * 			[ active ]	: boolean
- * 		$list[ start ]
- * 			[ data ]		: string
- * 			[ active ]	: boolean
- * 		$list[ previous ]
- * 			[ data ]		: string
- * 			[ active ]	: boolean
- * 		$list[ next ]
- * 			[ data ]		: string
- * 			[ active ]	: boolean
- * 		$list[ end ]
- * 			[ data ]		: string
- * 			[ active ]	: boolean
- * 		$list[ pages ]
- * 			[ {PAGE} ][ data ]		: string
- * 			[ {PAGE} ][ active ]	: boolean
+ *     Input variable $list is an array with offsets:
+ *         $list[ all ]
+ *             [ data ]        : string
+ *             [ active ]    : boolean
+ *         $list[ start ]
+ *             [ data ]        : string
+ *             [ active ]    : boolean
+ *         $list[ previous ]
+ *             [ data ]        : string
+ *             [ active ]    : boolean
+ *         $list[ next ]
+ *             [ data ]        : string
+ *             [ active ]    : boolean
+ *         $list[ end ]
+ *             [ data ]        : string
+ *             [ active ]    : boolean
+ *         $list[ pages ]
+ *             [ {PAGE} ][ data ]        : string
+ *             [ {PAGE} ][ active ]    : boolean
  *
  * pagination_item_active
- * 	Input variable $item is an object with fields:
- * 		$item->base	: integer
- * 		$item->link	: string
- * 		$item->text	: string
+ *     Input variable $item is an object with fields:
+ *         $item->base    : integer
+ *         $item->link    : string
+ *         $item->text    : string
  *
  * pagination_item_inactive
- * 	Input variable $item is an object with fields:
- * 		$item->base	: integer
- * 		$item->link	: string
- * 		$item->text	: string
+ *     Input variable $item is an object with fields:
+ *         $item->base    : integer
+ *         $item->link    : string
+ *         $item->text    : string
  *
  * This gives template designers ultimate control over how pagination is rendered.
  *
@@ -72,12 +72,12 @@ use Joomla\CMS\Language\Text;
  */
 function pagination_list_footer( $list )
 {
-	$html = "<div>\n";
-	$html .= $list[ 'pageslinks' ];
-	$html .= "\n<input type=\"hidden\" name=\"" . $list[ 'prefix' ] . "limitstart\" value=\"" . $list[ 'limitstart' ] . "\" />";
-	$html .= "\n</div>";
+    $html = "<div>\n";
+    $html .= $list[ 'pageslinks' ];
+    $html .= "\n<input type=\"hidden\" name=\"" . $list[ 'prefix' ] . "limitstart\" value=\"" . $list[ 'limitstart' ] . "\" />";
+    $html .= "\n</div>";
 
-	return $html;
+    return $html;
 }
 
 /**
@@ -91,51 +91,51 @@ function pagination_list_footer( $list )
  */
 function pagination_list_render( $list )
 {
-	$currentId = 0;
-	$range = 3;
-	
-	foreach ( $list[ 'pages' ] as $id => $page )
-	{
-		if ( !$page[ 'active' ] )
-		{
-			$currentId = $id;
-		}
-	}
-	
-	$html = [];
-	$html[] = '<ul class="uk-pagination">';
-	
-	if ( $list[ 'start' ][ 'active' ] == 1 )
-	{
-		$html[] = $list[ 'start' ][ 'data' ];
-	}
-	
-	if ( $list[ 'previous' ][ 'active' ] == 1 )
-	{
-		$html[] = $list[ 'previous' ][ 'data' ];
-	}
-	
-	foreach ( $list[ 'pages' ] as $id => $page )
-	{
-		if ( $id <= $currentId+$range && $id >= $currentId-$range )
-		{
-			$html[] = $page[ 'data' ];
-		}
-	}
-	
-	if ( $list[ 'next' ][ 'active' ] == 1 )
-	{
-		$html[] = $list[ 'next' ][ 'data' ];
-	}
-	
-	if ( $list[ 'end' ][ 'active' ] == 1 )
-	{
-		$html[] = $list[ 'end' ][ 'data' ];
-	}
-	
-	$html[] = "</ul>";
-	
-	return implode( "\n", $html );
+    $currentId = 0;
+    $range = 3;
+    
+    foreach ( $list[ 'pages' ] as $id => $page )
+    {
+        if ( !$page[ 'active' ] )
+        {
+            $currentId = $id;
+        }
+    }
+    
+    $html = [];
+    $html[] = '<ul class="uk-pagination">';
+    
+    if ( $list[ 'start' ][ 'active' ] == 1 )
+    {
+        $html[] = $list[ 'start' ][ 'data' ];
+    }
+    
+    if ( $list[ 'previous' ][ 'active' ] == 1 )
+    {
+        $html[] = $list[ 'previous' ][ 'data' ];
+    }
+    
+    foreach ( $list[ 'pages' ] as $id => $page )
+    {
+        if ( $id <= $currentId+$range && $id >= $currentId-$range )
+        {
+            $html[] = $page[ 'data' ];
+        }
+    }
+    
+    if ( $list[ 'next' ][ 'active' ] == 1 )
+    {
+        $html[] = $list[ 'next' ][ 'data' ];
+    }
+    
+    if ( $list[ 'end' ][ 'active' ] == 1 )
+    {
+        $html[] = $list[ 'end' ][ 'data' ];
+    }
+    
+    $html[] = "</ul>";
+    
+    return implode( "\n", $html );
 }
 
 /**
@@ -149,43 +149,43 @@ function pagination_list_render( $list )
  */
 function pagination_item_active( &$item )
 {
-	$cls = '';
-	$title = '';
+    $cls = '';
+    $title = '';
 
-	if ( $item->text == Text::_( 'JNEXT' ) )
-	{
-		$item->text = '<span data-uk-pagination-next></span>';
-		$cls = "next";
-		$title = Text::_( 'JNEXT' );
-	}
-	else if ( $item->text == Text::_( 'JPREV' ) )
-	{
-		$item->text = '<span data-uk-pagination-previous></span>';
-		$cls = "previous";
-		$title = Text::_( 'JPREV' );
-	}
-	else if ( $item->text == Text::_( 'JLIB_HTML_START' ) )
-	{
-		$cls = "first";
-		$title = Text::_( 'JLIB_HTML_START' );
-	}
-	else if ( $item->text == Text::_( 'JLIB_HTML_END' ) )
-	{
-		$cls = "last";
-		$title = Text::_( 'JLIB_HTML_END' );
-	}
-	
-	if ( $cls )
-	{
-		$title = ' class="' . $cls . '"';
-	}
-	
-	if ( $cls )
-	{
-		$title = ' data-uk-tooltip="' . $title . '"';
-	}
+    if ( $item->text == Text::_( 'JNEXT' ) )
+    {
+        $item->text = '<span data-uk-pagination-next></span>';
+        $cls = "next";
+        $title = Text::_( 'JNEXT' );
+    }
+    else if ( $item->text == Text::_( 'JPREV' ) )
+    {
+        $item->text = '<span data-uk-pagination-previous></span>';
+        $cls = "previous";
+        $title = Text::_( 'JPREV' );
+    }
+    else if ( $item->text == Text::_( 'JLIB_HTML_START' ) )
+    {
+        $cls = "first";
+        $title = Text::_( 'JLIB_HTML_START' );
+    }
+    else if ( $item->text == Text::_( 'JLIB_HTML_END' ) )
+    {
+        $cls = "last";
+        $title = Text::_( 'JLIB_HTML_END' );
+    }
+    
+    if ( $cls )
+    {
+        $title = ' class="' . $cls . '"';
+    }
+    
+    if ( $cls )
+    {
+        $title = ' data-uk-tooltip="' . $title . '"';
+    }
 
-	return '<li><a' . ' href="' . $item->link . '"' . $cls . $title . '>' . $item->text . '</a></li>';
+    return '<li><a' . ' href="' . $item->link . '"' . $cls . $title . '>' . $item->text . '</a></li>';
 }
 
 /**
@@ -199,5 +199,5 @@ function pagination_item_active( &$item )
  */
 function pagination_item_inactive( &$item )
 {
-	return '<li class="uk-active"><span>' . $item->text . '</span></li>';
+    return '<li class="uk-active"><span>' . $item->text . '</span></li>';
 }

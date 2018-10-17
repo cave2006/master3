@@ -3,7 +3,7 @@
  * @package     Joomla.Site
  * @subpackage  Layout
  *
- * @copyright   Copyright ( C ) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -44,59 +44,59 @@ $afterDisplayContent = trim( implode( "\n", $results ) );
  */
 if ( substr( $className, -1 ) === 's' )
 {
-	$className = rtrim( $className, 's' );
+    $className = rtrim( $className, 's' );
 }
 $tagsData = $category->tags->itemTags;
 ?>
 <div>
-	<div class="<?php echo $className .'-category' . $displayData->pageclass_sfx; ?>">
-		<?php if ( $params->get( 'show_page_heading' ) ) { ?>
-		<h1><?php echo $displayData->escape( $params->get( 'page_heading' ) ); ?></h1>
-		<?php } ?>
+    <div class="<?php echo $className .'-category' . $displayData->pageclass_sfx; ?>">
+        <?php if ( $params->get( 'show_page_heading' ) ) { ?>
+        <h1><?php echo $displayData->escape( $params->get( 'page_heading' ) ); ?></h1>
+        <?php } ?>
 
-		<?php if ( $params->get( 'show_category_title', 1 ) ) { ?>
-		<h2><?php echo HTMLHelper::_( 'content.prepare', $category->title, '', $extension . '.category.title' ); ?></h2>
-		<?php } ?>
-		
-		<?php echo $afterDisplayTitle; ?>
+        <?php if ( $params->get( 'show_category_title', 1 ) ) { ?>
+        <h2><?php echo HTMLHelper::_( 'content.prepare', $category->title, '', $extension . '.category.title' ); ?></h2>
+        <?php } ?>
+        
+        <?php echo $afterDisplayTitle; ?>
 
-		<?php
-		if ( $params->get( 'show_cat_tags', 1 ) )
-		{
-			echo LayoutHelper::render( 'joomla.content.tags', $tagsData );
-		}
+        <?php
+        if ( $params->get( 'show_cat_tags', 1 ) )
+        {
+            echo LayoutHelper::render( 'joomla.content.tags', $tagsData );
+        }
 
-		if ( $beforeDisplayContent || $afterDisplayContent || $params->get( 'show_description', 1 ) || $params->def( 'show_description_image', 1 ) )
-		{
-			echo '<div class="category-desc">';
-			if ( $params->get( 'show_description_image' ) && $category->getParams(  )->get( 'image' ) )
-			{
-				echo '<img src="' . $category->getParams(  )->get( 'image' ) .'" alt="' . htmlspecialchars( $category->getParams(  )->get( 'image_alt' ), ENT_COMPAT, 'UTF-8' ) . '"/>';
-			}
-			
-			echo $beforeDisplayContent;
+        if ( $beforeDisplayContent || $afterDisplayContent || $params->get( 'show_description', 1 ) || $params->def( 'show_description_image', 1 ) )
+        {
+            echo '<div class="category-desc">';
+            if ( $params->get( 'show_description_image' ) && $category->getParams(  )->get( 'image' ) )
+            {
+                echo '<img src="' . $category->getParams(  )->get( 'image' ) .'" alt="' . htmlspecialchars( $category->getParams(  )->get( 'image_alt' ), ENT_COMPAT, 'UTF-8' ) . '"/>';
+            }
+            
+            echo $beforeDisplayContent;
 
-			if ( $params->get( 'show_description' ) && $category->description )
-			{
-				echo HTMLHelper::_( 'content.prepare', $category->description, '', $extension . '.category.description' );
-			}
-			
-			echo $afterDisplayContent;
+            if ( $params->get( 'show_description' ) && $category->description )
+            {
+                echo HTMLHelper::_( 'content.prepare', $category->description, '', $extension . '.category.description' );
+            }
+            
+            echo $afterDisplayContent;
 
-			echo '</div>';
-		}
-		
-		echo $displayData->loadTemplate( $displayData->subtemplatename );
+            echo '</div>';
+        }
+        
+        echo $displayData->loadTemplate( $displayData->subtemplatename );
 
-		if ( $displayData->maxLevel != 0 && $displayData->get( 'children' ) )
-		{
-		?>
-		<div class="cat-children">
-			<?php if ( $params->get( 'show_category_heading_title_text', 1 ) == 1 ) { ?>
-			<h3><?php echo Text::_( 'JGLOBAL_SUBCATEGORIES' ); ?></h3>
-			<?php } ?>
-			<?php echo $displayData->loadTemplate( 'children' ); ?>
-		</div>
-		<?php } ?>
-	</div>
+        if ( $displayData->maxLevel != 0 && $displayData->get( 'children' ) )
+        {
+        ?>
+        <div class="cat-children">
+            <?php if ( $params->get( 'show_category_heading_title_text', 1 ) == 1 ) { ?>
+            <h3><?php echo Text::_( 'JGLOBAL_SUBCATEGORIES' ); ?></h3>
+            <?php } ?>
+            <?php echo $displayData->loadTemplate( 'children' ); ?>
+        </div>
+        <?php } ?>
+    </div>
 </div>

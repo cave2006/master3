@@ -11,34 +11,34 @@ defined( '_JEXEC' ) or die;
 
 if ( $params->get( 'item_title' ) )
 {
-	$item_heading = $params->get( 'item_heading', 'h4' );
-	echo '<' . $item_heading . '>';
-	if ( $item->link !== '' && $params->get( 'link_titles' ) )
-	{
-		echo '<a href="' . $item->link . '">' . $item->title . '</a>';
-	}
-	else
-	{
-		echo $item->title;
-	}
-	echo '</' . $item_heading . '>';
+    $item_heading = $params->get( 'item_heading', 'h4' );
+    echo '<' . $item_heading . '>';
+    if ( $item->link !== '' && $params->get( 'link_titles' ) )
+    {
+        echo '<a href="' . $item->link . '">' . $item->title . '</a>';
+    }
+    else
+    {
+        echo $item->title;
+    }
+    echo '</' . $item_heading . '>';
 }
 
 if ( !$params->get( 'intro_only' ) )
 {
-	echo $item->afterDisplayTitle;
+    echo $item->afterDisplayTitle;
 }
 
 echo $item->beforeDisplayContent;
 
 if ( $params->get( 'show_introtext', 1 ) )
 {
-	echo $item->introtext;
+    echo $item->introtext;
 }
 
 echo $item->afterDisplayContent;
 
 if ( isset( $item->link ) && $item->readmore != 0 && $params->get( 'readmore' ) )
 {
-	echo '<a class="readmore" href="' . $item->link . '">' . $item->linkText . '</a>';
+    echo '<a class="readmore" href="' . $item->link . '">' . $item->linkText . '</a>';
 }

@@ -23,15 +23,15 @@ $systemOutput = $config->getSystemOutput();
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
 <?php echo $head[ 'metas' ]; ?>
-	<?php echo $head[ 'styles' ]; ?>
-	<?php echo $head[ 'scripts' ]; ?>
+    <?php echo $head[ 'styles' ]; ?>
+    <?php echo $head[ 'scripts' ]; ?>
 </head>
 <body class="<?php echo $config->getBodyClasses(); ?>">
-	<jdoc:include type="message" />
-	<?php if ( $systemOutput ) { ?>
-	<main id="content">
-		<?php echo $systemOutput; ?>
-	</main>
-	<?php } ?>
+    <jdoc:include type="message" />
+    <?php if ( $systemOutput ) { ?>
+    <main id="content">
+        <?php echo $systemOutput; ?>
+    </main>
+    <?php } ?>
 </body>
 </html>

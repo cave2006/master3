@@ -57,15 +57,15 @@ $maxSize = HTMLHelper::_('number.bytes', Utility::getMaxUploadSize());
 ?>
 <div uk-form-custom>
 <input type="file"
-	name="<?php echo $name; ?>"
-	id="<?php echo $id; ?>"
-	<?php echo !empty($size) ? ' size="' . $size . '"' : ''; ?>
-	<?php echo !empty($accept) ? ' accept="' . $accept . '"' : ''; ?>
-	<?php echo !empty($class) ? ' class="' . $class . '"' : ''; ?>
-	<?php echo !empty($multiple) ? ' multiple' : ''; ?>
-	<?php echo $disabled ? ' disabled' : ''; ?>
-	<?php echo $autofocus ? ' autofocus' : ''; ?>
-	<?php echo !empty($onchange) ? ' onchange="' . $onchange . '"' : ''; ?>
-	<?php echo $required ? ' required aria-required="true"' : ''; ?> /><br>
-	<?php echo Text::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $maxSize); ?>
+    name="<?php echo $name; ?>"
+    id="<?php echo $id; ?>"
+    <?php echo !empty($size) ? ' size="' . $size . '"' : ''; ?>
+    <?php echo !empty($accept) ? ' accept="' . $accept . '"' : ''; ?>
+    <?php echo !empty($class) ? ' class="' . $class . '"' : ''; ?>
+    <?php echo !empty($multiple) ? ' multiple' : ''; ?>
+    <?php echo $disabled ? ' disabled' : ''; ?>
+    <?php echo $autofocus ? ' autofocus' : ''; ?>
+    <?php echo !empty($onchange) ? ' onchange="' . $onchange . '"' : ''; ?>
+    <?php echo $required ? ' required aria-required="true"' : ''; ?> /><br>
+    <?php echo Text::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', $maxSize); ?>
 </div>

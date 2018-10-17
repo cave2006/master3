@@ -13,48 +13,48 @@ use Joomla\Filesystem\Path;
 
 class JFormFieldVersions extends \JFormField
 {
-	protected $type = 'versions';
+    protected $type = 'versions';
 
-	protected function getInput()
-	{
-		$xmlFiles = [
-			'templateDetails.xml',
-			'uikit/uikit.xml'
-		];
+    protected function getInput()
+    {
+        $xmlFiles = [
+            'templateDetails.xml',
+            'uikit/uikit.xml'
+        ];
 
-		$out = '<dl>';
+        $out = '<dl>';
 
-		foreach ( $xmlFiles as $file )
-		{
-			$filePath = realpath( Path::clean( __DIR__ . '/../../' . $file ) );
-			$xml = @simplexml_load_file( $filePath );
-			if ( $xml )
-			{
-				$xml = (array) $xml;
+        foreach ( $xmlFiles as $file )
+        {
+            $filePath = realpath( Path::clean( __DIR__ . '/../../' . $file ) );
+            $xml = @simplexml_load_file( $filePath );
+            if ( $xml )
+            {
+                $xml = (array) $xml;
 
-				$tag = 'span';
-				$href = '';
-				
-				$title = [];
-				$title[] = $xml[ 'author' ];
-				if ( isset( $xml[ 'authorUrl' ] ) )
-				{
-					$title[] = $xml[ 'authorUrl' ];
-					$tag = 'a';
-					$href = ' href="' . $xml[ 'authorUrl' ] . '" target="_blank"';
-				}
-				if ( isset( $xml[ 'license' ] ) )
-				{
-					$title[] = $xml[ 'license' ];
-				}
-				$title = $title ? ' title="' . implode( '<br>', $title ) . '" class="hasTooltip"' : '';
+                $tag = 'span';
+                $href = '';
+                
+                $title = [];
+                $title[] = $xml[ 'author' ];
+                if ( isset( $xml[ 'authorUrl' ] ) )
+                {
+                    $title[] = $xml[ 'authorUrl' ];
+                    $tag = 'a';
+                    $href = ' href="' . $xml[ 'authorUrl' ] . '" target="_blank"';
+                }
+                if ( isset( $xml[ 'license' ] ) )
+                {
+                    $title[] = $xml[ 'license' ];
+                }
+                $title = $title ? ' title="' . implode( '<br>', $title ) . '" class="hasTooltip"' : '';
 
-				$out .= '<dt><strong><' . $tag . $href . $title . '>' . $xml[ 'name' ] . '</' . $tag . '></strong>:</dt><dd>' . $xml[ 'version' ] . '</dd>';
-			}
-		}
+                $out .= '<dt><strong><' . $tag . $href . $title . '>' . $xml[ 'name' ] . '</' . $tag . '></strong>:</dt><dd>' . $xml[ 'version' ] . '</dd>';
+            }
+        }
 
-		$out .= '</dl>';
+        $out .= '</dl>';
 
-		return $out;
-	}
+        return $out;
+    }
 }

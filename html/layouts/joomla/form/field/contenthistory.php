@@ -24,5 +24,5 @@ extract($displayData);
 HTMLHelper::_('behavior.modal', 'button.modal_' . $item);
 ?>
 <button class="uk-button modal_<?php echo $item; ?>" title="<?php echo $label; ?>" href="<?php echo $link; ?>" rel="{handler: 'iframe', size: {x: 800, y: 500}}">
-	<span data-uk-icon="icon:database" aria-hidden="true"></span><?php echo $label; ?>
+    <span data-uk-icon="icon:database" aria-hidden="true"></span><?php echo $label; ?>
 </button>

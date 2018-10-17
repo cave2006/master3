@@ -16,19 +16,19 @@ use Joomla\CMS\Language\Text;
 
 <?php foreach ( $this->form->getFieldset( 'site' ) as $field ) { ?>
 <div class="uk-form-stacked uk-margin">
-	<div class="uk-form-label"><?php echo $field->label; ?></div>
-	<div class="uk-form-controls">
-		<?php 
-		if ( in_array( strtolower( $field->type ), [ 'list', 'accesslevel' ] ) )
-		{
-			$this->form->setFieldAttribute( $field->fieldname, 'class', 'uk-select' );
-			echo $this->form->getField( $field->fieldname )->input;
-		}
-		else
-		{
-			echo $field->input;
-		}
-		?>
-	</div>
+    <div class="uk-form-label"><?php echo $field->label; ?></div>
+    <div class="uk-form-controls">
+        <?php 
+        if ( in_array( strtolower( $field->type ), [ 'list', 'accesslevel' ] ) )
+        {
+            $this->form->setFieldAttribute( $field->fieldname, 'class', 'uk-select' );
+            echo $this->form->getField( $field->fieldname )->input;
+        }
+        else
+        {
+            echo $field->input;
+        }
+        ?>
+    </div>
 </div>
 <?php } ?>

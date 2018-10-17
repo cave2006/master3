@@ -13,27 +13,27 @@ use Joomla\CMS\Factory;
 
 class JFormFieldAes extends \JFormField
 {
-	protected $type = 'aes';
+    protected $type = 'aes';
 
-	protected function getLabel()
-	{
-		return '';
-	}
+    protected function getLabel()
+    {
+        return '';
+    }
 
-	protected function getInput()
-	{
-		$path = str_replace( '\\', '/', str_replace( JPATH_SITE, '', __DIR__ ) );
-		
-		if ( (int) $this->element[ 'styles' ] == true )
-		{
-			Factory::getDocument()->addStyleSheet( $path . '/aes.css ');
-		}
-		
-		if ( (int) $this->element[ 'script' ] == true )
-		{
-			Factory::getDocument()->addScript( $path . '/aes.js' );
-		}
-		
-		return '';
-	}
+    protected function getInput()
+    {
+        $path = str_replace( '\\', '/', str_replace( JPATH_SITE, '', __DIR__ ) );
+        
+        if ( (int) $this->element[ 'styles' ] == true )
+        {
+            Factory::getDocument()->addStyleSheet( $path . '/aes.css ');
+        }
+        
+        if ( (int) $this->element[ 'script' ] == true )
+        {
+            Factory::getDocument()->addScript( $path . '/aes.js' );
+        }
+        
+        return '';
+    }
 }

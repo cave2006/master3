@@ -20,17 +20,17 @@ $denyUserAuthorization = $templateConfig->getDUA();
 if ( !$denyUserAuthorization )
 {
 
-	$cookieLogin = $this->user->get( 'cookieLogin' );
+    $cookieLogin = $this->user->get( 'cookieLogin' );
 
-	if ( !empty( $cookieLogin ) || $this->user->get( 'guest' ) )
-	{
-		// The user is not logged in or needs to provide a password.
-		echo $this->loadTemplate( 'login' );
-	}
-	else
-	{
-		// The user is already logged in.
-		echo $this->loadTemplate( 'logout' );
-	}
+    if ( !empty( $cookieLogin ) || $this->user->get( 'guest' ) )
+    {
+        // The user is not logged in or needs to provide a password.
+        echo $this->loadTemplate( 'login' );
+    }
+    else
+    {
+        // The user is already logged in.
+        echo $this->loadTemplate( 'logout' );
+    }
 
 }

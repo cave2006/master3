@@ -16,7 +16,7 @@ use Joomla\CMS\Language\Text;
 
 <?php foreach ( $this->form->getFieldset( 'metadata' ) as $field ) { ?>
 <div class="uk-form-stacked uk-margin">
-	<div class="uk-form-label"><?php echo $field->label; ?></div>
-	<div class="uk-form-controls"><?php echo $field->input;?></div>
+    <div class="uk-form-label"><?php echo $field->label; ?></div>
+    <div class="uk-form-controls"><?php echo $field->input;?></div>
 </div>
 <?php } ?>

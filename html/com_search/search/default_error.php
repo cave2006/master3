@@ -13,7 +13,7 @@ if ($this->error)
 {
 ?>
 <div class="uk-alert uk-alert-danger">
-	<?php echo $this->escape($this->error); ?>
+    <?php echo $this->escape($this->error); ?>
 </div>
 <?php
 }

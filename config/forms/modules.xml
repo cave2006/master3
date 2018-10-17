@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-	<fields name="form">
+    <fields name="form">
         <fieldset name="fsInfo" label="TPL_MASTER3_MODULE_FORM_FIELDSET_INFO">
             <field name="id" type="text" label="TPL_MASTER3_MODULE_FORM_ID" class="input-mini text-danger" readonly="true" />
             <field name="name" type="text" label="TPL_MASTER3_MODULE_FORM_NAME" class="input-xlarge input-large-text text-success" readonly="true" />

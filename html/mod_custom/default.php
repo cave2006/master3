@@ -11,5 +11,5 @@ defined('_JEXEC') or die;
 
 ?>
 <div <?php if ( $params->get('backgroundimage' ) ) { ?>style="background-image:url(<?php echo $params->get( 'backgroundimage' ); ?>)"<?php } ?>>
-	<?php echo $module->content; ?>
+    <?php echo $module->content; ?>
 </div>

@@ -19,27 +19,27 @@ $descriptionImage = $this->params->get( 'all_tags_description_image' );
 
 ?>
 <div class="tag-category<?php echo $this->pageclass_sfx; ?>">
-	
-	<?php if ( $this->params->get( 'show_page_heading' ) ) { ?>
-	<h1 class="uk-article-title"><?php echo $this->escape( $this->params->get( 'page_heading' ) ); ?></h1>
-	<?php
-	}
-	
-	if ( $this->params->get( 'all_tags_show_description_image' ) && !empty( $descriptionImage ) )
-	{
-	?>
-	<div><img class="uk-width uk-margin-medium" src="<?php echo $descriptionImage; ?>" /></div>
-	<?php
-	}
-	
-	if ( !empty( $description ) )
-	{
-	?>
-	<div class="uk-margin-medium"><?php echo $description; ?></div>
-	<?php
-	}
-	
-	echo $this->loadTemplate('items');
-	?>
+    
+    <?php if ( $this->params->get( 'show_page_heading' ) ) { ?>
+    <h1 class="uk-article-title"><?php echo $this->escape( $this->params->get( 'page_heading' ) ); ?></h1>
+    <?php
+    }
+    
+    if ( $this->params->get( 'all_tags_show_description_image' ) && !empty( $descriptionImage ) )
+    {
+    ?>
+    <div><img class="uk-width uk-margin-medium" src="<?php echo $descriptionImage; ?>" /></div>
+    <?php
+    }
+    
+    if ( !empty( $description ) )
+    {
+    ?>
+    <div class="uk-margin-medium"><?php echo $description; ?></div>
+    <?php
+    }
+    
+    echo $this->loadTemplate('items');
+    ?>
 
 </div>

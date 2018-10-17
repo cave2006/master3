@@ -13,10 +13,10 @@ use Joomla\CMS\Helper\ModuleHelper;
 
 ?>
 <div class="uk-list newsflash<?php echo $moduleclass_sfx; ?>">
-	<?php
-	foreach ( $list as $item )
-	{
-		require ModuleHelper::getLayoutPath( 'mod_articles_news', '_item' );
-	}
-	?>
+    <?php
+    foreach ( $list as $item )
+    {
+        require ModuleHelper::getLayoutPath( 'mod_articles_news', '_item' );
+    }
+    ?>
 </div>

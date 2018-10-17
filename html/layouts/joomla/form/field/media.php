@@ -62,17 +62,17 @@ HTMLHelper::_('script', 'media/mediafield-mootools.min.js', array('version' => '
 
 // Tooltip for INPUT showing whole image path
 $options = array(
-	'onShow' => 'jMediaRefreshImgpathTip',
+    'onShow' => 'jMediaRefreshImgpathTip',
 );
 
 
 if (!empty($class))
 {
-	$class .= ' hasTipImgpath';
+    $class .= ' hasTipImgpath';
 }
 else
 {
-	$class = 'hasTipImgpath';
+    $class = 'hasTipImgpath';
 }
 
 $attr = '';
@@ -95,79 +95,79 @@ $showAsTooltip = false;
 
 switch ($preview)
 {
-	case 'no': // Deprecated parameter value
-	case 'false':
-	case 'none':
-		$showPreview = false;
-		break;
+    case 'no': // Deprecated parameter value
+    case 'false':
+    case 'none':
+        $showPreview = false;
+        break;
 
-	case 'yes': // Deprecated parameter value
-	case 'true':
-	case 'show':
-		break;
-	case 'tooltip':
-	default:
-		$showAsTooltip = true;
-		$options = array(
-				'onShow' => 'jMediaRefreshPreviewTip',
-		);
-		break;
+    case 'yes': // Deprecated parameter value
+    case 'true':
+    case 'show':
+        break;
+    case 'tooltip':
+    default:
+        $showAsTooltip = true;
+        $options = array(
+                'onShow' => 'jMediaRefreshPreviewTip',
+        );
+        break;
 }
 
 // Pre fill the contents of the popover
 if ($showPreview)
 {
-	if ($value && file_exists(JPATH_ROOT . '/' . $value))
-	{
-		$src = Uri::root() . $value;
-	}
-	else
-	{
-		$src = '';
-	}
+    if ($value && file_exists(JPATH_ROOT . '/' . $value))
+    {
+        $src = Uri::root() . $value;
+    }
+    else
+    {
+        $src = '';
+    }
 
-	$width = $previewWidth;
-	$height = $previewHeight;
-	$style = '';
-	$style .= ($width > 0) ? 'max-width:' . $width . 'px;' : '';
-	$style .= ($height > 0) ? 'max-height:' . $height . 'px;' : '';
+    $width = $previewWidth;
+    $height = $previewHeight;
+    $style = '';
+    $style .= ($width > 0) ? 'max-width:' . $width . 'px;' : '';
+    $style .= ($height > 0) ? 'max-height:' . $height . 'px;' : '';
 
-	$imgattr = array(
-		'id' => $id . '_preview',
-		'class' => 'media-preview',
-		'style' => $style,
-	);
+    $imgattr = array(
+        'id' => $id . '_preview',
+        'class' => 'media-preview',
+        'style' => $style,
+    );
 
-	$img = HTMLHelper::_('image', $src, Text::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $imgattr);
-	$previewImg = '<div id="' . $id . '_preview_img"' . ($src ? '' : ' style="display:none"') . '>' . $img . '</div>';
-	$previewImgEmpty = '<div id="' . $id . '_preview_empty"' . ($src ? ' style="display:none"' : '') . '>'
-		. Text::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
+    $img = HTMLHelper::_('image', $src, Text::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $imgattr);
+    $previewImg = '<div id="' . $id . '_preview_img"' . ($src ? '' : ' style="display:none"') . '>' . $img . '</div>';
+    $previewImgEmpty = '<div id="' . $id . '_preview_empty"' . ($src ? ' style="display:none"' : '') . '>'
+        . Text::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
 
-	if ($showAsTooltip)
-	{
-		echo '<div class="media-preview add-on">';
-		$tooltip = $previewImgEmpty . $previewImg;
-		$options = array(
-			'title' => Text::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'),
-					'text' => '<span class="icon-eye" aria-hidden="true"></span>',
-					'class' => 'hasTipPreview'
-					);
+    if ($showAsTooltip)
+    {
+        echo '<div class="media-preview add-on">';
+        $tooltip = $previewImgEmpty . $previewImg;
+        $options = array(
+            'title' => Text::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'),
+                    'text' => '<span class="icon-eye" aria-hidden="true"></span>',
+                    'class' => 'hasTipPreview'
+                    );
 
-		echo HTMLHelper::_('tooltip', $tooltip, $options);
-		echo '</div>';
-	}
-	else
-	{
-		echo '<div class="media-preview add-on" style="height:auto">';
-		echo ' ' . $previewImgEmpty;
-		echo ' ' . $previewImg;
-		echo '</div>';
-	}
+        echo HTMLHelper::_('tooltip', $tooltip, $options);
+        echo '</div>';
+    }
+    else
+    {
+        echo '<div class="media-preview add-on" style="height:auto">';
+        echo ' ' . $previewImgEmpty;
+        echo ' ' . $previewImg;
+        echo '</div>';
+    }
 }
 
-echo '	<input type="text" name="' . $name . '" id="' . $id . '" value="'
-	. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" readonly="readonly"' . $attr . ' data-basepath="'
-	. Uri::root() . '"/>';
+echo '    <input type="text" name="' . $name . '" id="' . $id . '" value="'
+    . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" readonly="readonly"' . $attr . ' data-basepath="'
+    . Uri::root() . '"/>';
 
 $href = $readonly ? '' : ($link ?: 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=' . $asset . '&amp;author='. $authorField) . '&amp;fieldid=' . $id . '&amp;folder=' . $folder;
 ?>

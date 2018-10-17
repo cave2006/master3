@@ -54,27 +54,27 @@ $list = '';
 
 if ($options)
 {
-	$list = 'list="' . $id . '_datalist"';
+    $list = 'list="' . $id . '_datalist"';
 }
 
 $autocomplete = !$autocomplete ? ' autocomplete="off"' : ' autocomplete="' . $autocomplete . '"';
 $autocomplete = $autocomplete === ' autocomplete="on"' ? '' : $autocomplete;
 
 $attributes = array(
-	!empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
-	!empty($size) ? 'size="' . $size . '"' : '',
-	$disabled ? 'disabled' : '',
-	$readonly ? 'readonly' : '',
-	$list,
-	strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
-	$onchange ? ' onchange="' . $onchange . '"' : '',
-	!empty($maxLength) ? $maxLength : '',
-	$required ? 'required aria-required="true"' : '',
-	$autocomplete,
-	$autofocus ? ' autofocus' : '',
-	$spellcheck ? '' : 'spellcheck="false"',
-	!empty($inputmode) ? $inputmode : '',
-	!empty($pattern) ? 'pattern="' . $pattern . '"' : '',
+    !empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
+    !empty($size) ? 'size="' . $size . '"' : '',
+    $disabled ? 'disabled' : '',
+    $readonly ? 'readonly' : '',
+    $list,
+    strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
+    $onchange ? ' onchange="' . $onchange . '"' : '',
+    !empty($maxLength) ? $maxLength : '',
+    $required ? 'required aria-required="true"' : '',
+    $autocomplete,
+    $autofocus ? ' autofocus' : '',
+    $spellcheck ? '' : 'spellcheck="false"',
+    !empty($inputmode) ? $inputmode : '',
+    !empty($pattern) ? 'pattern="' . $pattern . '"' : '',
 );
 ?>
 <input type="text" name="<?php
@@ -83,10 +83,10 @@ echo $id; ?>" <?php
 echo $dirname; ?> value="<?php
 echo htmlspecialchars($value, ENT_COMPAT, 'UTF-8'); ?>" <?php echo implode(' ', $attributes); ?> />
 <?php if ($options) { ?>
-	<datalist id="<?php echo $id; ?>_datalist">
-		<?php foreach ($options as $option) { ?>
-			<?php if (!$option->value) continue; ?>
-			<option value="<?php echo $option->value; ?>"><?php echo $option->text; ?></option>
-		<?php } ?>
-	</datalist>
+    <datalist id="<?php echo $id; ?>_datalist">
+        <?php foreach ($options as $option) { ?>
+            <?php if (!$option->value) continue; ?>
+            <option value="<?php echo $option->value; ?>"><?php echo $option->text; ?></option>
+        <?php } ?>
+    </datalist>
 <?php } ?>

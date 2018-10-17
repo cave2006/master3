@@ -16,122 +16,122 @@ FormHelper::loadFieldClass( 'subform' );
 
 class JFormFieldSubformSections extends \JFormFieldSubform
 {
-	protected $type = 'subformsections';
-	
-	protected $layout = 'joomla.form.field.subform.repeatable-table';
+    protected $type = 'subformsections';
+    
+    protected $layout = 'joomla.form.field.subform.repeatable-table';
 
-	public function setup( SimpleXMLElement $element, $value, $group = null )
-	{
-		if ( !parent::setup( $element, $value, $group ) )
-		{
-			return false;
-		}
-		
-		$fields = $this->getFormFields();
-		$sections = $this->getSections();
-		$outValues = [];
+    public function setup( SimpleXMLElement $element, $value, $group = null )
+    {
+        if ( !parent::setup( $element, $value, $group ) )
+        {
+            return false;
+        }
+        
+        $fields = $this->getFormFields();
+        $sections = $this->getSections();
+        $outValues = [];
 
-		foreach ( $sections as $key => $section )
-		{
-			$originRow = '';
-			
-			if ( $this->value )
-			{
-				foreach ( $this->value as $originValue )
-				{
-					if ( $originValue[ 'form' ][ 'name' ] == $section )
-					{
-						$originRow = $originValue[ 'form' ];
-					}
-				}
-			}
-			else
-			{
-				$originRow = [
-					'name' => '',
-					'id' => '',
-					'style' => 'uk-section-default',
-					'padding' => 'uk-section',
-					'image' => '',
-					'class' => '',
-					'container' => 'uk-container',
-					'responsive' => 'medium',
-					'gutter' => ''
-				];
-			}
-			
-			foreach ( $fields as $field )
-			{
-				$fieldValue = '';
-				
-				if ( $field === 'name' )
-				{
-					$fieldValue = $section;
-				}
-				elseif ( $originRow && $originRow[ 'name' ] === $section )
-				{
-					$fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
-				}
-				
-				if ( $fieldValue !== null)
-				{
-					$outValues[ 'sections' . $key ][ 'form' ][ $field ] = $fieldValue;
-				}
-			}
-		}
-		
-		$this->value = $outValues;
+        foreach ( $sections as $key => $section )
+        {
+            $originRow = '';
+            
+            if ( $this->value )
+            {
+                foreach ( $this->value as $originValue )
+                {
+                    if ( $originValue[ 'form' ][ 'name' ] == $section )
+                    {
+                        $originRow = $originValue[ 'form' ];
+                    }
+                }
+            }
+            else
+            {
+                $originRow = [
+                    'name' => '',
+                    'id' => '',
+                    'style' => 'uk-section-default',
+                    'padding' => 'uk-section',
+                    'image' => '',
+                    'class' => '',
+                    'container' => 'uk-container',
+                    'responsive' => 'medium',
+                    'gutter' => ''
+                ];
+            }
+            
+            foreach ( $fields as $field )
+            {
+                $fieldValue = '';
+                
+                if ( $field === 'name' )
+                {
+                    $fieldValue = $section;
+                }
+                elseif ( $originRow && $originRow[ 'name' ] === $section )
+                {
+                    $fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
+                }
+                
+                if ( $fieldValue !== null)
+                {
+                    $outValues[ 'sections' . $key ][ 'form' ][ $field ] = $fieldValue;
+                }
+            }
+        }
+        
+        $this->value = $outValues;
 
-		return true;
-	}
-	
-	protected function getFormFields()
-	{
-		$xml = simplexml_load_file( $this->formsource );
-		$xmlFields = (array) $xml->fields;
-		$fields = [];
+        return true;
+    }
+    
+    protected function getFormFields()
+    {
+        $xml = simplexml_load_file( $this->formsource );
+        $xmlFields = (array) $xml->fields;
+        $fields = [];
 
-		foreach ( $xmlFields[ 'fieldset' ] as $fieldset )
-		{
-			foreach ( $fieldset->field as $field )
-			{
-				$fields[] = $field->attributes()->name->__toString();
-			}
-		}
+        foreach ( $xmlFields[ 'fieldset' ] as $fieldset )
+        {
+            foreach ( $fieldset->field as $field )
+            {
+                $fields[] = $field->attributes()->name->__toString();
+            }
+        }
 
-		return $fields;
-	}
+        return $fields;
+    }
 
-	protected function getSections()
-	{
+    protected function getSections()
+    {
         $sections = [];
 
-		$filePath = realpath( Path::clean( __DIR__ . '/../../templateDetails.xml' ) );
-		
+        $filePath = realpath( Path::clean( __DIR__ . '/../../templateDetails.xml' ) );
+        
         if ( is_file( $filePath ) )
-		{
-			$xml = simplexml_load_file( $filePath );
+        {
+            $xml = simplexml_load_file( $filePath );
 
-			if ( !$xml )
-			{
-				return false;
-			}
+            if ( !$xml )
+            {
+                return false;
+            }
 
-			if ( $xml->getName() != 'extension' && $xml->getName() != 'metafile' )
-			{
-				unset($xml);
-				return false;
-			}
+            if ( $xml->getName() != 'extension' && $xml->getName() != 'metafile' )
+            {
+                unset($xml);
+                return false;
+            }
             
             foreach ($xml->positions[ 0 ]->position as $position)
             {
                 if ( isset( $position[ 'section' ] ) )
                 {
-					$sections[] = $position->attributes()->section->__toString();
+                    $sections[] = $position->attributes()->section->__toString();
                 }
             }
-		}
+        }
 
-		return array_values( array_unique( $sections ) );
-	}
+        return array_values( array_unique( $sections ) );
+    }
 }

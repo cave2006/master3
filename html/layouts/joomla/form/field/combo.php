@@ -58,22 +58,22 @@ $attr .= !empty($onchange) ? ' onchange="' . $onchange . '"' : '';
 
 ?>
 <div class="combobox uk-button-group">
-	<input
-		type="text"
-		name="<?php echo $name; ?>"
-		id="<?php echo $id; ?>"
-		value="<?php echo htmlspecialchars($value, ENT_COMPAT, 'UTF-8'); ?>"
-		<?php echo $attr; ?>
-		autocomplete="off"
-	/>
-	<div class="uk-inline">
-		<button type="button" class="uk-button"><span data-uk-icon="icon:triangle-down"></span></button>
-		<div data-uk-dropdown="mode:click">
-			<ul class="uk-list dropdown-menu">
-				<?php foreach ($options as $option) { ?>
-				<li><a href="#"><?php echo $option->text; ?></a></li>
-				<?php } ?>
-			</ul>
-		</div>
-	</div>
+    <input
+        type="text"
+        name="<?php echo $name; ?>"
+        id="<?php echo $id; ?>"
+        value="<?php echo htmlspecialchars($value, ENT_COMPAT, 'UTF-8'); ?>"
+        <?php echo $attr; ?>
+        autocomplete="off"
+    />
+    <div class="uk-inline">
+        <button type="button" class="uk-button"><span data-uk-icon="icon:triangle-down"></span></button>
+        <div data-uk-dropdown="mode:click">
+            <ul class="uk-list dropdown-menu">
+                <?php foreach ($options as $option) { ?>
+                <li><a href="#"><?php echo $option->text; ?></a></li>
+                <?php } ?>
+            </ul>
+        </div>
+    </div>
 </div>

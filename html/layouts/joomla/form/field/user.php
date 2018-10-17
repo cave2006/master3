@@ -50,8 +50,8 @@ extract($displayData);
 
 if (!$readonly)
 {
-	HTMLHelper::_('behavior.modal', 'a.modal_' . $id);
-	HTMLHelper::_('script', 'jui/fielduser.min.js', array('version' => 'auto', 'relative' => true));
+    HTMLHelper::_('behavior.modal', 'a.modal_' . $id);
+    HTMLHelper::_('script', 'jui/fielduser.min.js', array('version' => 'auto', 'relative' => true));
 }
 
 $uri = new Uri('index.php?option=com_users&view=users&layout=modal&tmpl=component&required=0');
@@ -60,52 +60,52 @@ $uri->setVar('field', $this->escape($id));
 
 if ($required)
 {
-	$uri->setVar('required', 1);
+    $uri->setVar('required', 1);
 }
 
 if (!empty($groups))
 {
-	$uri->setVar('groups', base64_encode(json_encode($groups)));
+    $uri->setVar('groups', base64_encode(json_encode($groups)));
 }
 
 if (!empty($excluded))
 {
-	$uri->setVar('excluded', base64_encode(json_encode($excluded)));
+    $uri->setVar('excluded', base64_encode(json_encode($excluded)));
 }
 
 // Invalidate the input value if no user selected
 if ($this->escape($userName) === Text::_('JLIB_FORM_SELECT_USER'))
 {
-	$userName = '';
+    $userName = '';
 }
 
 $inputAttributes = [ 'type' => 'text', 'id' => $id, 'value' => $this->escape($userName), 'class' => 'uk-input' ];
 
 if ($size)
 {
-	$inputAttributes['size'] = (int) $size;
+    $inputAttributes['size'] = (int) $size;
 }
 
 if ($required)
 {
-	$inputAttributes['required'] = 'required';
+    $inputAttributes['required'] = 'required';
 }
 
 if (!$readonly)
 {
-	$inputAttributes['placeholder'] = Text::_('JLIB_FORM_SELECT_USER');
+    $inputAttributes['placeholder'] = Text::_('JLIB_FORM_SELECT_USER');
 }
 
 $anchorAttributes = [ 'class' => 'uk-button uk-button-primary modal_' . $id, 'title' => Text::_('JLIB_FORM_CHANGE_USER'), 'rel' => '{handler: \'iframe\', size: {x: 800, y: 500}}' ];
 
 ?>
 <div class="uk-button-group uk-width">
-	<input <?php echo ArrayHelper::toString($inputAttributes); ?> readonly />
-	<?php
-	if (!$readonly)
-		echo HTMLHelper::_('link', (string) $uri, '<span data-uk-icon="icon:user"></span>', $anchorAttributes);
-	?>
+    <input <?php echo ArrayHelper::toString($inputAttributes); ?> readonly />
+    <?php
+    if (!$readonly)
+        echo HTMLHelper::_('link', (string) $uri, '<span data-uk-icon="icon:user"></span>', $anchorAttributes);
+    ?>
 </div>
 <?php if (!$readonly) { ?>
-	<input type="hidden" id="<?php echo $id; ?>_id" name="<?php echo $name; ?>" value="<?php echo (int) $value; ?>" data-onchange="<?php echo $this->escape($onchange); ?>" />
+    <input type="hidden" id="<?php echo $id; ?>_id" name="<?php echo $name; ?>" value="<?php echo (int) $value; ?>" data-onchange="<?php echo $this->escape($onchange); ?>" />
 <?php } ?>

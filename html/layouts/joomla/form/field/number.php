@@ -51,28 +51,28 @@ $autocomplete = !$autocomplete ? ' autocomplete="off"' : ' autocomplete="' . $au
 $autocomplete = $autocomplete == ' autocomplete="on"' ? '' : $autocomplete;
 
 $attributes = array(
-	!empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
-	!empty($size) ? 'size="' . $size . '"' : '',
-	$disabled ? 'disabled' : '',
-	$readonly ? 'readonly' : '',
-	strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
-	!empty($onchange) ? 'onchange="' . $onchange . '"' : '',
-	isset($max) ? 'max="' . $max . '"' : '',
-	!empty($step) ? 'step="' . $step . '"' : '',
-	isset($min) ? 'min="' . $min . '"' : '',
-	$required ? 'required aria-required="true"' : '',
-	$autocomplete,
-	$autofocus ? 'autofocus' : ''
+    !empty($class) ? 'class="uk-input ' . $class . '"' : 'class="uk-input"',
+    !empty($size) ? 'size="' . $size . '"' : '',
+    $disabled ? 'disabled' : '',
+    $readonly ? 'readonly' : '',
+    strlen($hint) ? 'placeholder="' . htmlspecialchars($hint, ENT_COMPAT, 'UTF-8') . '"' : '',
+    !empty($onchange) ? 'onchange="' . $onchange . '"' : '',
+    isset($max) ? 'max="' . $max . '"' : '',
+    !empty($step) ? 'step="' . $step . '"' : '',
+    isset($min) ? 'min="' . $min . '"' : '',
+    $required ? 'required aria-required="true"' : '',
+    $autocomplete,
+    $autofocus ? 'autofocus' : ''
 );
 
 if (is_numeric($value))
 {
-	$value = (float) $value;
+    $value = (float) $value;
 }
 else
 {
-	$value = '';
-	$value = ($required && isset($min)) ? $min : $value;
+    $value = '';
+    $value = ($required && isset($min)) ? $min : $value;
 }
 
 // Including fallback code for HTML5 non supported browsers.
