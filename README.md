@@ -8,3 +8,7 @@ UIkit version 3.0.0-rc.19
 Joomla **3.7** or later
 
 PHP **5.6** or later
+
+Positions:
+
+![positions.png]
