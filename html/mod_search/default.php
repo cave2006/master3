@@ -21,23 +21,7 @@ use Joomla\CMS\Router\Route;
 
 			if ($button)
 			{
-				$btn_output = '<a href="#" onclick="this.form.searchword.focus();" data-uk-search-icon></a>';
-
-				switch ($button_pos)
-				{
-					case 'top' :
-					case 'bottom' :
-						break;
-
-					case 'right' :
-						$output .= $btn_output;
-						break;
-
-					case 'left' :
-					default :
-						$output = $btn_output . $output;
-						break;
-				}
+				$btn_output = '<a href="#"' . ( $button_pos == 'right' ? ' class="uk-search-icon-flip"' : '' ) . ' onclick="this.form.searchword.focus();" data-uk-search-icon></a>';
 			}
 
 			echo $output;
