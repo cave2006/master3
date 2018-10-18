@@ -12,7 +12,7 @@ Joomla **3.7** or later
 
 PHP **5.6** or later
 
-Demo: (http://master3.alekvolsk.info/)[http://master3.alekvolsk.info/]
+Demo: [http://master3.alekvolsk.info/]
 
 ---
 
