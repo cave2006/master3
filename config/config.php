@@ -30,7 +30,7 @@ final class Master3Config
     /*
      * Registry object
      */
-    private $name = 'master3';
+    public $name = 'master3';
 
     /*
      * Registry object
@@ -74,7 +74,8 @@ final class Master3Config
         // param sections recompose
         $sections = [];
         
-        foreach ( $this->params->get( 'sections' ) as $item )
+        $prmSections = $this->params->get( 'sections', [] );
+        foreach ( $prmSections as $item )
         {
             $section = new \stdClass();
             $section->id = $item->form->id ? htmlspecialchars( $item->form->id, ENT_QUOTES, 'UTF-8' ) : $item->form->name;
@@ -112,7 +113,8 @@ final class Master3Config
         // param modules recompose
         $modules = [];
         
-        foreach ( $this->params->get( 'modules' ) as $item )
+        $prmModules = $this->params->get( 'modules', [] );
+        foreach ( $prmModules as $item )
         {
             $module = new \stdClass();
             
@@ -138,7 +140,7 @@ final class Master3Config
         
         // param menu recompose
         $menuItems = [];
-        $navbarBoundary = $this->params->get( 'navbarBoundary' ) === 'justify';
+        $navbarBoundary = $this->params->get( 'navbarBoundary', '' ) === 'justify';
         
         foreach ( $this->params->get( 'menuitems' ) as $item )
         {
@@ -160,7 +162,8 @@ final class Master3Config
         // param offcanvas recompose
         $offcanvas = [];
         
-        foreach ( $this->params->get( 'offcanvas' ) as $item )
+        $prmOffcanvas = $this->params->get( 'offcanvas', [] );
+        foreach ( $prmOffcanvas as $item )
         {
             $oc = new \stdClass();
             

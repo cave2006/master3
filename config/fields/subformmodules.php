@@ -133,7 +133,7 @@ class JFormFieldSubformModules extends \JFormFieldSubform
         $nullDate = $db->getNullDate();
 
         $query = $db->getQuery( true )
-            ->select( 'm.id, m.title, m.module, m.position, m.language' )
+            ->select( 'distinct(m.id), m.title, m.module, m.position, m.language' )
             ->from( '#__modules AS m' )
             ->join( 'LEFT', '#__modules_menu AS mm ON mm.moduleid = m.id' )
             ->join( 'LEFT', '#__extensions AS e ON e.element = m.module AND e.client_id = m.client_id' )
@@ -144,7 +144,7 @@ class JFormFieldSubformModules extends \JFormFieldSubform
             ->where( 'm.access IN (' . $groups . ')' )
             ->where( 'm.client_id = 0' )
             ->where( 'm.language IN (' . $db->quote( $lang ) . ',' . $db->quote( '*' ) . ')' )
-            ->order( 'm.position, m.ordering' );
+            ->order( 'm.position, m.ordering, m.id' );
 
         try
         {

@@ -22,6 +22,11 @@ class JFormFieldAes extends \JFormField
 
     protected function getInput()
     {
+        if ( Factory::getApplication( 'site' )->isAdmin() === false )
+        {
+            return '';
+        }
+        
         $path = str_replace( '\\', '/', str_replace( JPATH_SITE, '', __DIR__ ) );
         
         if ( (int) $this->element[ 'styles' ] == true )
