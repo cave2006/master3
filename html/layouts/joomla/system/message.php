@@ -12,7 +12,8 @@ defined('JPATH_BASE') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-$section = Factory::getApplication()->getTemplate( true )->params->get( 'sections' )[ 'main' ];
+$sections = Factory::getApplication()->getTemplate( true )->params->get( 'sections', [] );
+$container = $sections && $sections[ 'main' ] ? $sections[ 'main' ]->container : 'uk-container';
 
 $msgList = $displayData[ 'msgList' ];
 
@@ -38,7 +39,7 @@ if ( is_array( $msgList ) && count( $msgList ) )
         }
 
         $buffer[] = '<div class="uk-margin-remove uk-alert-large' . $msgtype . '" data-uk-alert>';
-        $buffer[] = '<div class="' . $section->container . '">';
+        $buffer[] = '<div class="' . $container . '">';
         $buffer[] = '<div class="uk-panel">';
 
         $buffer[] = '<a class="uk-alert-close" data-uk-close></a>';
