@@ -142,7 +142,8 @@ final class Master3Config
         $menuItems = [];
         $navbarBoundary = $this->params->get( 'navbarBoundary', '' ) === 'justify';
         
-        foreach ( $this->params->get( 'menuitems' ) as $item )
+        $prmMenus = $this->params->get( 'menuitems', [] );
+        foreach ( $prmMenus as $item )
         {
             $menuItem = new \stdClass();
             
@@ -472,7 +473,7 @@ final class Master3Config
             {
                 $version = isset( $scriptParams[ 'options' ][ 'version' ] ) ? $scriptParams[ 'options' ][ 'version' ] : '';
                 $version = $version == 'auto' ? $mediaVersion : $version;
-                $type = $scriptParams[ 'type' ] == 'text/javascript' ? '' : ' type="' . $scriptParams[ 'type' ] . '"';
+                $type = isset( $scriptParams[ 'type' ] ) ? ( $scriptParams[ 'type' ] == 'text/javascript' ? '' : ' type="' . $scriptParams[ 'type' ] . '"' ) : '';
                 
                 if ( $version )
                 {
@@ -641,6 +642,10 @@ final class Master3Config
                 }
 
                 $out .= "</{$logotag}>";
+            }
+            else
+            {
+                $out = '';
             }
         }
 
