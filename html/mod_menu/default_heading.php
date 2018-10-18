@@ -31,4 +31,4 @@ if ( $item->menu_image )
     }
 }
 
-echo '<a>' . $linktype . '</a>';
+echo '<a class="uk-nav-header">' . $linktype . '</a>';

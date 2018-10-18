@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+defined( '_JEXEC' ) or die;
 
 /**
  * Make thing clear
@@ -24,14 +24,14 @@ defined('_JEXEC') or die;
  * @var array   $buttons          Array of the buttons that will be rendered
  * @var bool    $groupByFieldset  Whether group the subform fields by it`s fieldset
  */
-extract($displayData);
+extract( $displayData );
 
-$form = $forms[0];
+$form = $forms[ 0 ];
 ?>
 
 <div class="subform-wrapper">
-<?php foreach ($form->getGroup('') as $field) : ?>
+<?php foreach ( $form->getGroup( '' ) as $field ) { ?>
     <?php echo $field->renderField(); ?>
-<?php endforeach; ?>
+<?php } ?>
 </div>
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.3.0-beta</version>
-    <creationDate>August 2018</creationDate>
+    <version>0.4.0-beta</version>
+    <creationDate>Oktober 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
     <authorUrl>https://github.com/AlekVolsk/master3</authorUrl>
     <copyright>Copyright (C) 2018 Aleksey A. Morozov. All rights reserved.</copyright>
     <license>GNU GPL v3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <description>Master3 is the Joomla 3 site template based on UIkit 3.</description>
+    <description>TPL_MASTER3_XML_DESCRIPTION</description>
     
     <files>
         <filename>index.php</filename>
@@ -59,14 +59,17 @@
         <position offcanvas="">offcanvas-menu</position>
     </positions>
     
-    <languages>
-        <language tag="en-GB">language/en-GB/en-GB.tpl_master3.ini</language>
-    </languages>
+    <administrator>
+        <languages>
+            <language tag="en-GB">language/en-GB/en-GB.tpl_master3.ini</language>
+            <language tag="en-GB">language/en-GB/en-GB.tpl_master3.sys.ini</language>
+        </languages>
+    </administrator>
     
     <config>
         <fields name="params" addfieldpath="templates/master3/config/fields">
             
-            <fieldset name="basic">
+            <fieldset name="basic" label="TPL_MASTER3_TAB_BASIC_LABEL">
                 <field name="versions" type="versions" label="TPL_MASTER3_VERSIONS_LABEL" />
                 <field name="spacerVersions" type="spacer" hr="true" />
 

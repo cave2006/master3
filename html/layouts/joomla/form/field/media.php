@@ -66,28 +66,19 @@ $options = array(
 );
 
 
-if (!empty($class))
-{
-    $class .= ' hasTipImgpath';
-}
-else
-{
-    $class = 'hasTipImgpath';
-}
-
 $attr = '';
 
-//$attr .= ' data-uk-tooltip="' . htmlspecialchars('<span id="TipImgpath"></span>', ENT_COMPAT, 'UTF-8') . '"';
+$attr .= ' title="' . htmlspecialchars('<span id="TipImgpath"></span>', ENT_COMPAT, 'UTF-8') . '"';
 
 // Initialize some field attributes.
-$attr .= !empty($class) ? ' class="uk-input field-media-input ' . $class . '"' : ' class="uk-input"';
+$attr .= !empty($class) ? ' class="uk-input input-small field-media-input ' . $class . '"' : ' class="uk-input input-small"';
 $attr .= !empty($size) ? ' size="' . $size . '"' : '';
 
 // Initialize JavaScript field attributes.
 $attr .= !empty($onchange) ? ' onchange="' . $onchange . '"' : '';
 
 // The text field.
-echo '<div class="uk-button-group uk-width">';
+echo '<div class="uk-button-group uk-width input-prepend input-append">';
 
 // The Preview.
 $showPreview = true;
@@ -108,71 +99,23 @@ switch ($preview)
     case 'tooltip':
     default:
         $showAsTooltip = true;
-        $options = array(
-                'onShow' => 'jMediaRefreshPreviewTip',
-        );
+        $options = [ 'onShow' => 'jMediaRefreshPreviewTip' ];
+        HTMLHelper::_('behavior.tooltip', '.hasTipPreview', $options);
         break;
-}
-
-// Pre fill the contents of the popover
-if ($showPreview)
-{
-    if ($value && file_exists(JPATH_ROOT . '/' . $value))
-    {
-        $src = Uri::root() . $value;
-    }
-    else
-    {
-        $src = '';
-    }
-
-    $width = $previewWidth;
-    $height = $previewHeight;
-    $style = '';
-    $style .= ($width > 0) ? 'max-width:' . $width . 'px;' : '';
-    $style .= ($height > 0) ? 'max-height:' . $height . 'px;' : '';
-
-    $imgattr = array(
-        'id' => $id . '_preview',
-        'class' => 'media-preview',
-        'style' => $style,
-    );
-
-    $img = HTMLHelper::_('image', $src, Text::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $imgattr);
-    $previewImg = '<div id="' . $id . '_preview_img"' . ($src ? '' : ' style="display:none"') . '>' . $img . '</div>';
-    $previewImgEmpty = '<div id="' . $id . '_preview_empty"' . ($src ? ' style="display:none"' : '') . '>'
-        . Text::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
-
-    if ($showAsTooltip)
-    {
-        echo '<div class="media-preview add-on">';
-        $tooltip = $previewImgEmpty . $previewImg;
-        $options = array(
-            'title' => Text::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'),
-                    'text' => '<span class="icon-eye" aria-hidden="true"></span>',
-                    'class' => 'hasTipPreview'
-                    );
-
-        echo HTMLHelper::_('tooltip', $tooltip, $options);
-        echo '</div>';
-    }
-    else
-    {
-        echo '<div class="media-preview add-on" style="height:auto">';
-        echo ' ' . $previewImgEmpty;
-        echo ' ' . $previewImg;
-        echo '</div>';
-    }
 }
 
 echo '    <input type="text" name="' . $name . '" id="' . $id . '" value="'
     . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" readonly="readonly"' . $attr . ' data-basepath="'
     . Uri::root() . '"/>';
 
-$href = $readonly ? '' : ($link ?: 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=' . $asset . '&amp;author='. $authorField) . '&amp;fieldid=' . $id . '&amp;folder=' . $folder;
 ?>
-<a class="modal uk-button uk-button-primary" title="<?php echo Text::_('JLIB_FORM_BUTTON_SELECT'); ?>" href="<?php echo $href; ?>" rel="{handler: \'iframe\', size: {x: 800, y: 500}}"><?php echo Text::_('JLIB_FORM_BUTTON_SELECT'); ?></a>
-<button type="button" class="uk-button uk-flex-inline uk-flex-middle" title="<?php echo Text::_('JLIB_FORM_BUTTON_CLEAR'); ?>" onclick="jInsertFieldValue('', '<?php echo $id; ?>'); return false;"><span class="uk-text-danger" data-uk-icon="icon:close" aria-hidden="true"></span></button>
+<a class="modal btn uk-button uk-button-primary" title="<?php echo Text::_('JLIB_FORM_BUTTON_SELECT'); ?>" href="
+<?php echo ($readonly ? ''
+        : ($link ?: 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=' . $asset . '&amp;author='
+    . $authorField) . '&amp;fieldid=' . $id . '&amp;folder=' . $folder) . '"'
+    . ' rel="{handler: \'iframe\', size: {x: 800, y: 500}}"'; ?>>
+ <?php echo Text::_('JLIB_FORM_BUTTON_SELECT'); ?></a><a class="btn uk-button uk-button-default" data-uk-tooltip="<?php echo Text::_('JLIB_FORM_BUTTON_CLEAR'); ?>" href="#" onclick="jInsertFieldValue('', '<?php echo $id; ?>'); return false;">
+    <span data-uk-close="icon:close" aria-hidden="true"></span></a>
 
 
 </div>

@@ -45,11 +45,6 @@ foreach ( $list as $i => &$item )
         }
     }
 
-    if ( $item->type === 'separator' )
-    {
-        $class .= ' uk-nav-divider';
-    }
-
     if ( $item->parent )
     {
         $class .= ' uk-parent';
@@ -85,7 +80,11 @@ foreach ( $list as $i => &$item )
     elseif ( $item->shallower )
     {
         echo '</li>';
-        echo str_repeat( '</ul></li>', $level_diff );
+
+		if ( (int)$item->level_diff )
+		{
+			echo str_repeat( '</ul></li>', (int)$item->level_diff );
+		}
     }
     else
     {

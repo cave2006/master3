@@ -18,8 +18,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 HTMLHelper::_( 'behavior.tabstate' );
 HTMLHelper::_( 'behavior.keepalive' );
 HTMLHelper::_( 'behavior.formvalidator' );
-HTMLHelper::_( 'formbehavior.chosen', '#jform_catid', null, array( 'disable_search_threshold' => 0 ) );
-HTMLHelper::_( 'formbehavior.chosen', 'select' );
+
 $this->tab_name = 'com-content-form';
 $this->ignore_fieldsets = array( 'image-intro', 'image-full', 'jmetadata', 'item_associations' );
 

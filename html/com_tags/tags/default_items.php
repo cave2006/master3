@@ -19,7 +19,6 @@ HTMLHelper::addIncludePath( JPATH_COMPONENT . '/helpers' );
 
 HTMLHelper::_( 'behavior.caption' );
 HTMLHelper::_( 'behavior.core' );
-HTMLHelper::_( 'formbehavior.chosen', 'select' );
 
 $user = Factory::getUser();
 

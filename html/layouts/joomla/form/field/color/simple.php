@@ -3,13 +3,15 @@
  * @package     Joomla.Site
  * @subpackage  Layout
  *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright ( C ) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_BASE') or die;
+defined( 'JPATH_BASE' ) or die;
 
-extract($displayData);
+use Joomla\CMS\HTML\HTMLHelper;
+
+extract( $displayData );
 
 /**
  * Layout variables
@@ -29,7 +31,7 @@ extract($displayData);
  * @var   string   $name            Name of the input field.
  * @var   string   $onchange        Onchange attribute for the field.
  * @var   string   $onclick         Onclick attribute for the field.
- * @var   string   $pattern         Pattern (Reg Ex) of value of the form field.
+ * @var   string   $pattern         Pattern ( Reg Ex ) of value of the form field.
  * @var   boolean  $readonly        Is this field read only?
  * @var   boolean  $repeat          Allows extensions to duplicate elements.
  * @var   boolean  $required        Is this field required?
@@ -45,24 +47,33 @@ extract($displayData);
  * @var   array    $control         Is this field checked?
  */
 
-$class    = ' class="' . trim('simplecolors chzn-done ' . $class) . '"';
+$class    = ' class="uk-select ' . trim( 'simplecolors chzn-done ' . $class ) . '"';
 $disabled = $disabled ? ' disabled' : '';
 $readonly = $readonly ? ' readonly' : '';
 
 // Include jQuery
-JHtml::_('jquery.framework');
-JHtml::_('script', 'system/html5fallback.js', array('version' => 'auto', 'relative' => true, 'conditional' => 'lt IE 9'));
-JHtml::_('script', 'jui/jquery.simplecolors.min.js', array('version' => 'auto', 'relative' => true));
-JHtml::_('stylesheet', 'jui/jquery.simplecolors.css', array('version' => 'auto', 'relative' => true));
-JHtml::_('script', 'system/color-field-init.min.js', array('version' => 'auto', 'relative' => true));
+HTMLHelper::_( 'jquery.framework' );
+HTMLHelper::_( 'script', 'system/html5fallback.js', [ 'version' => 'auto', 'relative' => true, 'conditional' => 'lt IE 9' ] );
+HTMLHelper::_( 'script', 'jui/jquery.simplecolors.min.js', [ 'version' => 'auto', 'relative' => true ] );
+HTMLHelper::_( 'stylesheet', 'jui/jquery.simplecolors.css', [ 'version' => 'auto', 'relative' => true ] );
+HTMLHelper::_( 'script', 'system/color-field-init.min.js', [ 'version' => 'auto', 'relative' => true ] );
 ?>
-<select data-chosen="true" name="<?php echo $name; ?>" id="<?php echo $id; ?>"<?php
-echo $disabled; ?><?php echo $readonly; ?><?php echo $required; ?><?php echo $class; ?><?php echo $position; ?><?php
-echo $onchange; ?><?php echo $autofocus; ?> style="visibility:hidden;width:22px;height:1px">
-    <?php foreach ($colors as $i => $c) : ?>
-        <option<?php echo ($c == $color ? ' selected="selected"' : ''); ?>><?php echo $c; ?></option>
-        <?php if (($i + 1) % $split == 0) : ?>
+<select
+    name="<?php echo $name; ?>" 
+    id="<?php echo $id; ?>"
+    <?php echo $disabled; ?>
+    <?php echo $readonly; ?>
+    <?php echo $required; ?>
+    <?php echo $class; ?>
+    <?php echo $position; ?>
+    <?php echo $onchange; ?>
+    <?php echo $autofocus; ?>
+    style="visibility:hidden;width:22px;height:1px"
+>
+    <?php foreach ( $colors as $i => $c ) { ?>
+        <option<?php echo ( $c == $color ? ' selected="selected"' : '' ); ?>><?php echo $c; ?></option>
+        <?php if ( ( $i + 1 ) % $split == 0 ) { ?>
             <option>-</option>
-        <?php endif; ?>
-    <?php endforeach; ?>
+        <?php } ?>
+    <?php } ?>
 </select>

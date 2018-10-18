@@ -7,7 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+defined( '_JEXEC' ) or die;
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * Make thing clear
@@ -24,26 +28,31 @@ defined('_JEXEC') or die;
  * @var array   $buttons          Array of the buttons that will be rendered
  * @var bool    $groupByFieldset  Whether group the subform fields by it`s fieldset
  */
-extract($displayData);
+extract( $displayData );
+
+if (  !$buttons[ 'add' ] && !$buttons[ 'remove' ] && !$buttons[ 'move' ]  )
+{
+    $buttons = [];
+}
 
 // Add script
-if ($multiple)
+if ( $multiple )
 {
-    JHtml::_('jquery.ui', array('core', 'sortable'));
-    JHtml::_('script', 'system/subform-repeatable.js', array('version' => 'auto', 'relative' => true));
+    HTMLHelper::_( 'jquery.ui', array( 'core', 'sortable' ) );
+    HTMLHelper::_( 'script', 'system/subform-repeatable.js', array( 'version' => 'auto', 'relative' => true ) );
 }
 
 // Build heading
 $table_head = '';
 
-if (!empty($groupByFieldset))
+if ( !empty( $groupByFieldset ) )
 {
-    foreach ($tmpl->getFieldsets() as $fieldset) {
-        $table_head .= '<th>' . JText::_($fieldset->label);
+    foreach ( $tmpl->getFieldsets() as $fieldset ) {
+        $table_head .= '<th>' . Text::_( $fieldset->label );
 
-        if (!empty($fieldset->description))
+        if ( !empty( $fieldset->description ) )
         {
-            $table_head .= '<br /><small style="font-weight:normal">' . JText::_($fieldset->description) . '</small>';
+            $table_head .= '<br><small style="font-weight:normal">' . Text::_( $fieldset->description ) . '</small>';
         }
 
         $table_head .= '</th>';
@@ -53,56 +62,55 @@ if (!empty($groupByFieldset))
 }
 else
 {
-    foreach ($tmpl->getGroup('') as $field) {
-        $table_head .= '<th>' . strip_tags($field->label);
-        $table_head .= '<br /><small style="font-weight:normal">' . JText::_($field->description) . '</small>';
+    //vd( $tmpl->getGroup( '' ) );
+    foreach ( $tmpl->getGroup( '' ) as $field ) {
+        $table_head .= '<th>' . strip_tags( $field->label );
+        $table_head .= '<br><small style="font-weight:normal">' . Text::_( $field->description ) . '</small>';
         $table_head .= '</th>';
     }
 
     $sublayout = 'section';
 
     // Label will not be shown for sections layout, so reset the margin left
-    JFactory::getDocument()->addStyleDeclaration(
+    Factory::getDocument()->addStyleDeclaration( 
         '.subform-table-sublayout-section .controls { margin-left: 0px }'
-    );
+     );
 }
 ?>
 
-<div class="row-fluid">
     <div class="subform-repeatable-wrapper subform-table-layout subform-table-sublayout-<?php echo $sublayout; ?>">
         <div class="subform-repeatable"
             data-bt-add="a.group-add" data-bt-remove="a.group-remove" data-bt-move="a.group-move"
             data-repeatable-element="tr.subform-repeatable-group"
             data-rows-container="tbody.subform-repeatable-container" data-minimum="<?php echo $min; ?>" data-maximum="<?php echo $max; ?>">
 
-        <table class="adminlist table table-striped table-bordered">
+        <table class="adminlist table uk-table uk-table-striped uk-table-bordered">
             <thead>
                 <tr>
                     <?php echo $table_head; ?>
-                    <?php if (!empty($buttons)) : ?>
+                    <?php if ( !empty( $buttons ) ) { ?>
                     <th style="width:8%;">
-                    <?php if (!empty($buttons['add'])) : ?>
+                    <?php if ( !empty( $buttons[ 'add' ] ) ) { ?>
                         <div class="btn-group">
-                            <a class="group-add btn btn-mini button btn-success" aria-label="<?php echo JText::_('JGLOBAL_FIELD_ADD'); ?>"><span class="icon-plus" aria-hidden="true"></span> </a>
+                            <a class="uk-button uk-button-small uk-button-primary group-add btn btn-mini button btn-success" aria-label="<?php echo Text::_( 'JGLOBAL_FIELD_ADD' ); ?>"><span class="icon-plus" aria-hidden="true"></span> </a>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
                     </th>
-                    <?php endif; ?>
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody class="subform-repeatable-container">
             <?php
-            foreach ($forms as $k => $form) :
-                echo $this->sublayout($sublayout, array('form' => $form, 'basegroup' => $fieldname, 'group' => $fieldname . $k, 'buttons' => $buttons));
-            endforeach;
+            foreach ( $forms as $k => $form ) {
+                echo $this->sublayout( $sublayout, array( 'form' => $form, 'basegroup' => $fieldname, 'group' => $fieldname . $k, 'buttons' => $buttons ) );
+            }
             ?>
             </tbody>
         </table>
-        <?php if ($multiple) : ?>
+        <?php if ( $multiple ) { ?>
         <script type="text/subform-repeatable-template-section" class="subform-repeatable-template-section">
-        <?php echo $this->sublayout($sublayout, array('form' => $tmpl, 'basegroup' => $fieldname, 'group' => $fieldname . 'X', 'buttons' => $buttons)); ?>
+        <?php echo $this->sublayout( $sublayout, array( 'form' => $tmpl, 'basegroup' => $fieldname, 'group' => $fieldname . 'X', 'buttons' => $buttons ) ); ?>
         </script>
-        <?php endif; ?>
+        <?php } ?>
         </div>
     </div>
-</div>
