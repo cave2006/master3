@@ -36,7 +36,9 @@ $errorCode = $this->error->getCode();
          * logo
          * headbar
          */
-        $section = $config->getSectionParams( 'headbar' );
+        if ( $this->countModules( 'logo + headbar' ) || $config->getLogo() !== '');
+        {
+            $section = $config->getSectionParams( 'headbar' );
         ?>
         <header id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' ); ?>>
             <div class="<?php echo $section->container; ?>">
@@ -49,12 +51,11 @@ $errorCode = $this->error->getCode();
                 </div>
             </div>
         </header>
+        <?php } ?>
         
         
         <?php
         /*
-         * navbar
-         * navbar
          * navbar
          */
         $section = $config->getSectionParams( 'navbar' );
