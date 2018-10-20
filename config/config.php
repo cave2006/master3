@@ -291,7 +291,7 @@ final class Master3Config
         foreach ( $jsAddons as $jsAddonFile )
         {
             $jsAddonFile = realpath( Path::clean( JPATH_ROOT . '/' . htmlspecialchars( trim( $jsAddonFile ) ) ) );
-            if ( is_file( $jsAddonFile ) && strtolower( pathinfo( $cssAddonFile, PATHINFO_EXTENSION ) ) == 'js' )
+            if ( is_file( $jsAddonFile ) && strtolower( pathinfo( $jsAddonFile, PATHINFO_EXTENSION ) ) == 'js' )
             {
                 $jsAddonFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $jsAddonFile ) );
                 $this->doc->addScript( $jsAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );

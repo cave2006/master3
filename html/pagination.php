@@ -177,7 +177,7 @@ function pagination_item_active( &$item )
     
     if ( $cls )
     {
-        $title = ' class="' . $cls . '"';
+        $cls = ' class="' . $cls . '"';
     }
     
     if ( $cls )
