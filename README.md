@@ -14,6 +14,8 @@ PHP **5.6** or later
 
 Demo: http://master3.alekvolsk.info/
 
+Screenshots admin panel: http://master3.alekvolsk.info/com-content/category-blog/screens
+
 ---
 
 ### RU:
