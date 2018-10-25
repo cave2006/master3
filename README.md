@@ -4,9 +4,9 @@
 
 **WARNING! Please do not download the master repository - it does not contain the UIkit framework! <br>To install, download a created release!**
 
-Template version 0.4.3-**beta**
+Template version 0.4.4-**beta**
 
-UIkit version 3.0.0-rc.19
+UIkit version 3.0.0-rc.20
 
 Joomla **3.7** or later
 

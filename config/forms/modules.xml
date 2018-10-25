@@ -2,8 +2,8 @@
 <form>
     <fields name="form">
         <fieldset name="fsInfo" label="TPL_MASTER3_MODULE_FORM_FIELDSET_INFO">
-            <field name="id" type="text" label="TPL_MASTER3_MODULE_FORM_ID" class="input-mini text-danger" readonly="true" />
             <field name="name" type="text" label="TPL_MASTER3_MODULE_FORM_NAME" class="input-xlarge input-large-text text-success" readonly="true" />
+            <field name="id" type="text" label="TPL_MASTER3_MODULE_FORM_ID" class="input-mini text-danger" readonly="true" />
             <field name="type" type="text" label="TPL_MASTER3_MODULE_FORM_TYPE" readonly="true" />
             <field name="position" type="text" label="TPL_MASTER3_MODULE_FORM_POSITION" class="text-primary" readonly="true" />
             <field name="lang" type="text" label="TPL_MASTER3_MODULE_FORM_LANG" readonly="true" />

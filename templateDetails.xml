@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.4.3-beta</version>
-    <creationDate>Oktober 2018</creationDate>
+    <version>0.4.4-beta</version>
+    <creationDate>October 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
     <authorUrl>https://github.com/AlekVolsk/master3</authorUrl>
     <copyright>Copyright (C) 2018 Aleksey A. Morozov. All rights reserved.</copyright>
     <license>GNU GPL v3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
     <description>TPL_MASTER3_XML_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
     
     <files>
         <filename>index.php</filename>
@@ -65,6 +66,11 @@
             <language tag="en-GB">language/en-GB/en-GB.tpl_master3.sys.ini</language>
         </languages>
     </administrator>
+    
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.tpl_master3.ini</language>    
+        <language tag="en-GB">language/en-GB/en-GB.tpl_master3.sys.ini</language>
+    </languages>
     
     <config>
         <fields name="params" addfieldpath="templates/master3/config/fields">
@@ -202,12 +208,12 @@
 
             <fieldset name="sections" label="TPL_MASTER3_TAB_SECTIONS_LABEL">
                 <field name="descSections" type="note" label="TPL_MASTER3_SECTIONS_NOTE_LABEL" description="TPL_MASTER3_SECTIONS_NOTE_DESC" class="alert alert-info uk-alert" />
-                <field name="sections" type="subformsections" label="TPL_MASTER3_TAB_SECTIONS_LABEL" formsource="templates/master3/config/forms/sections.xml" groupByFieldset="true" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" />
+                <field name="sections" type="subformsections" label="TPL_MASTER3_TAB_SECTIONS_LABEL" formsource="templates/master3/config/forms/sections.xml" groupByFieldset="true" multiple="true" layout="joomla.form.field.subform.tabs" buttons="none" />
             </fieldset>
 
             <fieldset name="modules" label="TPL_MASTER3_TAB_MODULES_LABEL">
                 <field name="descModules" type="note" label="TPL_MASTER3_MODULES_NOTE_LABEL" description="TPL_MASTER3_MODULES_NOTE_DESC" class="alert alert-info uk-alert" />
-                <field name="modules" type="subformmodules" label="TPL_MASTER3_TAB_MODULES_LABEL" formsource="templates/master3/config/forms/modules.xml" groupByFieldset="true" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" />
+                <field name="modules" type="subformmodules" label="TPL_MASTER3_TAB_MODULES_LABEL" formsource="templates/master3/config/forms/modules.xml" groupByFieldset="true" multiple="true" layout="joomla.form.field.subform.tabs" buttons="none" />
             </fieldset>
 
             <fieldset name="menu" label="TPL_MASTER3_TAB_MENU_LABEL">
@@ -231,8 +237,8 @@
                 </field>
                 <field name="spacerNavbar" type="spacer" hr="true" />
 
-                <field name="offcanvas" type="subformoffcanvas" label="TPL_MASTER3_MENU_OFFCANVAS_LABEL" formsource="templates/master3/config/forms/offcanvas.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" />
-                <field name="menuitems" type="subformmenus" label="TPL_MASTER3_MENU_ITEMS_LABEL" description="TPL_MASTER3_MENU_ITEMS_DESC" formsource="templates/master3/config/forms/menus.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" />
+                <field name="offcanvas" type="subformoffcanvas" label="TPL_MASTER3_MENU_OFFCANVAS_LABEL" formsource="templates/master3/config/forms/offcanvas.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.tabs" buttons="none" />
+                <field name="menuitems" type="subformmenus" label="TPL_MASTER3_MENU_ITEMS_LABEL" description="TPL_MASTER3_MENU_ITEMS_DESC" formsource="templates/master3/config/forms/menus.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.tabs" buttons="none" />
             </fieldset>
 
         </fields>
