@@ -58,7 +58,8 @@ $head = $config->getHead();
      * logo
      * headbar
      */
-    if ( $this->countModules( 'logo + headbar' ) || $config->getLogo() !== '');
+    $logo = $config->getLogo();
+    if ( $this->countModules( 'headbar' ) || $logo !== '' );
     {
         $section = $config->getSectionParams( 'headbar' );
     ?>
@@ -66,12 +67,14 @@ $head = $config->getHead();
         <div class="<?php echo $section->container; ?>">
             <div data-uk-grid>
                 
-                <div class="uk-width-auto uk-flex uk-flex-middle">
-                    <?php echo $config->getLogo(); ?>
+                <?php if ( $logo !== '' ) { ?>
+                <div class="uk-width-auto@s uk-flex uk-flex-middle">
+                    <?php echo $logo; ?>
                 </div>
+                <?php } ?>
                 
                 <?php if ( $this->countModules( 'headbar' ) ) { ?>
-                <div class="uk-width-expand uk-flex uk-flex-middle uk-flex-right">
+                <div class="uk-width-expand@s uk-flex uk-flex-middle uk-flex-right@s">
                     <jdoc:include type="modules" name="headbar" style="master3" />
                 </div>
                 <?php } ?>
@@ -96,19 +99,19 @@ $head = $config->getHead();
             <div data-uk-navbar<?php echo $section->navbarMode; ?>>
                 
                 <?php if ( $this->countModules( 'navbar-left' ) ) { ?>
-                <div class="uk-navbar-left">
+                <div class="uk-navbar-left <?php echo $section->nbLeftDisplay; ?>">
                     <jdoc:include type="modules" name="navbar-left" style="navbar" />
                 </div>
                 <?php } ?>
                 
                 <?php if ( $this->countModules( 'navbar-center' ) ) { ?>
-                <div class="uk-navbar-center">
+                <div class="uk-navbar-center <?php echo $section->nbCenterDisplay; ?>">
                     <jdoc:include type="modules" name="navbar-center" style="navbar" />
                 </div>
                 <?php } ?>
                 
                 <?php if ( $this->countModules( 'navbar-right' ) ) { ?>
-                <div class="uk-navbar-right">
+                <div class="uk-navbar-right <?php echo $section->nbRightDisplay; ?>">
                     <jdoc:include type="modules" name="navbar-right" style="navbar" />
                 </div>
                 <?php } ?>

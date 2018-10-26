@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 
 ?>
             <dd class="hits">
-                <span data-uk-icon="icon:search"></span>
+                <span data-uk-icon="icon:bolt"></span>
                 <meta itemprop="interactionCount" content="UserPageVisits:<?php echo $displayData[ 'item' ]->hits; ?>" />
                 <?php echo Text::sprintf( 'COM_CONTENT_ARTICLE_HITS', $displayData[ 'item' ]->hits ); ?>
             </dd>

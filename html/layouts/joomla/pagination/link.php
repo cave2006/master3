@@ -20,12 +20,14 @@ switch ( ( string ) $item->text )
 {
     // Check for "Prev" item
     case $item->text === Text::_( 'JPREV' ) :
+        $liClass = '';
         $item->text = Text::_( 'JPREVIOUS' );
         $icon = '<span data-uk-pagination-previous></span>';
         break;
 
     // Check for "Next" item
     case Text::_( 'JNEXT' ) :
+        $liClass = ' uk-flex uk-flex-1 uk-flex-right';
         $icon = '<span data-uk-pagination-next></span>';
         break;
 
@@ -60,20 +62,20 @@ if ( $displayData[ 'active' ] )
     }
 
     $onClick = 'document.adminForm.' . $item->prefix . 'limitstart.value=' . ( $item->base > 0 ? $item->base : '0' ) . '; Joomla.submitform(  );return false;';
+    $class = $liClass;
 }
 else
 {
     $class = ( property_exists( $item, 'active' ) && $item->active ) ? 'uk-active' : 'uk-disabled';
+    $class .= $liClass;
 }
 ?>
 <?php if ( $displayData[ 'active' ] ) { ?>
-    <li>
-        <a <?php echo $cssClasses ? 'class="' . implode( ' ', $cssClasses ) . '"' : ''; ?> <?php echo $title; ?> href="#" onclick="<?php echo $onClick; ?>">
-            <?php echo $display; ?>
-        </a>
+    <li class="<?php echo trim( $class ); ?>">
+        <a <?php echo $cssClasses ? 'class="' . implode( ' ', $cssClasses ) . '"' : ''; ?> <?php echo $title; ?> href="#" onclick="<?php echo $onClick; ?>"><?php echo $display; ?></a>
     </li>
 <?php } else { ?>
-    <li class="<?php echo $class; ?>">
+    <li class="<?php echo trim( $class ); ?>">
         <span><?php echo $display; ?></span>
     </li>
 <?php }

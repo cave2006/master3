@@ -35,7 +35,8 @@ $errorCode = $this->error->getCode();
      * logo
      * headbar
      */
-    if ( $this->countModules( 'logo + headbar' ) || $config->getLogo() !== '');
+    $logo = $config->getLogo();
+    if ( $logo !== '');
     {
         $section = $config->getSectionParams( 'headbar' );
     ?>
@@ -44,7 +45,7 @@ $errorCode = $this->error->getCode();
             <div data-uk-grid>
                 
                 <div class="uk-width-auto uk-flex uk-flex-middle">
-                    <?php echo $config->getLogo(); ?>
+                    <?php echo $logo; ?>
                 </div>
                 
             </div>

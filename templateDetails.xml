@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.4.4-beta</version>
+    <version>0.4.5-beta</version>
     <creationDate>October 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -234,6 +234,39 @@
                     <option value="@s">TPL_MASTER3_NAVBAR_OFFTOGGLE_SMALL</option>
                     <option value="@m">TPL_MASTER3_NAVBAR_OFFTOGGLE_MEDIUM</option>
                     <option value="@l">TPL_MASTER3_NAVBAR_OFFTOGGLE_LARGE</option>
+                </field>
+                <field name="nbLeftDisplay" type="list" label="TPL_MASTER3_NAVBAR_LEFT_DISPLAY" default="" class="input-medium">
+                    <option value="">TPL_MASTER3_MODULE_FORM_DISPLAY_ALWAYS</option>
+                    <option value="uk-hidden@s">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_S</option>
+                    <option value="uk-hidden@m">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_M</option>
+                    <option value="uk-hidden@l">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_L</option>
+                    <option value="uk-hidden@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_XL</option>
+                    <option value="uk-visible@s">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_S</option>
+                    <option value="uk-visible@m">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_M</option>
+                    <option value="uk-visible@l">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_L</option>
+                    <option value="uk-visible@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_XL</option>
+                </field>
+                <field name="nbCenterDisplay" type="list" label="TPL_MASTER3_NAVBAR_CENTER_DISPLAY" default="" class="input-medium">
+                    <option value="">TPL_MASTER3_MODULE_FORM_DISPLAY_ALWAYS</option>
+                    <option value="uk-hidden@s">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_S</option>
+                    <option value="uk-hidden@m">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_M</option>
+                    <option value="uk-hidden@l">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_L</option>
+                    <option value="uk-hidden@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_XL</option>
+                    <option value="uk-visible@s">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_S</option>
+                    <option value="uk-visible@m">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_M</option>
+                    <option value="uk-visible@l">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_L</option>
+                    <option value="uk-visible@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_XL</option>
+                </field>
+                <field name="nbRightDisplay" type="list" label="TPL_MASTER3_NAVBAR_RIGHT_DISPLAY" default="" class="input-medium">
+                    <option value="">TPL_MASTER3_MODULE_FORM_DISPLAY_ALWAYS</option>
+                    <option value="uk-hidden@s">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_S</option>
+                    <option value="uk-hidden@m">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_M</option>
+                    <option value="uk-hidden@l">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_L</option>
+                    <option value="uk-hidden@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_HIDDEN_XL</option>
+                    <option value="uk-visible@s">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_S</option>
+                    <option value="uk-visible@m">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_M</option>
+                    <option value="uk-visible@l">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_L</option>
+                    <option value="uk-visible@xl">TPL_MASTER3_MODULE_FORM_DISPLAY_VISIBLE_XL</option>
                 </field>
                 <field name="spacerNavbar" type="spacer" hr="true" />
 

@@ -166,11 +166,13 @@ function pagination_item_active( &$item )
     }
     else if ( $item->text == Text::_( 'JLIB_HTML_START' ) )
     {
+        $item->text = '<span data-uk-icon="icon:chevron-double-left"></span>';
         $cls = "first";
         $title = Text::_( 'JLIB_HTML_START' );
     }
     else if ( $item->text == Text::_( 'JLIB_HTML_END' ) )
     {
+        $item->text = '<span data-uk-icon="icon:chevron-double-right"></span>';
         $cls = "last";
         $title = Text::_( 'JLIB_HTML_END' );
     }

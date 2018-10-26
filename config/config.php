@@ -119,13 +119,13 @@ final class Master3Config
             $module = new \stdClass();
             
             $module->class = [];
-            $module->class[] = $item->form->display;
             $module->class[] = $item->form->moduleBox;
             $module->class[] = $item->form->moduleBox !== 'uk-panel' ? $item->form->modulePadding : '';
             $module->class[] = isset( $item->form->light ) ? 'uk-light' : '';
             $module->class[] = htmlspecialchars( $item->form->moduleClass, ENT_COMPAT, 'UTF-8' );
             $module->class = implode( ' ', $module->class );
             
+            $module->display = $item->form->display;
             $module->align = $item->form->moduleAlign;
             $module->titleTag = $item->form->titleTag;
             $module->titleClass = htmlspecialchars( $item->form->titleClass, ENT_COMPAT, 'UTF-8' );
@@ -728,6 +728,9 @@ final class Master3Config
             $section->class .= ' uk-navbar-container' . ( $this->params->get( 'navbarTransparent', 0 ) ? ' uk-navbar-transparent' : '' );
             
             $section->sticky = $this->params->get( 'navbarSticky', 0 ) ? ' data-uk-sticky' : '';
+            $section->nbLeftDisplay = $this->params->get( 'nbLeftDisplay', '' );
+            $section->nbCenterDisplay = $this->params->get( 'nbCenterDisplay', '' );
+            $section->nbRightDisplay = $this->params->get( 'nbRightDisplay', '' );
             
             $section->dropbarMode = false;
             $navbarMode = [];
@@ -763,8 +766,8 @@ final class Master3Config
         if ( $sectionName === 'main' )
         {
             $section->sidebarGridSize = $this->params->get( 'sbWidth', '1-5' );
-            $section->sidebarAClass = $this->params->get( 'sbPosA', 1 ) ? 'uk-flex-first ' : '';
-            $section->sidebarBClass = $this->params->get( 'sbPosB', 1 ) ? 'uk-flex-first ' : '';
+            $section->sidebarAClass = $this->params->get( 'sbPosA', 1 ) ? 'uk-flex-first' . $section->responsive . ' ' : '';
+            $section->sidebarBClass = $this->params->get( 'sbPosB', 1 ) ? 'uk-flex-first' . $section->responsive . ' ' : '';
             
             $countSidebarA = $this->doc->countModules( 'sidebar-a' );
             $countSidebarB = $this->doc->countModules( 'sidebar-b' );
@@ -825,6 +828,7 @@ final class Master3Config
         {
             $module = new \stdClass();
             $module->class = 'uk-panel';
+            $module->display = '';
             $module->align = '';
             $module->titleTag = 'module';
             $module->titleClass = '';

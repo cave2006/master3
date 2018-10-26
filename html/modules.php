@@ -18,6 +18,7 @@ function modChrome_master3($module, &$params, &$attribs)
     
     $moduleClass = [];
     $moduleClass[] = 'tm-pos-' . $module->position;
+    $moduleClass[] = trim( $masterParams->display );
     $moduleClass[] = trim( $masterParams->class );
     $moduleClass[] = htmlspecialchars( $params->get( 'moduleclass_sfx', '' ), ENT_COMPAT, 'UTF-8' );
     $moduleClass = implode( ' ', $moduleClass );
@@ -66,14 +67,19 @@ function modChrome_navbar($module, &$params, &$attribs)
 
     if ( $module->content )
     {
+        $config = \Master3Config::getInstance();
+        
         if ( $module->module === 'mod_menu' )
         {
-            $config = \Master3Config::getInstance();
             $sfx = $config->getOffcanvasToggle();
             
             $moduleClass .= ' uk-visible' . $sfx;
 
             echo '<a class="uk-navbar-toggle uk-hidden' . $sfx . '" href="#" data-uk-navbar-toggle-icon data-uk-toggle="target:#offcanvas-menu"></a>';
+        }
+        else
+        {
+            $moduleClass .= ' ' .  $config->getModuleParams( $module->id )->display;
         }
         
         echo '<div class="' . trim( $moduleClass ) . '">';
