@@ -11,6 +11,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Application\ApplicationHelper;
 
 defined('_JEXEC') or die;
 
@@ -28,9 +29,14 @@ final class Master3Config
     private $doc = null;
 
     /*
-     * Registry object
+     * string
      */
     public $name = 'master3';
+
+    /*
+     * string
+     */
+    public $layout = 'default';
 
     /*
      * Registry object
@@ -60,6 +66,12 @@ final class Master3Config
     protected function __construct()
     {
         $this->doc = Factory::getDocument();
+
+        $this->layout = ApplicationHelper::stringURLSafe( Factory::getApplication()->getMenu( 'site' )->getActive()->alias );
+        if ( !file_exists( realpath( __DIR__ . '/../layouts/template.' . $this->layout . '.php' ) ) )
+        {
+            $this->layout = 'default';
+        }
         
         $this->name = strtolower( $this->doc->template );
         $this->params = $this->doc->params;
