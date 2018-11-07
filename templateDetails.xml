@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.4.5-beta</version>
-    <creationDate>October 2018</creationDate>
+    <version>0.4.6-beta</version>
+    <creationDate>November 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
     <authorUrl>https://github.com/AlekVolsk/master3</authorUrl>
