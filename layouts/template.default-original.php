@@ -135,26 +135,22 @@ if ( $this->countModules( 'breadcrumb' ) )
 
 <?php
 /*
- * top-a
- * top-b
- * top-c
- * top-d
- * top-e
+ * top-[a-e]
  */
-$bottomSections = [ 'top-a', 'top-b', 'top-c', 'top-d', 'top-e' ];
-foreach ( $bottomSections as $bottomSection )
+$topSections = [ 'top-a', 'top-b', 'top-c', 'top-d', 'top-e' ];
+foreach ( $topSections as $topSection )
 {
-    if ( $sectionPosCount = $this->countModules( $bottomSection ) )
+    if ( $sectionPosCount = $this->countModules( $topSection ) )
     {
         $sectionPosCount = $sectionPosCount > 6 ? 6 : $sectionPosCount;
-        $section = $config->getSectionParams( $bottomSection );
+        $section = $config->getSectionParams( $topSection );
         $sectionResponsive = 'uk-child-width-1-' . ( $section->responsive === '' ? '1' : $sectionPosCount . $section->responsive );
         $section->gridClass = trim( $sectionResponsive . ' ' . $section->gridClass );
 ?>
 <div id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' );?>>
     <div class="<?php echo $section->container; ?>">
         <div class="<?php echo $section->gridClass; ?>" data-uk-grid>
-            <jdoc:include type="modules" name="<?php echo $bottomSection; ?>" style="master3" />
+            <jdoc:include type="modules" name="<?php echo $topSection; ?>" style="master3" />
         </div>
     </div>
 </div>
@@ -248,11 +244,7 @@ if ( $systemOutput || $countMainTop || $countMainBottom || $countSidebarA || $co
 
 <?php
 /*
- * bottom-a
- * bottom-b
- * bottom-c
- * bottom-d
- * bottom-e
+ * bottom-[a-e]
  */
 $bottomSections = [ 'bottom-a', 'bottom-b', 'bottom-c', 'bottom-d', 'bottom-e' ];
 foreach ( $bottomSections as $bottomSection )
@@ -280,7 +272,7 @@ foreach ( $bottomSections as $bottomSection )
  * footer-center
  * footer-right
  */
-if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
+if ( $this->countModules( 'footer-left + footer-center + footer-right' ) || $this->params->get( 'totop' ) )
 {
     $section = $config->getSectionParams( 'footer' );
     $sectionPosCount =
@@ -291,6 +283,8 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
     $section->gridClass = trim( $sectionResponsive . ' ' . $section->gridClass );
 ?>
 <div id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' );?>>
+    
+    <?php if ( $this->countModules( 'footer-left + footer-center + footer-right' ) ) { ?>
     <div class="<?php echo $section->container; ?>">
         
         <div class="<?php echo $section->gridClass; ?>" data-uk-grid>
@@ -314,8 +308,9 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
             <?php } ?>
         </div>
     </div>
+    <?php } ?>
     
-    <?php if ($this->params->get('totop')) { ?>
+    <?php if ( $this->params->get( 'totop' ) ) { ?>
     <div class="uk-container uk-container-expand uk-margin-top">
         <a data-uk-totop data-uk-scroll></a>
     </div>

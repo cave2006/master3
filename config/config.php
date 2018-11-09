@@ -8,6 +8,7 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\LanguageHelper;
@@ -71,6 +72,10 @@ final class Master3Config
         if ( !file_exists( realpath( __DIR__ . '/../layouts/template.' . $this->layout . '.php' ) ) )
         {
             $this->layout = 'default';
+        }
+        if ( !file_exists( realpath( __DIR__ . '/../layouts/template.' . $this->layout . '.php' ) ) )
+        {
+            $this->layout = 'default-original';
         }
         
         $this->name = strtolower( $this->doc->template );
@@ -281,6 +286,11 @@ final class Master3Config
         /*
          * load template js
          */
+        if ( $this->params->get( 'jsJQ' ) )
+        {
+            HTMLHelper::_( 'jquery.framework', true, null, false );
+        }
+
         $jsUikit = $this->params->get( 'jsUikit' );
         if ( $jsUikit !== 'none' )
         {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.4.7-beta</version>
+    <version>0.4.8-beta</version>
     <creationDate>November 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -187,6 +187,10 @@
                 <field name="spacerCSS" type="spacer" hr="true" />
                 
                 <field name="noteJS" type="note" label="TPL_MASTER3_SUBTITLE_JS" />
+                <field name="jsJQ" type="radio" label="TPL_MASTER3_JS_JQ_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
                 <field name="jsUikit" type="list" label="TPL_MASTER3_JS_UIKIT_LABEL" default="uikit.min.js">
                     <option value="none">TPL_MASTER3_JS_UIKIT_NO</option>
                     <option value="uikit.js">TPL_MASTER3_JS_UIKIT_BASED</option>
