@@ -14,7 +14,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::addIncludePath( JPATH_COMPONENT . '/helpers' );
 
-if ( $this->params->get( 'show_page_heading' ) && !$params->get( 'show_title' ) )
+if ( $this->params->get( 'show_page_heading' ) && !$this->params->get( 'show_title' ) )
 {
 ?>
 <h1 class="uk-article-title"><?php echo $this->escape( $this->params->get( 'page_heading' ) ); ?></h1>
