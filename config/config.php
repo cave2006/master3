@@ -198,6 +198,10 @@ final class Master3Config
         }
         
         $this->params->set( 'offcanvas', $offcanvas );
+
+
+        // set head data
+        $this->setHead();
     }
 
 
@@ -244,10 +248,8 @@ final class Master3Config
     
     /*
      * Head section data
-     * 
-     * @return array
      */
-    public function getHead()
+    protected function setHead()
     {
         $tpath = '/templates/' . $this->name;
         
@@ -312,208 +314,28 @@ final class Master3Config
 
 
         /*
-         * render head section
+         * compose head section
          */
         $out = [];
         $this->doc->setHtml5(true);
         $this->doc->setGenerator( '' );
-        $head = $this->doc->getHeadData();
-        $mediaVersion = $this->doc->getMediaVersion();
-        
-        /*
-         * Metas
-         */
-        $out[ 'metas' ] = [];
-        
-        // charset
-        $out[ 'metas' ][] = '<meta charset="' . $this->doc->getCharset() . '" />';
-        
-        // viewport
-        $out[ 'metas' ][] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
-        
-        // IE compatible
-        $out[ 'metas' ][] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-        
-        // base
-        $out[ 'metas' ][] = '<base href="' . $this->doc->getBase() . '" />';
-        
-        // title
-        $out[ 'metas' ][] = '<title>' . $head[ 'title' ] . '</title>';
-        
-        // meta description
-        if ( $head[ 'description' ] )
-        {
-            $out[ 'metas' ][] = '<meta name="description" content="' . $head[ 'description' ] . '" />';
-        }
-
-        // meta tags
-        foreach ( $head[ 'metaTags' ] as $attr => $vals )
-        {
-            foreach ( $vals as $name => $content )
-            {
-                if ( $attr == 'http-equiv' && $name != 'content-type' )
-                {
-                    $out[ 'metas' ][] = '<meta http-equiv="' . $name . '" content="' . htmlspecialchars( $content, ENT_COMPAT, 'UTF-8' ) . '" />';
-                }
-                elseif ( $attr != 'http-equiv' && !empty( $content ) )
-                {
-                    if ( is_array( $content ) )
-                    {
-                        foreach ( $content as $value )
-                        {
-                            $out[ 'metas' ][] = '<meta ' . $attr . '="' . $name . '" content="' . htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' ) . '" />';
-                        }
-                    }
-                    else
-                    {
-                        $out[ 'metas' ][] = '<meta ' . $attr . '="' . $name . '" content="' . htmlspecialchars( $content, ENT_COMPAT, 'UTF-8' ) . '" />';
-                    }
-                }
-            }
-        }
+        $this->doc->setMetaData( 'viewport', 'width=device-width,initial-scale=1' );
+        $this->doc->setMetaData( 'X-UA-Compatible', 'IE=edge', 'http-equiv' );
         
         // favicon
         $favicon = $this->params->get( 'favicon', '' );
         if ( $favicon && is_file( Path::clean( JPATH_BASE . '/' . $favicon ) ) )
         {
             $type = $this->getMime( Path::clean( JPATH_BASE . '/' . $favicon ) );
-            $type = $type ? ' " type="' . $type . '"' : '';
-            $out[ 'metas' ][] = '<link rel="shortcut icon" href="' . $favicon . $type . '>';
+            $this->doc->addFavicon( $favicon, $type, 'shortcut icon' );
         }
         
         // favicon for apple devices
         $faviconApple = $this->params->get( 'faviconApple', '' );
         if ( $faviconApple && is_file( Path::clean( JPATH_BASE . '/' . $faviconApple ) ) )
         {
-            $out[ 'metas' ][] = '<link rel="apple-touch-icon-precomposed" href="' . $faviconApple .'">';
+            $this->doc->addHeadLink( $faviconApple, 'apple-touch-icon-precomposed' );
         }
-
-        // custom links
-        if ( $head[ 'links' ] )
-        {
-            foreach ($head[ 'links' ] as $linkName => $linkParams )
-            {
-                $rel = $linkParams[ 'relation' ] ? ' ' . $linkParams[ 'relType' ] . '="' . $linkParams[ 'relation' ] . '"' : '';
-                $buffer = '';
-                $version = '';
-
-                if ( $linkParams[ 'attribs' ] )
-                {
-                    foreach ( $linkParams[ 'attribs' ] as $attr => $val )
-                    {
-                        if ( $attr == 'version' )
-                        {
-                            $version = $val == 'auto' ? $mediaVersion : $val;
-                        }
-                        else
-                        {
-                            $buffer .= ' ' . $attr . '="' . htmlspecialchars( $val, ENT_COMPAT, 'UTF-8' ) . '"';
-                        }
-                    }
-                }
-
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-
-                $out[ 'metas' ][] = '<link' . $rel . ' href="' . $linkName . $version . '"' . $buffer . '>';
-            }
-        }
-
-        // custom meta tags
-        if ( $head[ 'custom' ] )
-        {
-            foreach ( $head[ 'custom' ] as $meta )
-            {
-                $out[ 'metas' ][] = $meta;
-            }
-        }
-
-        
-        /*
-         * Styles
-         */
-        $out[ 'styles' ] = [];
-        
-        $fonts = $this->getFonts();
-        if ( $fonts )
-        {
-            $out[ 'styles' ][] = $fonts[ 'link' ];
-        }
-        
-        if ( $head[ 'styleSheets' ] )
-        {
-            foreach ( $head[ 'styleSheets' ] as $styleName => $stypeParams )
-            {
-                $version = isset( $stypeParams[ 'options' ][ 'version' ] ) ? $stypeParams[ 'options' ][ 'version' ] : '';
-                $version = $version == 'auto' ? $mediaVersion : $version;
-                $type = $stypeParams[ 'type' ] == 'text/css' ? '' : ' type="' . $stypeParams[ 'type' ] . '"';
-                
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-                
-                $out[ 'styles' ][] = '<link rel="stylesheet" href="' . $styleName . $version . '"' . $type . '>';
-            }
-        }
-
-        if ( $head[ 'style' ] )
-        {
-            foreach ( $head[ 'style' ] as $type => $style )
-            {
-                $typeAttr = $type == 'text/css' ? '' : ' type="' . $type . '"';
-                $out[ 'styles' ][] = "<style" . $typeAttr . ">\n" . $style . "\n\t</style>";
-            }
-        }
-
-        if ( $fonts )
-        {
-            $out[ 'styles' ][] = "<style>\n" . $fonts[ 'style' ] . "\n\t</style>";
-        }
-
-        
-        /*
-         * Scripts
-         */
-        $out[ 'scripts' ] = [];
-        
-        if ( $head[ 'scripts' ] )
-        {
-            foreach ( $head[ 'scripts' ] as $scriptName => $scriptParams )
-            {
-                $version = isset( $scriptParams[ 'options' ][ 'version' ] ) ? $scriptParams[ 'options' ][ 'version' ] : '';
-                $version = $version == 'auto' ? $mediaVersion : $version;
-                $type = isset( $scriptParams[ 'type' ] ) ? ( $scriptParams[ 'type' ] == 'text/javascript' ? '' : ' type="' . $scriptParams[ 'type' ] . '"' ) : '';
-                
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-                
-                $out[ 'scripts' ][] = '<script src="' . $scriptName . $version . '"' . $type . '></script>';
-            }
-        }
-
-        if ( $head[ 'script' ] )
-        {
-            foreach ( $head[ 'script' ] as $type => $script )
-            {
-                $typeAttr = $type == 'text/javascript' ? '' : ' type="' . $type . '"';
-                $out[ 'scripts' ][] = "<script" . $typeAttr . ">\n" . $script . "\n\t</script>";
-            }
-        }
-
-        
-        /*
-         * Output
-         */
-        $out[ 'metas' ] = trim( implode( "\n\t", $out[ 'metas' ] ) ) . "\n\n";
-        $out[ 'styles' ] = trim( implode( "\n\t", $out[ 'styles' ] ) ) . "\n\n";
-        $out[ 'scripts' ] = trim( implode( "\n\t", $out[ 'scripts' ] ) ) . "\n\n";
-
-        return $out;
     }
 
 

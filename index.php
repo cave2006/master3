@@ -14,15 +14,12 @@ use Joomla\Filesystem\Path;
 include_once Path::clean( __DIR__ . '/config/config.php' ); 
 
 $config = \Master3Config::getInstance();
-$head = $config->getHead();
 
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
-    <?php echo $head[ 'metas' ]; ?>
-    <?php echo $head[ 'styles' ]; ?>
-    <?php echo $head[ 'scripts' ]; ?>
+    <jdoc:include type="head"/>
 </head>
 <body class="<?php echo $config->getBodyClasses(); ?>">
     
