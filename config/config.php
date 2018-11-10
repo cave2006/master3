@@ -100,7 +100,7 @@ final class Master3Config
             $section->class = [];
             $section->class[] = $item->form->padding;
             $section->class[] = $item->form->style;
-            $section->class[] = isset( $item->form->light ) ? 'uk-light' : '';
+            $section->class[] = $item->form->light ? 'uk-light' : '';
             $section->class[] = htmlspecialchars( $item->form->class, ENT_COMPAT, 'UTF-8' );
             $section->class = implode( ' ', $section->class );
             
@@ -116,8 +116,8 @@ final class Master3Config
             
             $section->gridClass = [];
             $section->gridClass[] = $item->form->gutter;
-            $section->gridClass[] = isset( $item->form->divider ) ? 'uk-grid-divider' : '';
-            $section->gridClass[] = isset( $item->form->center ) ? 'uk-flex-center' : '';
+            $section->gridClass[] = $item->form->divider ? 'uk-grid-divider' : '';
+            $section->gridClass[] = $item->form->center ? 'uk-flex-center' : '';
             $section->gridClass = implode( ' ', $section->gridClass );
             
             $sections[ $item->form->name ] = $section;
@@ -138,7 +138,7 @@ final class Master3Config
             $module->class = [];
             $module->class[] = $item->form->moduleBox;
             $module->class[] = $item->form->moduleBox !== 'uk-panel' ? $item->form->modulePadding : '';
-            $module->class[] = isset( $item->form->light ) ? 'uk-light' : '';
+            $module->class[] = $item->form->light ? 'uk-light' : '';
             $module->class[] = htmlspecialchars( $item->form->moduleClass, ENT_COMPAT, 'UTF-8' );
             $module->class = implode( ' ', $module->class );
             
@@ -165,7 +165,7 @@ final class Master3Config
             $menuItem = new \stdClass();
             
             $menuItem->cols = $item->form->gridColumns;
-            $menuItem->divider = isset( $item->form->gridDivider ) && $item->form->gridDivider == true;
+            $menuItem->divider = isset( $item->form->gridDivider ) && $item->form->gridDivider == 1;
             $menuItem->subtitle = htmlspecialchars( $item->form->subtitle, ENT_COMPAT, 'UTF-8' );
             $menuItem->dropdownJustify = $navbarBoundary;
             $menuItem->first = true;
@@ -189,8 +189,8 @@ final class Master3Config
             
             $oc->attrs = [];
             $oc->attrs[] = 'mode:' . $item->form->mode;
-            $oc->attrs[] = isset( $item->form->overlay ) ? 'overlay:true' : '';
-            $oc->attrs[] = isset( $item->form->flip ) ? 'flip:true' : '';
+            $oc->attrs[] = $item->form->overlay ? 'overlay:true' : '';
+            $oc->attrs[] = $item->form->flip ? 'flip:true' : '';
             $oc->attrs = implode( ';', $oc->attrs );
             
             $offcanvas[ $item->form->posname ] = $oc;
@@ -264,11 +264,6 @@ final class Master3Config
         {
             $this->doc->addStyleSheet( $tpath . '/css/theme.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
-        
-        if ( $this->params->get( 'cssCustom' ) )
-        {
-            $this->doc->addStyleSheet( $tpath . '/css/custom.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
-        }
 
         $cssAddons = $this->params->get( 'cssAddons' );
         $cssAddons = explode( "\n", $cssAddons );
@@ -301,11 +296,6 @@ final class Master3Config
         if ( $jsIcons !== 'none' )
         {
             $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
-        }
-        
-        if ( $this->params->get( 'jsCustom' ) )
-        {
-            $this->doc->addScript( $tpath . '/js/custom.js', [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $jsAddons = $this->params->get( 'jsAddons' );
@@ -601,7 +591,7 @@ final class Master3Config
 
 
     /*
-     * Logo positions render
+     * Logo position render
      * 
      * @return text/html
      */
@@ -626,7 +616,7 @@ final class Master3Config
         }
         
         $isMain = ( Uri::current() == Uri::base() ) || ( Uri::current() == Uri::base() . $langSef );
-        $logotag = $isMain ? 'span' : 'a';
+        $logotag = $isMain ? 'div' : 'a';
         $logohref = $isMain ? '' : ' href="/' . $langSef . '"';
         $out = '';
         
@@ -711,6 +701,7 @@ final class Master3Config
         $app = Factory::getApplication();
         $out = [];
         
+        $out[] = $this->params->get( 'bodyClasses', '' );
         $out[] = 'option--' . $app->input->getCmd( 'option', '' );
         $out[] = 'view--' . $app->input->getCmd( 'view', '' );
         $out[] = 'layout--' . $app->input->getCmd( 'layout', '' );

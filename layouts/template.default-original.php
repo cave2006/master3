@@ -272,7 +272,7 @@ foreach ( $bottomSections as $bottomSection )
  * footer-center
  * footer-right
  */
-if ( $this->countModules( 'footer-left + footer-center + footer-right' ) || $this->params->get( 'totop' ) )
+if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
 {
     $section = $config->getSectionParams( 'footer' );
     $sectionPosCount =
@@ -284,7 +284,6 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) || $thi
 ?>
 <div id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' );?>>
     
-    <?php if ( $this->countModules( 'footer-left + footer-center + footer-right' ) ) { ?>
     <div class="<?php echo $section->container; ?>">
         
         <div class="<?php echo $section->gridClass; ?>" data-uk-grid>
@@ -308,15 +307,17 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) || $thi
             <?php } ?>
         </div>
     </div>
-    <?php } ?>
     
-    <?php if ( $this->params->get( 'totop' ) ) { ?>
-    <div class="uk-container uk-container-expand uk-margin-top">
-        <a data-uk-totop data-uk-scroll></a>
-    </div>
-    <?php } ?>
-
 </div>
+<?php } ?>
+
+
+<?php
+/*
+ * to-top scroller
+ */
+if ( $this->params->get( 'totop' ) ) { ?>
+<a class="uk-padding-small uk-position-bottom-left uk-position-fixed" data-uk-totop data-uk-scroll></a>
 <?php } ?>
 
 

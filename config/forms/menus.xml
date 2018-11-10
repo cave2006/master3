@@ -13,7 +13,10 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </field>
-            <field name="gridDivider" type="checkbox" label="TPL_MASTER3_MENU_FORM_GRIDDIVIDER" description="TPL_MASTER3_NOT_RELEASED" disabled="true" />
+            <field name="gridDivider" type="radio" label="TPL_MASTER3_MENU_FORM_GRIDDIVIDER" description="TPL_MASTER3_NOT_RELEASED" default="0" class="btn-group" disabled="true">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
             <field name="subtitle" type="text" label="TPL_MASTER3_MENU_FORM_SUBTITLE" default="" />
         </fieldset>
     </fields>

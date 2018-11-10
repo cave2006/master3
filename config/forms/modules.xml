@@ -37,7 +37,10 @@
                 <option value="uk-flex-center">TPL_MASTER3_MODULE_FORM_ALIGN_CENTER</option>
                 <option value="uk-flex-right">TPL_MASTER3_MODULE_FORM_ALIGN_RIGHT</option>
             </field>
-            <field name="light" type="checkbox" label="TPL_MASTER3_MODULE_FORM_LIGHT" />
+            <field name="light" type="radio" label="TPL_MASTER3_MODULE_FORM_LIGHT" default="0" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
             <field name="moduleClass" type="text" label="TPL_MASTER3_MODULE_FORM_CLASS" />
         </fieldset>
         <fieldset name="fsTitle" label="TPL_MASTER3_MODULE_FORM_FIELDSET_TITLE">

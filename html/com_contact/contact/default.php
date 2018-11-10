@@ -15,11 +15,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-//use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Layout\FileLayout;
 
-//$cparams = ComponentHelper::getParams( 'com_media' );
 $tparams = $this->item->params;
 
 ?>

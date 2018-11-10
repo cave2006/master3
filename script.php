@@ -44,5 +44,15 @@ class master3InstallerScript
 		{
 			echo '<p>Do not copiig file subform-tabs.css</p>';
 		}
+
+		$srcfile = Path::clean( JPATH_ROOT . '/templates/master3/layouts/template.default-original.php' );
+		$dstfile = Path::clean( JPATH_ROOT . '/templates/master3/layouts/template.default.php' );
+		if ( !file_exists( $dstfile ) )
+		{
+			if ( !copy ( $srcfile, $dstfile ) )
+			{
+				echo '<p>Do not copiig file template.default-original.php => template.default.php in /templates/master3/layouts/, please do this manually</p>';
+			}
+		}
 	}
 }

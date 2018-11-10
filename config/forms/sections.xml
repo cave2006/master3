@@ -10,7 +10,10 @@
                 <option value="uk-section-primary">TPL_MASTER3_SECTION_FORM_STYLE_PRIMARY</option>
                 <option value="uk-section-secondary">TPL_MASTER3_SECTION_FORM_STYLE_SECONDARY</option>
             </field>
-            <field name="light" type="checkbox" label="TPL_MASTER3_SECTION_FORM_LIGHT" />
+            <field name="light" type="radio" label="TPL_MASTER3_SECTION_FORM_LIGHT" default="0" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
             <field name="padding" type="list" label="TPL_MASTER3_SECTION_FORM_PADDING" default="" class="input-medium">
                 <option value="uk-section">TPL_MASTER3_SECTION_FORM_PADDING_DEFAULT</option>
                 <option value="uk-section uk-section-xlarge">TPL_MASTER3_SECTION_FORM_PADDING_XLARGE</option>
@@ -45,8 +48,14 @@
                 <option value="uk-grid-large">TPL_MASTER3_SECTION_FORM_GUTTER_LARGE</option>
                 <option value="uk-grid-collapse">TPL_MASTER3_SECTION_FORM_GUTTER_COLLAPSE</option>
             </field>
-            <field name="divider" type="checkbox" label="TPL_MASTER3_SECTION_FORM_DIVIDER" />
-            <field name="center" type="checkbox" label="TPL_MASTER3_SECTION_FORM_GRIDCENTER" />
+            <field name="divider" type="radio" label="TPL_MASTER3_SECTION_FORM_DIVIDER" default="0" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="center" type="radio" label="TPL_MASTER3_SECTION_FORM_GRIDCENTER" default="0" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
         </fieldset>
     </fields>
 </form>
