@@ -3,8 +3,14 @@
     <fields name="form">
         <fieldset name="fsOffcanvas">
             <field name="posname" type="text" label="TPL_MASTER3_OFFCANVAS_FORM_POSNAME" readonly="true" />
-            <field name="overlay" type="checkbox" label="TPL_MASTER3_OFFCANVAS_FORM_OVERLAY" checked="true" />
-            <field name="flip" type="checkbox" label="TPL_MASTER3_OFFCANVAS_FORM_FLIP" />
+            <field name="overlay" type="radio" label="TPL_MASTER3_OFFCANVAS_FORM_OVERLAY" default="1" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="flip" type="radio" label="TPL_MASTER3_OFFCANVAS_FORM_FLIP" default="0" class="btn-group">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
             <field name="mode" type="list" label="TPL_MASTER3_OFFCANVAS_FORM_MODE" default="slide" class="input-small">
                 <option value="slide">TPL_MASTER3_OFFCANVAS_FORM_MODE_SLIDE</option>
                 <option value="push">TPL_MASTER3_OFFCANVAS_FORM_MODE_PUSH</option>

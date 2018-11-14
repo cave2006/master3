@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.4.5-beta</version>
-    <creationDate>October 2018</creationDate>
+    <version>0.5.1-beta</version>
+    <creationDate>November 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
     <authorUrl>https://github.com/AlekVolsk/master3</authorUrl>
@@ -25,6 +25,7 @@
         <folder>html</folder>
         <folder>js</folder>
         <folder>language</folder>
+        <folder>layouts</folder>
         <folder>less</folder>
         <folder>scss</folder>
         <folder>uikit</folder>
@@ -108,10 +109,22 @@
                 </field>
                 <field name="spacerSidebars" type="spacer" hr="true" />
 
-                <field name="noComponentMain" type="checkbox" label="TPL_MASTER3_COMPONENT_MAIN_LABEL" checked="false" />
-                <field name="totop" type="checkbox" label="TPL_MASTER3_TOTOP_LABEL" checked="true" />
-                <field name="offlineLoginForm" type="checkbox" label="TPL_MASTER3_OLF_LABEL" />
-                <field name="denyUserAuthorization" type="checkbox" label="TPL_MASTER3_DUA_LABEL" />
+                <field name="noComponentMain" type="radio" label="TPL_MASTER3_COMPONENT_MAIN_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="totop" type="radio" label="TPL_MASTER3_TOTOP_LABEL" default="1" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="offlineLoginForm" type="radio" label="TPL_MASTER3_OLF_LABEL" default="1" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="denyUserAuthorization" type="radio" label="TPL_MASTER3_DUA_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
 
             <fieldset name="head" label="TPL_MASTER3_TAB_HEAD_LABEL">
@@ -178,14 +191,14 @@
                     <option value="uikit-rtl.css">TPL_MASTER3_CSS_UIKIT_RTL</option>
                     <option value="uikit-rtl.min.css">TPL_MASTER3_CSS_UIKIT_RTLMINIFIED</option>
                 </field>
-                <field name="cssCustom" type="radio" label="TPL_MASTER3_CSS_CUSTOM_LABEL" default="0" class="btn-group">
-                    <option value="1">JYES</option>
-                    <option value="0">JNO</option>
-                </field>
                 <field name="cssAddons" type="textarea" label="TPL_MASTER3_CSS_ADDONS_LABEL" description="TPL_MASTER3_CSS_ADDONS_DESC" rows="5" default="" class="input-xxlarge" />
                 <field name="spacerCSS" type="spacer" hr="true" />
                 
                 <field name="noteJS" type="note" label="TPL_MASTER3_SUBTITLE_JS" />
+                <field name="jsJQ" type="radio" label="TPL_MASTER3_JS_JQ_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
                 <field name="jsUikit" type="list" label="TPL_MASTER3_JS_UIKIT_LABEL" default="uikit.min.js">
                     <option value="none">TPL_MASTER3_JS_UIKIT_NO</option>
                     <option value="uikit.js">TPL_MASTER3_JS_UIKIT_BASED</option>
@@ -196,10 +209,6 @@
                     <option value="uikit-icons.js">TPL_MASTER3_JS_ICONS_BASED</option>
                     <option value="uikit-icons.min.js">TPL_MASTER3_JS_ICONS_MINIFIED</option>
                 </field>
-                <field name="jsCustom" type="radio" label="TPL_MASTER3_JS_CUSTOM_LABEL" default="0" class="btn-group">
-                    <option value="1">JYES</option>
-                    <option value="0">JNO</option>
-                </field>
                 <field name="jsAddons" type="textarea" label="TPL_MASTER3_JS_ADDONS_LABEL" rows="5" description="TPL_MASTER3_JS_ADDONS_DESC" default="" class="input-xxlarge" />
                 <field name="spacerJS" type="spacer" hr="true" />
                 
@@ -207,6 +216,7 @@
             </fieldset>
 
             <fieldset name="sections" label="TPL_MASTER3_TAB_SECTIONS_LABEL">
+                <field name="bodyClasses" type="text" label="TPL_MASTER3_SECTIONS_BODY_CLASSES_LABEL" class="input-xxlarge" />
                 <field name="descSections" type="note" label="TPL_MASTER3_SECTIONS_NOTE_LABEL" description="TPL_MASTER3_SECTIONS_NOTE_DESC" class="alert alert-info uk-alert" />
                 <field name="sections" type="subformsections" label="TPL_MASTER3_TAB_SECTIONS_LABEL" formsource="templates/master3/config/forms/sections.xml" groupByFieldset="true" multiple="true" layout="joomla.form.field.subform.tabs" buttons="none" />
             </fieldset>
@@ -218,11 +228,26 @@
 
             <fieldset name="menu" label="TPL_MASTER3_TAB_MENU_LABEL">
                 <field name="noteNavbar" type="note" label="TPL_MASTER3_SUBTITLE_NAVBAR" />
-                <field name="navbarSticky" type="checkbox" label="TPL_MASTER3_NAVBAR_STICKY_LABEL" />
-                <field name="navbarTransparent" type="checkbox" label="TPL_MASTER3_NAVBAR_TRANSPARENT_LABEL" />
-                <field name="navbarClickMode" type="checkbox" label="TPL_MASTER3_NAVBAR_CLICKMODE_LABEL" />
-                <field name="navbarDropbar" type="checkbox" label="TPL_MASTER3_NAVBAR_DROPBAR_LABEL" />
-                <field name="navbarDropbarPush" type="checkbox" label="TPL_MASTER3_NAVBAR_DROPBARPUSH_LABEL" showon="navbarDropbar:1" />
+                <field name="navbarSticky" type="radio" label="TPL_MASTER3_NAVBAR_STICKY_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="navbarTransparent" type="radio" label="TPL_MASTER3_NAVBAR_TRANSPARENT_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="navbarClickMode" type="radio" label="TPL_MASTER3_NAVBAR_CLICKMODE_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="navbarDropbar" type="radio" label="TPL_MASTER3_NAVBAR_DROPBAR_LABEL" default="0" class="btn-group">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="navbarDropbarPush" type="radio" label="TPL_MASTER3_NAVBAR_DROPBARPUSH_LABEL" default="0" class="btn-group" showon="navbarDropbar:1">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
                 <field name="navbarBoundary" type="list" label="TPL_MASTER3_NAVBAR_BOUNDARY_LABEL" default="" class="input-medium">
                     <option value="">TPL_MASTER3_NAVBAR_BOUNDARY_NONE</option>
                     <option value="left">TPL_MASTER3_NAVBAR_BOUNDARY_LEFT</option>

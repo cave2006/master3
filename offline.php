@@ -20,7 +20,6 @@ use Joomla\CMS\Helper\AuthenticationHelper;
 include_once Path::clean( __DIR__ . '/config/config.php' ); 
 
 $config = \Master3Config::getInstance();
-$head = $config->getHead();
 
 $app = Factory::getApplication();
 $twofactormethods = AuthenticationHelper::getTwoFactorMethods();
@@ -29,9 +28,7 @@ $twofactormethods = AuthenticationHelper::getTwoFactorMethods();
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
-    <?php echo $head[ 'metas' ]; ?>
-    <?php echo $head[ 'styles' ]; ?>
-    <?php echo $head[ 'scripts' ]; ?>
+    <jdoc:include type="head"/>
 </head>
 <body class="uk-flex uk-flex-middle uk-flex-center" style="min-height:100vh">
     <div class="uk-panel">

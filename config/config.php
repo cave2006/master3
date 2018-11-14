@@ -8,9 +8,11 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\CMS\Application\ApplicationHelper;
 
 defined('_JEXEC') or die;
 
@@ -28,9 +30,14 @@ final class Master3Config
     private $doc = null;
 
     /*
-     * Registry object
+     * string
      */
     public $name = 'master3';
+
+    /*
+     * string
+     */
+    public $layout = 'default';
 
     /*
      * Registry object
@@ -60,6 +67,16 @@ final class Master3Config
     protected function __construct()
     {
         $this->doc = Factory::getDocument();
+
+        $this->layout = ApplicationHelper::stringURLSafe( Factory::getApplication()->getMenu( 'site' )->getActive()->alias );
+        if ( !file_exists( realpath( __DIR__ . '/../layouts/template.' . $this->layout . '.php' ) ) )
+        {
+            $this->layout = 'default';
+        }
+        if ( !file_exists( realpath( __DIR__ . '/../layouts/template.' . $this->layout . '.php' ) ) )
+        {
+            $this->layout = 'default-original';
+        }
         
         $this->name = strtolower( $this->doc->template );
         $this->params = $this->doc->params;
@@ -83,7 +100,7 @@ final class Master3Config
             $section->class = [];
             $section->class[] = $item->form->padding;
             $section->class[] = $item->form->style;
-            $section->class[] = isset( $item->form->light ) ? 'uk-light' : '';
+            $section->class[] = $item->form->light ? 'uk-light' : '';
             $section->class[] = htmlspecialchars( $item->form->class, ENT_COMPAT, 'UTF-8' );
             $section->class = implode( ' ', $section->class );
             
@@ -99,8 +116,8 @@ final class Master3Config
             
             $section->gridClass = [];
             $section->gridClass[] = $item->form->gutter;
-            $section->gridClass[] = isset( $item->form->divider ) ? 'uk-grid-divider' : '';
-            $section->gridClass[] = isset( $item->form->center ) ? 'uk-flex-center' : '';
+            $section->gridClass[] = $item->form->divider ? 'uk-grid-divider' : '';
+            $section->gridClass[] = $item->form->center ? 'uk-flex-center' : '';
             $section->gridClass = implode( ' ', $section->gridClass );
             
             $sections[ $item->form->name ] = $section;
@@ -121,7 +138,7 @@ final class Master3Config
             $module->class = [];
             $module->class[] = $item->form->moduleBox;
             $module->class[] = $item->form->moduleBox !== 'uk-panel' ? $item->form->modulePadding : '';
-            $module->class[] = isset( $item->form->light ) ? 'uk-light' : '';
+            $module->class[] = $item->form->light ? 'uk-light' : '';
             $module->class[] = htmlspecialchars( $item->form->moduleClass, ENT_COMPAT, 'UTF-8' );
             $module->class = implode( ' ', $module->class );
             
@@ -148,7 +165,7 @@ final class Master3Config
             $menuItem = new \stdClass();
             
             $menuItem->cols = $item->form->gridColumns;
-            $menuItem->divider = isset( $item->form->gridDivider ) && $item->form->gridDivider == true;
+            $menuItem->divider = isset( $item->form->gridDivider ) && $item->form->gridDivider == 1;
             $menuItem->subtitle = htmlspecialchars( $item->form->subtitle, ENT_COMPAT, 'UTF-8' );
             $menuItem->dropdownJustify = $navbarBoundary;
             $menuItem->first = true;
@@ -172,8 +189,8 @@ final class Master3Config
             
             $oc->attrs = [];
             $oc->attrs[] = 'mode:' . $item->form->mode;
-            $oc->attrs[] = isset( $item->form->overlay ) ? 'overlay:true' : '';
-            $oc->attrs[] = isset( $item->form->flip ) ? 'flip:true' : '';
+            $oc->attrs[] = $item->form->overlay ? 'overlay:true' : '';
+            $oc->attrs[] = $item->form->flip ? 'flip:true' : '';
             $oc->attrs = implode( ';', $oc->attrs );
             
             $offcanvas[ $item->form->posname ] = $oc;
@@ -181,6 +198,10 @@ final class Master3Config
         }
         
         $this->params->set( 'offcanvas', $offcanvas );
+
+
+        // set head data
+        $this->setHead();
     }
 
 
@@ -227,10 +248,8 @@ final class Master3Config
     
     /*
      * Head section data
-     * 
-     * @return array
      */
-    public function getHead()
+    protected function setHead()
     {
         $tpath = '/templates/' . $this->name;
         
@@ -246,11 +265,6 @@ final class Master3Config
         if ( $this->params->get( 'cssTheme' ) )
         {
             $this->doc->addStyleSheet( $tpath . '/css/theme.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
-        }
-        
-        if ( $this->params->get( 'cssCustom' ) )
-        {
-            $this->doc->addStyleSheet( $tpath . '/css/custom.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $cssAddons = $this->params->get( 'cssAddons' );
@@ -269,6 +283,11 @@ final class Master3Config
         /*
          * load template js
          */
+        if ( $this->params->get( 'jsJQ' ) )
+        {
+            HTMLHelper::_( 'jquery.framework', true, null, false );
+        }
+
         $jsUikit = $this->params->get( 'jsUikit' );
         if ( $jsUikit !== 'none' )
         {
@@ -279,11 +298,6 @@ final class Master3Config
         if ( $jsIcons !== 'none' )
         {
             $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
-        }
-        
-        if ( $this->params->get( 'jsCustom' ) )
-        {
-            $this->doc->addScript( $tpath . '/js/custom.js', [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $jsAddons = $this->params->get( 'jsAddons' );
@@ -300,208 +314,28 @@ final class Master3Config
 
 
         /*
-         * render head section
+         * compose head section
          */
         $out = [];
         $this->doc->setHtml5(true);
         $this->doc->setGenerator( '' );
-        $head = $this->doc->getHeadData();
-        $mediaVersion = $this->doc->getMediaVersion();
-        
-        /*
-         * Metas
-         */
-        $out[ 'metas' ] = [];
-        
-        // charset
-        $out[ 'metas' ][] = '<meta charset="' . $this->doc->getCharset() . '" />';
-        
-        // viewport
-        $out[ 'metas' ][] = '<meta name="viewport" content="width=device-width, initial-scale=1">';
-        
-        // IE compatible
-        $out[ 'metas' ][] = '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-        
-        // base
-        $out[ 'metas' ][] = '<base href="' . $this->doc->getBase() . '" />';
-        
-        // title
-        $out[ 'metas' ][] = '<title>' . $head[ 'title' ] . '</title>';
-        
-        // meta description
-        if ( $head[ 'description' ] )
-        {
-            $out[ 'metas' ][] = '<meta name="description" content="' . $head[ 'description' ] . '" />';
-        }
-
-        // meta tags
-        foreach ( $head[ 'metaTags' ] as $attr => $vals )
-        {
-            foreach ( $vals as $name => $content )
-            {
-                if ( $attr == 'http-equiv' && $name != 'content-type' )
-                {
-                    $out[ 'metas' ][] = '<meta http-equiv="' . $name . '" content="' . htmlspecialchars( $content, ENT_COMPAT, 'UTF-8' ) . '" />';
-                }
-                elseif ( $attr != 'http-equiv' && !empty( $content ) )
-                {
-                    if ( is_array( $content ) )
-                    {
-                        foreach ( $content as $value )
-                        {
-                            $out[ 'metas' ][] = '<meta ' . $attr . '="' . $name . '" content="' . htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' ) . '" />';
-                        }
-                    }
-                    else
-                    {
-                        $out[ 'metas' ][] = '<meta ' . $attr . '="' . $name . '" content="' . htmlspecialchars( $content, ENT_COMPAT, 'UTF-8' ) . '" />';
-                    }
-                }
-            }
-        }
+        $this->doc->setMetaData( 'viewport', 'width=device-width,initial-scale=1' );
+        $this->doc->setMetaData( 'X-UA-Compatible', 'IE=edge', 'http-equiv' );
         
         // favicon
         $favicon = $this->params->get( 'favicon', '' );
         if ( $favicon && is_file( Path::clean( JPATH_BASE . '/' . $favicon ) ) )
         {
             $type = $this->getMime( Path::clean( JPATH_BASE . '/' . $favicon ) );
-            $type = $type ? ' " type="' . $type . '"' : '';
-            $out[ 'metas' ][] = '<link rel="shortcut icon" href="' . $favicon . $type . '>';
+            $this->doc->addFavicon( $favicon, $type, 'shortcut icon' );
         }
         
         // favicon for apple devices
         $faviconApple = $this->params->get( 'faviconApple', '' );
         if ( $faviconApple && is_file( Path::clean( JPATH_BASE . '/' . $faviconApple ) ) )
         {
-            $out[ 'metas' ][] = '<link rel="apple-touch-icon-precomposed" href="' . $faviconApple .'">';
+            $this->doc->addHeadLink( $faviconApple, 'apple-touch-icon-precomposed' );
         }
-
-        // custom links
-        if ( $head[ 'links' ] )
-        {
-            foreach ($head[ 'links' ] as $linkName => $linkParams )
-            {
-                $rel = $linkParams[ 'relation' ] ? ' ' . $linkParams[ 'relType' ] . '="' . $linkParams[ 'relation' ] . '"' : '';
-                $buffer = '';
-                $version = '';
-
-                if ( $linkParams[ 'attribs' ] )
-                {
-                    foreach ( $linkParams[ 'attribs' ] as $attr => $val )
-                    {
-                        if ( $attr == 'version' )
-                        {
-                            $version = $val == 'auto' ? $mediaVersion : $val;
-                        }
-                        else
-                        {
-                            $buffer .= ' ' . $attr . '="' . htmlspecialchars( $val, ENT_COMPAT, 'UTF-8' ) . '"';
-                        }
-                    }
-                }
-
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-
-                $out[ 'metas' ][] = '<link' . $rel . ' href="' . $linkName . $version . '"' . $buffer . '>';
-            }
-        }
-
-        // custom meta tags
-        if ( $head[ 'custom' ] )
-        {
-            foreach ( $head[ 'custom' ] as $meta )
-            {
-                $out[ 'metas' ][] = $meta;
-            }
-        }
-
-        
-        /*
-         * Styles
-         */
-        $out[ 'styles' ] = [];
-        
-        $fonts = $this->getFonts();
-        if ( $fonts )
-        {
-            $out[ 'styles' ][] = $fonts[ 'link' ];
-        }
-        
-        if ( $head[ 'styleSheets' ] )
-        {
-            foreach ( $head[ 'styleSheets' ] as $styleName => $stypeParams )
-            {
-                $version = isset( $stypeParams[ 'options' ][ 'version' ] ) ? $stypeParams[ 'options' ][ 'version' ] : '';
-                $version = $version == 'auto' ? $mediaVersion : $version;
-                $type = $stypeParams[ 'type' ] == 'text/css' ? '' : ' type="' . $stypeParams[ 'type' ] . '"';
-                
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-                
-                $out[ 'styles' ][] = '<link rel="stylesheet" href="' . $styleName . $version . '"' . $type . '>';
-            }
-        }
-
-        if ( $head[ 'style' ] )
-        {
-            foreach ( $head[ 'style' ] as $type => $style )
-            {
-                $typeAttr = $type == 'text/css' ? '' : ' type="' . $type . '"';
-                $out[ 'styles' ][] = "<style" . $typeAttr . ">\n" . $style . "\n\t</style>";
-            }
-        }
-
-        if ( $fonts )
-        {
-            $out[ 'styles' ][] = "<style>\n" . $fonts[ 'style' ] . "\n\t</style>";
-        }
-
-        
-        /*
-         * Scripts
-         */
-        $out[ 'scripts' ] = [];
-        
-        if ( $head[ 'scripts' ] )
-        {
-            foreach ( $head[ 'scripts' ] as $scriptName => $scriptParams )
-            {
-                $version = isset( $scriptParams[ 'options' ][ 'version' ] ) ? $scriptParams[ 'options' ][ 'version' ] : '';
-                $version = $version == 'auto' ? $mediaVersion : $version;
-                $type = isset( $scriptParams[ 'type' ] ) ? ( $scriptParams[ 'type' ] == 'text/javascript' ? '' : ' type="' . $scriptParams[ 'type' ] . '"' ) : '';
-                
-                if ( $version )
-                {
-                    $version = '?' . $version;
-                }
-                
-                $out[ 'scripts' ][] = '<script src="' . $scriptName . $version . '"' . $type . '></script>';
-            }
-        }
-
-        if ( $head[ 'script' ] )
-        {
-            foreach ( $head[ 'script' ] as $type => $script )
-            {
-                $typeAttr = $type == 'text/javascript' ? '' : ' type="' . $type . '"';
-                $out[ 'scripts' ][] = "<script" . $typeAttr . ">\n" . $script . "\n\t</script>";
-            }
-        }
-
-        
-        /*
-         * Output
-         */
-        $out[ 'metas' ] = trim( implode( "\n\t", $out[ 'metas' ] ) ) . "\n\n";
-        $out[ 'styles' ] = trim( implode( "\n\t", $out[ 'styles' ] ) ) . "\n\n";
-        $out[ 'scripts' ] = trim( implode( "\n\t", $out[ 'scripts' ] ) ) . "\n\n";
-
-        return $out;
     }
 
 
@@ -579,7 +413,7 @@ final class Master3Config
 
 
     /*
-     * Logo positions render
+     * Logo position render
      * 
      * @return text/html
      */
@@ -604,7 +438,7 @@ final class Master3Config
         }
         
         $isMain = ( Uri::current() == Uri::base() ) || ( Uri::current() == Uri::base() . $langSef );
-        $logotag = $isMain ? 'span' : 'a';
+        $logotag = $isMain ? 'div' : 'a';
         $logohref = $isMain ? '' : ' href="/' . $langSef . '"';
         $out = '';
         
@@ -689,6 +523,7 @@ final class Master3Config
         $app = Factory::getApplication();
         $out = [];
         
+        $out[] = $this->params->get( 'bodyClasses', '' );
         $out[] = 'option--' . $app->input->getCmd( 'option', '' );
         $out[] = 'view--' . $app->input->getCmd( 'view', '' );
         $out[] = 'layout--' . $app->input->getCmd( 'layout', '' );
