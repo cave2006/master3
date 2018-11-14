@@ -22,7 +22,6 @@ $head = $config->getHead();
 <head>
     <?php echo $head[ 'metas' ]; ?>
     <?php echo $head[ 'styles' ]; ?>
-    <?php echo $head[ 'scripts' ]; ?>
 </head>
 <body class="<?php echo $config->getBodyClasses(); ?>">
     
@@ -384,6 +383,7 @@ $head = $config->getHead();
     <jdoc:include type="modules" name="debug" style="none" />
     <?php } ?>
 
+<?php echo $head[ 'scripts' ]; ?>
 
 </body>
 </html>
