@@ -25,7 +25,7 @@ $head = $config->getHead();
 </head>
 <body class="<?php echo $config->getBodyClasses(); ?>">
     
-    
+<div class="uk-section">    
     <?php
     /*
      * toolbar-left
@@ -121,7 +121,7 @@ $head = $config->getHead();
         </div>
     </div>
     <?php } ?>
-    
+</div>    
 
     <?php
     /*
