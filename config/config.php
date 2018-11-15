@@ -251,7 +251,7 @@ final class Master3Config
      */
     protected function setHead()
     {
-        $tpath = '/templates/' . $this->name;
+        $tpath = Uri::base( true ) . '/templates/' . $this->name;
         
         /*
          * load template css
@@ -275,7 +275,7 @@ final class Master3Config
             if ( is_file( $cssAddonFile ) && strtolower( pathinfo( $cssAddonFile, PATHINFO_EXTENSION ) ) == 'css' )
             {
                 $cssAddonFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $cssAddonFile ) );
-                $this->doc->addStyleSheet( $cssAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                $this->doc->addStyleSheet( Uri::base( true ) . $cssAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
             }
         }
 
@@ -308,7 +308,7 @@ final class Master3Config
             if ( is_file( $jsAddonFile ) && strtolower( pathinfo( $jsAddonFile, PATHINFO_EXTENSION ) ) == 'js' )
             {
                 $jsAddonFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $jsAddonFile ) );
-                $this->doc->addScript( $jsAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                $this->doc->addScript( Uri::base( true ) . $jsAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
             }
         }
 
@@ -327,14 +327,14 @@ final class Master3Config
         if ( $favicon && is_file( Path::clean( JPATH_BASE . '/' . $favicon ) ) )
         {
             $type = $this->getMime( Path::clean( JPATH_BASE . '/' . $favicon ) );
-            $this->doc->addFavicon( $favicon, $type, 'shortcut icon' );
+            $this->doc->addFavicon( Uri::base( true ) . $favicon, $type, 'shortcut icon' );
         }
         
         // favicon for apple devices
         $faviconApple = $this->params->get( 'faviconApple', '' );
         if ( $faviconApple && is_file( Path::clean( JPATH_BASE . '/' . $faviconApple ) ) )
         {
-            $this->doc->addHeadLink( $faviconApple, 'apple-touch-icon-precomposed' );
+            $this->doc->addHeadLink( Uri::base( true ) . $faviconApple, 'apple-touch-icon-precomposed' );
         }
     }
 
