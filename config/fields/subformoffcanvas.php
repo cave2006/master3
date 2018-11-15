@@ -68,7 +68,7 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
                 
                 if ( $fieldValue !== null)
                 {
-                    $outValues[ 'offcanvas' . $key ][ 'form' ][ $field ] = $fieldValue;
+                    $outValues[ $this->fieldname . $key ][ 'form' ][ $field ] = $fieldValue;
                 }
             }
         }

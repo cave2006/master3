@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.7" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.5.2-beta</version>
+    <version>0.6.0-beta</version>
     <creationDate>November 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -191,7 +191,8 @@
                     <option value="uikit-rtl.css">TPL_MASTER3_CSS_UIKIT_RTL</option>
                     <option value="uikit-rtl.min.css">TPL_MASTER3_CSS_UIKIT_RTLMINIFIED</option>
                 </field>
-                <field name="cssAddons" type="textarea" label="TPL_MASTER3_CSS_ADDONS_LABEL" description="TPL_MASTER3_CSS_ADDONS_DESC" rows="5" default="" class="input-xxlarge" />
+                <field name="cssFiles" type="subformfiles" label="TPL_MASTER3_CSS_FILES_LABEL" formsource="templates/master3/config/forms/files.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" folder="/templates/master3/css" />
+                <field name="cssAddons" type="textarea" label="TPL_MASTER3_CSS_ADDONS_LABEL" description="TPL_MASTER3_CSS_ADDONS_DESC" rows="3" default="" class="input-xxlarge" />
                 <field name="spacerCSS" type="spacer" hr="true" />
                 
                 <field name="noteJS" type="note" label="TPL_MASTER3_SUBTITLE_JS" />
@@ -209,7 +210,8 @@
                     <option value="uikit-icons.js">TPL_MASTER3_JS_ICONS_BASED</option>
                     <option value="uikit-icons.min.js">TPL_MASTER3_JS_ICONS_MINIFIED</option>
                 </field>
-                <field name="jsAddons" type="textarea" label="TPL_MASTER3_JS_ADDONS_LABEL" rows="5" description="TPL_MASTER3_JS_ADDONS_DESC" default="" class="input-xxlarge" />
+                <field name="jsFiles" type="subformfiles" label="TPL_MASTER3_JS_FILES_LABEL" formsource="templates/master3/config/forms/files.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" folder="/templates/master3/js" />
+                <field name="jsAddons" type="textarea" label="TPL_MASTER3_JS_ADDONS_LABEL" description="TPL_MASTER3_JS_ADDONS_DESC" rows="3" default="" class="input-xxlarge" />
                 <field name="spacerJS" type="spacer" hr="true" />
                 
                 <field name="ss" type="aes" label="" script="0" styles="1" />

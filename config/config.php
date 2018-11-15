@@ -267,6 +267,20 @@ final class Master3Config
             $this->doc->addStyleSheet( $tpath . '/css/theme.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
+        $cssFiles = (array)$this->params->get( 'cssFiles' );
+        foreach ( $cssFiles as $cssFile )
+        {
+            if ( $cssFile->form->fInclude )
+            {
+                $cssFile = realpath( Path::clean( JPATH_ROOT . '/templates/' . $this->name . '/css/' . htmlspecialchars( trim( $cssFile->form->fName ) ) ) );
+                if ( is_file( $cssFile ) && strtolower( pathinfo( $cssFile, PATHINFO_EXTENSION ) ) == 'css' )
+                {
+                    $cssFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $cssFile ) );
+                    $this->doc->addStyleSheet( Uri::base( true ) . $cssFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                }
+            }
+        }
+        
         $cssAddons = $this->params->get( 'cssAddons' );
         $cssAddons = explode( "\n", $cssAddons );
         foreach ( $cssAddons as $cssAddonFile )
@@ -298,6 +312,20 @@ final class Master3Config
         if ( $jsIcons !== 'none' )
         {
             $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
+        }
+
+        $jsFiles = (array)$this->params->get( 'jsFiles' );
+        foreach ( $jsFiles as $jsFile )
+        {
+            if ( $jsFile->form->fInclude )
+            {
+                $jsFile = realpath( Path::clean( JPATH_ROOT . '/templates/' . $this->name . '/js/' . htmlspecialchars( trim( $jsFile->form->fName ) ) ) );
+                if ( is_file( $jsFile ) && strtolower( pathinfo( $jsFile, PATHINFO_EXTENSION ) ) == 'js' )
+                {
+                    $jsFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $jsFile ) );
+                    $this->doc->addScript( Uri::base( true ) . $jsFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                }
+            }
         }
 
         $jsAddons = $this->params->get( 'jsAddons' );

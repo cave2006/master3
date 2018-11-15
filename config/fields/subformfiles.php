@@ -9,17 +9,14 @@
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Log\Log;
-use Joomla\CMS\Language\Text;
-use Symfony\Component\Yaml\Exception\RuntimeException;
+use Joomla\Filesystem\Path;
 use Joomla\CMS\Form\FormHelper;
 
 FormHelper::loadFieldClass( 'subform' );
 
-class JFormFieldSubformMenus extends \JFormFieldSubform
+class JFormFieldSubformFiles extends \JFormFieldSubform
 {
-    protected $type = 'subformmenus';
+    protected $type = 'subformfiles';
     
     protected $layout = 'joomla.form.field.subform.repeatable-table';
 
@@ -31,10 +28,10 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
         }
 
         $fields = $this->getFormFields();
-        $menuItems = $this->getMenuItems();
+        $files = $this->getFiles();
         $outValues = [];
         
-        foreach ( $menuItems as $key => $item )
+        foreach ( $files as $key => $file )
         {
             $originRow = '';
             
@@ -42,7 +39,7 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
             {
                 foreach ( $this->value as $originValue )
                 {
-                    if ( $originValue[ 'form' ][ 'menuid' ] == $item->id )
+                    if ( $originValue[ 'form' ][ 'fName' ] == $file )
                     {
                         $originRow = $originValue[ 'form' ];
                     }
@@ -51,29 +48,20 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
             else
             {
                 $originRow = [
-                    'menuid' => 0,
-                    'gridColumns' => 1,
-                    'subtitle' => '' 
+                    'fName' => '',
+                    'fInclude' => false
                 ];
             }
-                
+            
             foreach ( $fields as $field )
             {
                 $fieldValue = '';
                 
-                if ( $field === 'menuid' )
+                if ( $field === 'fName' )
                 {
-                    $fieldValue = $item->id;
+                    $fieldValue = $file;
                 }
-                elseif ( $field === 'menutitle' )
-                {
-                    $fieldValue = $item->name;
-                }
-                elseif ( $field === 'itemtitle' )
-                {
-                    $fieldValue = $item->title;
-                }
-                elseif ( $originRow && $originRow[ 'menuid' ] === $item->id )
+                elseif ( $originRow && $originRow[ 'fName' ] === $file )
                 {
                     $fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
                 }
@@ -84,7 +72,6 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
                 }
             }
         }
-        
 
         $this->value = $outValues;
 
@@ -95,8 +82,8 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
     {
         $xml = simplexml_load_file( $this->formsource );
         $xmlFields = (array) $xml->fields;
-        
         $fields = [];
+
         foreach ( $xmlFields[ 'fieldset' ] as $field )
         {
             $fields[] = $field->attributes()->name->__toString();
@@ -105,31 +92,40 @@ class JFormFieldSubformMenus extends \JFormFieldSubform
         return $fields;
     }
 
-    protected function getMenuItems()
+    protected function getFiles()
     {
-        $app = Factory::getApplication();
-        $db = Factory::getDbo();
+        $files = [];
 
-        $query = $db->getQuery( true )
-            ->select( 'm.id, m.title, mt.title as name' )
-            ->from( '#__menu AS m' )
-            ->join( 'LEFT', '#__menu_types AS mt ON mt.menutype = m.menutype' )
-            ->where( 'm.published = 1' )
-            ->where( 'm.level = 1' )
-            ->where( 'm.client_id = 0' )
-            ->where( 'mt.client_id = 0' )
-            ->order( 'mt.id, m.lft' );
+        $filePath = realpath( Path::clean( JPATH_ROOT . $this->getAttribute( 'folder' ) ) );
 
-        try
+        $list = glob( $filePath . DIRECTORY_SEPARATOR . '*.*' );
+        
+        if ( is_array( $list ) )
         {
-            $items = $db->setQuery( $query )->loadObjectList();
-        }
-        catch ( RuntimeException $e )
-        {
-            Log::add( Text::sprintf( 'JLIB_APPLICATION_ERROR_item_LOAD', $e->getMessage() ), Log::WARNING, 'jerror' );
-            return [];
+            foreach ( $list as $listItem )
+            {
+                $files[] = basename( $listItem );
+            }
         }
 
-        return $items;
+        $tmp_key = false;
+        foreach ( $files as $k => $file )
+        {
+            if ( strpos( $file, 'custom.' ) !== false )
+            {
+                $tmp_key = $k;
+                break;
+            }
+        }
+
+        if ( $tmp_key !== false )
+        {
+            $tmp = $files[ $tmp_key ];
+            unset( $files[ $tmp_key ] );
+            $files = array_values( $files );
+            $files[] = $tmp;
+        }
+
+        return $files;
     }
 }

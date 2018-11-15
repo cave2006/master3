@@ -10,6 +10,7 @@
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 class JFormFieldAes extends \JFormField
 {
@@ -31,12 +32,12 @@ class JFormFieldAes extends \JFormField
         
         if ( (int) $this->element[ 'styles' ] == true )
         {
-            Factory::getDocument()->addStyleSheet( $path . '/aes.css ');
+            Factory::getDocument()->addStyleSheet(  Uri::root( true ) . $path . '/aes.css ');
         }
         
         if ( (int) $this->element[ 'script' ] == true )
         {
-            Factory::getDocument()->addScript( $path . '/aes.js' );
+            Factory::getDocument()->addScript(  Uri::root( true ) . $path . '/aes.js' );
         }
         
         return '';

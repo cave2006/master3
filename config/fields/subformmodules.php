@@ -94,7 +94,7 @@ class JFormFieldSubformModules extends \JFormFieldSubform
                 
                 if ( $fieldValue !== null)
                 {
-                    $outValues[ 'modules' . $key ][ 'form' ][ $field ] = $fieldValue;
+                    $outValues[ $this->fieldname . $key ][ 'form' ][ $field ] = $fieldValue;
                 }
             }
         }

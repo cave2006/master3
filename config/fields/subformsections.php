@@ -75,7 +75,7 @@ class JFormFieldSubformSections extends \JFormFieldSubform
                 
                 if ( $fieldValue !== null)
                 {
-                    $outValues[ 'sections' . $key ][ 'form' ][ $field ] = $fieldValue;
+                    $outValues[ $this->fieldname . $key ][ 'form' ][ $field ] = $fieldValue;
                 }
             }
         }
