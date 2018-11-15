@@ -251,20 +251,26 @@ final class Master3Config
      */
     protected function setHead()
     {
-        $tpath = Uri::base( true ) . '/templates/' . $this->name;
+        $tpath = 'templates/' . $this->name;
         
+        /*
+         * load google fonts
+         */
+        $fonts = $this->getFonts();
+        if ( $fonts )
+        {
+            HTMLHelper::stylesheet( $fonts[ 'link' ], [], [] );
+            $this->doc->addStyleDeclaration( $fonts[ 'style' ] );
+        }
+
+
         /*
          * load template css
          */
         $cssUikit = $this->params->get( 'cssUikit' );
         if ( $cssUikit !== 'none' )
         {
-            $this->doc->addStyleSheet( $tpath . '/uikit/dist/css/' . $cssUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
-        }
-        
-        if ( $this->params->get( 'cssTheme' ) )
-        {
-            $this->doc->addStyleSheet( $tpath . '/css/theme.css', [], [ 'options' => [ 'version' => 'auto' ] ] );
+            HTMLHelper::stylesheet( $tpath . '/uikit/dist/css/' . $cssUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $cssFiles = (array)$this->params->get( 'cssFiles' );
@@ -275,8 +281,8 @@ final class Master3Config
                 $cssFile = realpath( Path::clean( JPATH_ROOT . '/templates/' . $this->name . '/css/' . htmlspecialchars( trim( $cssFile->form->fName ) ) ) );
                 if ( is_file( $cssFile ) && strtolower( pathinfo( $cssFile, PATHINFO_EXTENSION ) ) == 'css' )
                 {
-                    $cssFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $cssFile ) );
-                    $this->doc->addStyleSheet( Uri::base( true ) . $cssFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                    $cssFile = str_replace( '\\', '/', str_replace( JPATH_ROOT . DIRECTORY_SEPARATOR, '', $cssFile ) );
+                    HTMLHelper::stylesheet( $cssFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
                 }
             }
         }
@@ -289,7 +295,7 @@ final class Master3Config
             if ( is_file( $cssAddonFile ) && strtolower( pathinfo( $cssAddonFile, PATHINFO_EXTENSION ) ) == 'css' )
             {
                 $cssAddonFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $cssAddonFile ) );
-                $this->doc->addStyleSheet( Uri::base( true ) . $cssAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                HTMLHelper::stylesheet( $cssAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
             }
         }
 
@@ -305,13 +311,13 @@ final class Master3Config
         $jsUikit = $this->params->get( 'jsUikit' );
         if ( $jsUikit !== 'none' )
         {
-            $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
+            HTMLHelper::script( $tpath . '/uikit/dist/js/' . $jsUikit, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $jsIcons = $this->params->get( 'jsIcons' );
         if ( $jsIcons !== 'none' )
         {
-            $this->doc->addScript( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
+            HTMLHelper::script( $tpath . '/uikit/dist/js/' . $jsIcons, [], [ 'options' => [ 'version' => 'auto' ] ] );
         }
 
         $jsFiles = (array)$this->params->get( 'jsFiles' );
@@ -322,8 +328,8 @@ final class Master3Config
                 $jsFile = realpath( Path::clean( JPATH_ROOT . '/templates/' . $this->name . '/js/' . htmlspecialchars( trim( $jsFile->form->fName ) ) ) );
                 if ( is_file( $jsFile ) && strtolower( pathinfo( $jsFile, PATHINFO_EXTENSION ) ) == 'js' )
                 {
-                    $jsFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $jsFile ) );
-                    $this->doc->addScript( Uri::base( true ) . $jsFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                    $jsFile = str_replace( '\\', '/', str_replace( JPATH_ROOT . DIRECTORY_SEPARATOR, '', $jsFile ) );
+                    HTMLHelper::script( $jsFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
                 }
             }
         }
@@ -336,7 +342,7 @@ final class Master3Config
             if ( is_file( $jsAddonFile ) && strtolower( pathinfo( $jsAddonFile, PATHINFO_EXTENSION ) ) == 'js' )
             {
                 $jsAddonFile = str_replace( '\\', '/', str_replace( JPATH_ROOT, '', $jsAddonFile ) );
-                $this->doc->addScript( Uri::base( true ) . $jsAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
+                HTMLHelper::script( $jsAddonFile, [], [ 'options' => [ 'version' => 'auto' ] ] );
             }
         }
 
@@ -355,14 +361,14 @@ final class Master3Config
         if ( $favicon && is_file( Path::clean( JPATH_BASE . '/' . $favicon ) ) )
         {
             $type = $this->getMime( Path::clean( JPATH_BASE . '/' . $favicon ) );
-            $this->doc->addFavicon( Uri::base( true ) . $favicon, $type, 'shortcut icon' );
+            $this->doc->addFavicon( Uri::base( true ) . '/' . $favicon, $type, 'shortcut icon' );
         }
         
         // favicon for apple devices
         $faviconApple = $this->params->get( 'faviconApple', '' );
         if ( $faviconApple && is_file( Path::clean( JPATH_BASE . '/' . $faviconApple ) ) )
         {
-            $this->doc->addHeadLink( Uri::base( true ) . $faviconApple, 'apple-touch-icon-precomposed' );
+            $this->doc->addHeadLink( Uri::base( true ) . '/' . $faviconApple, 'apple-touch-icon-precomposed' );
         }
     }
 
@@ -432,7 +438,7 @@ final class Master3Config
             }
         }
 
-        $head[ 'link' ] = '<link rel="stylesheet" href="//fonts.googleapis.com/css?family=' . implode( '|', $tmpLink ) . $subsets . '">';
+        $head[ 'link' ] = '//fonts.googleapis.com/css?family=' . implode( '|', $tmpLink ) . $subsets;
 
         $head[ 'style' ] = implode( "\n", $tmpStyle );
         
