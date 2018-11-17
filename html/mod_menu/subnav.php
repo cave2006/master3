@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Helper\ModuleHelper;
 
 $id = '';

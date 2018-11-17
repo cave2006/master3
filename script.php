@@ -6,10 +6,24 @@
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Version;
+use Joomla\CMS\Filesystem\Path;
 
 class master3InstallerScript
 {
+	function preflight( $type, $parent )
+	{
+		$ver = new Version();
+	
+		$minJVer = $parent->get( 'manifest' )->attributes()->version;
+
+		if( version_compare( $ver->getShortVersion(), $minJVer, 'lt' ) )
+		{
+			\JError::raiseWarning( null, 'Cannot install Master3 template in a Joomla release prior to ' . $minJVer );
+			return false;
+		}
+	}
+
 	function postflight( $type, $parent )
 	{
 		$srcfile = Path::clean( __DIR__ . '/script/tabs.php' );

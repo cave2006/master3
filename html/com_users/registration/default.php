@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Filesystem\Path;
 
 include_once realpath( Path::clean( __DIR__ . '/../../../config/config.php' ) ); 
 

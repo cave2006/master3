@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Filesystem\Path;
 
 include_once Path::clean( __DIR__ . '/config/config.php' ); 
 

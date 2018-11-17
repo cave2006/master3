@@ -10,7 +10,7 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Application\ApplicationHelper;
 

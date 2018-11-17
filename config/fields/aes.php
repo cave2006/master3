@@ -10,9 +10,11 @@
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Form\FormField;
 
-class JFormFieldAes extends \JFormField
+class JFormFieldAes extends FormField
 {
     protected $type = 'aes';
 
@@ -28,16 +30,16 @@ class JFormFieldAes extends \JFormField
             return '';
         }
         
-        $path = str_replace( '\\', '/', str_replace( JPATH_SITE, '', __DIR__ ) );
+        $path = Uri::root() . str_replace( '\\', '/', str_replace( JPATH_ROOT . DIRECTORY_SEPARATOR, '', __DIR__ ) );
         
         if ( (int) $this->element[ 'styles' ] == true )
         {
-            Factory::getDocument()->addStyleSheet(  Uri::root( true ) . $path . '/aes.css ');
+            HTMLHelper::stylesheet( $path . '/aes.css ' );
         }
         
         if ( (int) $this->element[ 'script' ] == true )
         {
-            Factory::getDocument()->addScript(  Uri::root( true ) . $path . '/aes.js' );
+            HTMLHelper::script( $path . '/aes.js' );
         }
         
         return '';

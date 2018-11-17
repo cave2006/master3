@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die;
 
-include_once realpath( \Joomla\Filesystem\Path::clean( __DIR__ . '/../config/config.php' ) ); 
+use \Joomla\CMS\Filesystem\Path;
+
+include_once realpath( Path::clean( __DIR__ . '/../config/config.php' ) ); 
 
 function modChrome_master3($module, &$params, &$attribs)
 {
@@ -89,4 +91,3 @@ function modChrome_navbar($module, &$params, &$attribs)
         echo '</div>';
     }
 }
-

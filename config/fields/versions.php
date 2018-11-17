@@ -9,9 +9,10 @@
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Filesystem\Path;
+use Joomla\CMS\Filesystem\Path;
+use Joomla\CMS\Form\FormField;
 
-class JFormFieldVersions extends \JFormField
+class JFormFieldVersions extends FormField
 {
     protected $type = 'versions';
 
