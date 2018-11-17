@@ -473,7 +473,7 @@ final class Master3Config
         
         $isMain = ( Uri::current() == Uri::base() ) || ( Uri::current() == Uri::base() . $langSef );
         $logotag = $isMain ? 'div' : 'a';
-        $logohref = $isMain ? '' : ' href="/' . $langSef . '"';
+        $logohref = $isMain ? '' : ' href="' . Uri::base( true ) . '/' . $langSef . '"';
         $out = '';
         
         if ( $this->doc->countModules( 'logo' ) )
