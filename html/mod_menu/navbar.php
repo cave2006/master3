@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Site
- * @subpackage  mod_menu.subnav
+ * @subpackage  mod_menu.navbar
  *
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -12,11 +12,25 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Helper\ModuleHelper;
 
+function getL2Items( $items, $id )
+{
+    $result = [];
+    foreach ( $items as $item )
+    {
+        if ( (int)$item->level === 2 && (int)$item->parent_id === $id )
+        {
+            $result[] = $item;
+        }
+    }
+    return $result;
+}
+
 include_once realpath( Path::clean( __DIR__ . '/../../config/config.php' ) ); 
 
 $templateConfig = \Master3Config::getInstance();
 
 $id = '';
+$l2_i = 0;
 
 if ( $tagId = $params->get( 'tag_id', '' ) )
 {
@@ -29,7 +43,10 @@ echo '<ul class="uk-navbar-nav' . $class_sfx . '"' . $id . '>';
 
 foreach ( $list as $i => &$item )
 {
-    $miParams = $templateConfig->getMenuItemParams( $item->id );
+    if ( (int)$item->level === 1 )
+    {
+        $miParams = $templateConfig->getMenuItemParams( $item->id );
+    }
 
     $class = 'item-' . $item->id;
 
@@ -93,7 +110,22 @@ foreach ( $list as $i => &$item )
         if ( (int)$item->level === 1 )
         {
             $boundary = $miParams->dropdownJustify ? ' data-uk-drop="boundary:.uk-navbar;boundary-align:true;pos:bottom-justify;"' : '';
-            echo '<div class="uk-navbar-dropdown"' . $boundary . '><ul class="uk-nav uk-navbar-dropdown-nav">';
+            if ( $miParams->cols === 1 )
+            {
+                echo '<div class="uk-navbar-dropdown"' . $boundary . '><ul class="uk-nav uk-navbar-dropdown-nav">';
+            }
+            else
+            {
+                $l2_list = getL2Items( $list, (int)$item->id );
+                $l2_cpc = (int)ceil( count( $l2_list ) / $miParams->cols );
+                $l2_i = 0;
+                $divider = $miParams->divider ? 'uk-navbar-dropdown-grid ' : '';
+
+                echo '<div class="uk-navbar-dropdown uk-navbar-dropdown-width-' . $miParams->cols . '"' . $boundary . '>'
+                    . '<div class="' . $divider . 'uk-child-width-1-' . $miParams->cols . '" data-uk-grid>'
+                    . '<div>'
+                    . '<ul class="uk-nav uk-navbar-dropdown-nav">';
+            }
         }
         else
         {
@@ -113,7 +145,15 @@ foreach ( $list as $i => &$item )
 
         if ( ( (int)$item->level - (int)$item->level_diff ) === 1 )
         {
-            echo '</ul></div></li>';
+            if ( $miParams->cols === 1 )
+            {
+                echo '</ul></div></li>';
+            }
+            else
+            {
+                echo '</ul></div></div></div></li>';
+                $l2_cpc = 0;
+            }
         }
         else
         {
@@ -123,6 +163,16 @@ foreach ( $list as $i => &$item )
     else
     {
         echo '</li>';
+        
+        if ( (int)$item->level === 2 && $l2_cpc )
+        {
+            $l2_i++;
+            if ( $l2_cpc === $l2_i )
+            {
+                echo '</ul></div><div><ul class="uk-nav uk-navbar-dropdown-nav">';
+                $l2_i = 0;
+            }
+        }
     }
 }
 

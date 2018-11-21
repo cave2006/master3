@@ -7,7 +7,7 @@
 
 **WARNING! Please do not download the master repository - it does not contain the UIkit framework! <br>To install, download a created release!**
 
-Template version 0.6.3-**beta**
+Template version 0.7.0-**beta**
 
 UIkit version 3.0.0-rc.23
 
