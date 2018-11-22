@@ -17,7 +17,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Helper\AuthenticationHelper;
 
-include_once Path::clean( __DIR__ . '/config/config.php' ); 
+include_once Path::clean( JPATH_LIBRARIES . '/master3/config.php' ); 
 
 $config = \Master3Config::getInstance();
 

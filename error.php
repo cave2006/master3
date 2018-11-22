@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Language\Text;
 
-include_once Path::clean( __DIR__ . '/config/config.php' ); 
+include_once Path::clean( JPATH_LIBRARIES . '/master3/config.php' ); 
 
 $config = \Master3Config::getInstance();
 

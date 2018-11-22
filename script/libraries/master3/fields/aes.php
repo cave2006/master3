@@ -25,7 +25,7 @@ class JFormFieldAes extends FormField
 
     protected function getInput()
     {
-        if ( Factory::getApplication( 'site' )->isAdmin() === false )
+        if ( Factory::getApplication()->isAdmin() === false )
         {
             return '';
         }

@@ -14,9 +14,11 @@ use Joomla\CMS\Form\FormHelper;
 
 FormHelper::loadFieldClass( 'subform' );
 
-class JFormFieldSubformOffcanvas extends \JFormFieldSubform
+include_once Path::clean( JPATH_LIBRARIES . '/master3/config.php' );
+
+class JFormFieldSubformFiles extends \JFormFieldSubform
 {
-    protected $type = 'subformoffcanvas';
+    protected $type = 'subformfiles';
     
     protected $layout = 'joomla.form.field.subform.repeatable-table';
 
@@ -26,11 +28,12 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
         {
             return false;
         }
-        
+
         $fields = $this->getFormFields();
-        $sections = $this->getSections();
+        $files = $this->getFiles();
         $outValues = [];
-        foreach ( $sections as $key => $section )
+        
+        foreach ( $files as $key => $file )
         {
             $originRow = '';
             
@@ -38,7 +41,7 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
             {
                 foreach ( $this->value as $originValue )
                 {
-                    if ( $originValue[ 'form' ][ 'posname' ] == $section )
+                    if ( $originValue[ 'form' ][ 'fName' ] == $file )
                     {
                         $originRow = $originValue[ 'form' ];
                     }
@@ -47,9 +50,8 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
             else
             {
                 $originRow = [
-                    'posname' => '',
-                    'overlay' => 1,
-                    'mode' => 'slide'
+                    'fName' => '',
+                    'fInclude' => false
                 ];
             }
             
@@ -57,11 +59,11 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
             {
                 $fieldValue = '';
                 
-                if ( $field === 'posname' )
+                if ( $field === 'fName' )
                 {
-                    $fieldValue = $section;
+                    $fieldValue = $file;
                 }
-                elseif ( $originRow && $originRow[ 'posname' ] === $section )
+                elseif ( $originRow && $originRow[ 'fName' ] === $file )
                 {
                     $fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
                 }
@@ -72,7 +74,7 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
                 }
             }
         }
-        
+
         $this->value = $outValues;
 
         return true;
@@ -92,36 +94,42 @@ class JFormFieldSubformOffcanvas extends \JFormFieldSubform
         return $fields;
     }
 
-    protected function getSections()
+    protected function getFiles()
     {
-        $sections = [];
-
-        $filePath = realpath( Path::clean( __DIR__ . '/../../templateDetails.xml' ) );
+        $files = [];
         
-        if ( is_file( $filePath ) )
+        $templateName = \Master3Config::getTemplateName();
+        
+        $filePath = realpath( Path::clean( JPATH_ROOT . "/templates/{$templateName}/" . $this->getAttribute( 'folder' ) ) );
+
+        $list = glob( $filePath . DIRECTORY_SEPARATOR . '*.*' );
+        
+        if ( is_array( $list ) )
         {
-            $xml = simplexml_load_file( $filePath );
-
-            if ( !$xml )
+            foreach ( $list as $listItem )
             {
-                return false;
-            }
-
-            if ( $xml->getName() != 'extension' && $xml->getName() != 'metafile' )
-            {
-                unset($xml);
-                return false;
-            }
-            
-            foreach ($xml->positions[ 0 ]->position as $position)
-            {
-                if ( isset( $position[ 'offcanvas' ] ) )
-                {
-                    $sections[] = $position->__toString();
-                }
+                $files[] = basename( $listItem );
             }
         }
 
-        return array_values( array_unique( $sections ) );
+        $tmp_key = false;
+        foreach ( $files as $k => $file )
+        {
+            if ( strpos( $file, 'custom.' ) !== false )
+            {
+                $tmp_key = $k;
+                break;
+            }
+        }
+
+        if ( $tmp_key !== false )
+        {
+            $tmp = $files[ $tmp_key ];
+            unset( $files[ $tmp_key ] );
+            $files = array_values( $files );
+            $files[] = $tmp;
+        }
+
+        return $files;
     }
 }

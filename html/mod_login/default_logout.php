@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
-include_once realpath( Path::clean( __DIR__ . '/../../config/config.php' ) ); 
+include_once realpath( Path::clean( JPATH_LIBRARIES . '/master3/config.php' ) ); 
 
 $templateConfig = \Master3Config::getInstance();
 

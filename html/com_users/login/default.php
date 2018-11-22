@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Filesystem\Path;
 
-include_once realpath( Path::clean( __DIR__ . '/../../../config/config.php' ) ); 
+include_once realpath( Path::clean( JPATH_LIBRARIES . '/master3/config.php' ) ); 
 
 $templateConfig = \Master3Config::getInstance();
 

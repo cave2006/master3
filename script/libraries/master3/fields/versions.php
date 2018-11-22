@@ -9,8 +9,11 @@
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Form\FormField;
+
+include_once Path::clean( JPATH_LIBRARIES . '/master3/config.php' );
 
 class JFormFieldVersions extends FormField
 {
@@ -18,6 +21,9 @@ class JFormFieldVersions extends FormField
 
     protected function getInput()
     {
+        $template_name = \Master3Config::getTemplateName();
+        $templatePath = JPATH_ROOT . "/templates/{$template_name}/";
+        
         $xmlFiles = [
             'templateDetails.xml',
             'uikit/uikit.xml'
@@ -27,7 +33,7 @@ class JFormFieldVersions extends FormField
 
         foreach ( $xmlFiles as $file )
         {
-            $filePath = realpath( Path::clean( __DIR__ . '/../../' . $file ) );
+            $filePath = realpath( Path::clean( $templatePath . $file ) );
             $xml = @simplexml_load_file( $filePath );
             if ( $xml )
             {

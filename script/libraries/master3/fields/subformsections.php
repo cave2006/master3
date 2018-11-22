@@ -14,9 +14,9 @@ use Joomla\CMS\Form\FormHelper;
 
 FormHelper::loadFieldClass( 'subform' );
 
-class JFormFieldSubformFiles extends \JFormFieldSubform
+class JFormFieldSubformSections extends \JFormFieldSubform
 {
-    protected $type = 'subformfiles';
+    protected $type = 'subformsections';
     
     protected $layout = 'joomla.form.field.subform.repeatable-table';
 
@@ -26,12 +26,12 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
         {
             return false;
         }
-
-        $fields = $this->getFormFields();
-        $files = $this->getFiles();
-        $outValues = [];
         
-        foreach ( $files as $key => $file )
+        $fields = $this->getFormFields();
+        $sections = $this->getSections();
+        $outValues = [];
+
+        foreach ( $sections as $key => $section )
         {
             $originRow = '';
             
@@ -39,7 +39,7 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
             {
                 foreach ( $this->value as $originValue )
                 {
-                    if ( $originValue[ 'form' ][ 'fName' ] == $file )
+                    if ( $originValue[ 'form' ][ 'name' ] == $section )
                     {
                         $originRow = $originValue[ 'form' ];
                     }
@@ -48,8 +48,15 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
             else
             {
                 $originRow = [
-                    'fName' => '',
-                    'fInclude' => false
+                    'name' => '',
+                    'id' => '',
+                    'style' => 'uk-section-default',
+                    'padding' => 'uk-section',
+                    'image' => '',
+                    'class' => '',
+                    'container' => 'uk-container',
+                    'responsive' => 'medium',
+                    'gutter' => ''
                 ];
             }
             
@@ -57,11 +64,11 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
             {
                 $fieldValue = '';
                 
-                if ( $field === 'fName' )
+                if ( $field === 'name' )
                 {
-                    $fieldValue = $file;
+                    $fieldValue = $section;
                 }
-                elseif ( $originRow && $originRow[ 'fName' ] === $file )
+                elseif ( $originRow && $originRow[ 'name' ] === $section )
                 {
                     $fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
                 }
@@ -72,7 +79,7 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
                 }
             }
         }
-
+        
         $this->value = $outValues;
 
         return true;
@@ -84,48 +91,49 @@ class JFormFieldSubformFiles extends \JFormFieldSubform
         $xmlFields = (array) $xml->fields;
         $fields = [];
 
-        foreach ( $xmlFields[ 'fieldset' ] as $field )
+        foreach ( $xmlFields[ 'fieldset' ] as $fieldset )
         {
-            $fields[] = $field->attributes()->name->__toString();
+            foreach ( $fieldset->field as $field )
+            {
+                $fields[] = $field->attributes()->name->__toString();
+            }
         }
 
         return $fields;
     }
 
-    protected function getFiles()
+    protected function getSections()
     {
-        $files = [];
-
-        $filePath = realpath( Path::clean( JPATH_ROOT . $this->getAttribute( 'folder' ) ) );
-
-        $list = glob( $filePath . DIRECTORY_SEPARATOR . '*.*' );
+        $sections = [];
         
-        if ( is_array( $list ) )
+        $templateName = \Master3Config::getTemplateName();
+
+        $filePath = realpath( Path::clean( JPATH_ROOT . "/templates/{$templateName}/" . 'templateDetails.xml' ) );
+        
+        if ( is_file( $filePath ) )
         {
-            foreach ( $list as $listItem )
+            $xml = simplexml_load_file( $filePath );
+
+            if ( !$xml )
             {
-                $files[] = basename( $listItem );
+                return false;
+            }
+
+            if ( $xml->getName() != 'extension' && $xml->getName() != 'metafile' )
+            {
+                unset($xml);
+                return false;
+            }
+            
+            foreach ($xml->positions[ 0 ]->position as $position)
+            {
+                if ( isset( $position[ 'section' ] ) )
+                {
+                    $sections[] = $position->attributes()->section->__toString();
+                }
             }
         }
 
-        $tmp_key = false;
-        foreach ( $files as $k => $file )
-        {
-            if ( strpos( $file, 'custom.' ) !== false )
-            {
-                $tmp_key = $k;
-                break;
-            }
-        }
-
-        if ( $tmp_key !== false )
-        {
-            $tmp = $files[ $tmp_key ];
-            unset( $files[ $tmp_key ] );
-            $files = array_values( $files );
-            $files[] = $tmp;
-        }
-
-        return $files;
+        return array_values( array_unique( $sections ) );
     }
 }

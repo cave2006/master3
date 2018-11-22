@@ -14,9 +14,9 @@ use Joomla\CMS\Form\FormHelper;
 
 FormHelper::loadFieldClass( 'subform' );
 
-class JFormFieldSubformSections extends \JFormFieldSubform
+class JFormFieldSubformOffcanvas extends \JFormFieldSubform
 {
-    protected $type = 'subformsections';
+    protected $type = 'subformoffcanvas';
     
     protected $layout = 'joomla.form.field.subform.repeatable-table';
 
@@ -30,7 +30,6 @@ class JFormFieldSubformSections extends \JFormFieldSubform
         $fields = $this->getFormFields();
         $sections = $this->getSections();
         $outValues = [];
-
         foreach ( $sections as $key => $section )
         {
             $originRow = '';
@@ -39,7 +38,7 @@ class JFormFieldSubformSections extends \JFormFieldSubform
             {
                 foreach ( $this->value as $originValue )
                 {
-                    if ( $originValue[ 'form' ][ 'name' ] == $section )
+                    if ( $originValue[ 'form' ][ 'posname' ] == $section )
                     {
                         $originRow = $originValue[ 'form' ];
                     }
@@ -48,15 +47,9 @@ class JFormFieldSubformSections extends \JFormFieldSubform
             else
             {
                 $originRow = [
-                    'name' => '',
-                    'id' => '',
-                    'style' => 'uk-section-default',
-                    'padding' => 'uk-section',
-                    'image' => '',
-                    'class' => '',
-                    'container' => 'uk-container',
-                    'responsive' => 'medium',
-                    'gutter' => ''
+                    'posname' => '',
+                    'overlay' => 1,
+                    'mode' => 'slide'
                 ];
             }
             
@@ -64,11 +57,11 @@ class JFormFieldSubformSections extends \JFormFieldSubform
             {
                 $fieldValue = '';
                 
-                if ( $field === 'name' )
+                if ( $field === 'posname' )
                 {
                     $fieldValue = $section;
                 }
-                elseif ( $originRow && $originRow[ 'name' ] === $section )
+                elseif ( $originRow && $originRow[ 'posname' ] === $section )
                 {
                     $fieldValue = isset( $originRow[ $field ] ) ? $originRow[ $field ] : null;
                 }
@@ -91,12 +84,9 @@ class JFormFieldSubformSections extends \JFormFieldSubform
         $xmlFields = (array) $xml->fields;
         $fields = [];
 
-        foreach ( $xmlFields[ 'fieldset' ] as $fieldset )
+        foreach ( $xmlFields[ 'fieldset' ] as $field )
         {
-            foreach ( $fieldset->field as $field )
-            {
-                $fields[] = $field->attributes()->name->__toString();
-            }
+            $fields[] = $field->attributes()->name->__toString();
         }
 
         return $fields;
@@ -106,7 +96,9 @@ class JFormFieldSubformSections extends \JFormFieldSubform
     {
         $sections = [];
 
-        $filePath = realpath( Path::clean( __DIR__ . '/../../templateDetails.xml' ) );
+        $templateName = \Master3Config::getTemplateName();
+
+        $filePath = realpath( Path::clean( JPATH_ROOT . "/templates/{$templateName}/" . 'templateDetails.xml' ) );
         
         if ( is_file( $filePath ) )
         {
@@ -125,9 +117,9 @@ class JFormFieldSubformSections extends \JFormFieldSubform
             
             foreach ($xml->positions[ 0 ]->position as $position)
             {
-                if ( isset( $position[ 'section' ] ) )
+                if ( isset( $position[ 'offcanvas' ] ) )
                 {
-                    $sections[] = $position->attributes()->section->__toString();
+                    $sections[] = $position->__toString();
                 }
             }
         }
