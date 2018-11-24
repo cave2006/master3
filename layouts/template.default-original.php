@@ -117,7 +117,7 @@ if ( $this->countModules( 'breadcrumb' ) )
 {
     $section = $config->getSectionParams( 'breadcrumb' );
 ?>
-<div id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' ); ?>>
+<div role="navigation" id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' ); ?>>
     <div class="<?php echo $section->container; ?>">
         <jdoc:include type="modules" name="breadcrumb" style="none" />
     </div>
@@ -188,6 +188,7 @@ if ( $systemOutput || $countMainTop || $countMainBottom || $countSidebarA || $co
                         </div>
                     </div>
                     <?php } ?>
+                    
                     <?php if ( $systemOutput ) { ?>
                     <div>
                         <main id="content">
@@ -282,7 +283,7 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
     $sectionResponsive = 'uk-child-width-1-' . ( $section->responsive === '' ? '1' : $sectionPosCount . $section->responsive );
     $section->gridClass = trim( $sectionResponsive . ' ' . $section->gridClass );
 ?>
-<div id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' );?>>
+<footer id="<?php echo $section->id; ?>" class="<?php echo $section->class; ?>"<?php echo ( $section->image ? ' data-src="' . $section->image . '" data-uk-img' : '' );?>>
     
     <div class="<?php echo $section->container; ?>">
         
@@ -308,7 +309,7 @@ if ( $this->countModules( 'footer-left + footer-center + footer-right' ) )
         </div>
     </div>
     
-</div>
+</footer>
 <?php } ?>
 
 
@@ -329,12 +330,12 @@ if ( $this->countModules( 'offcanvas' ) )
 {
     $offcanvas = $config->getOffcanvasParams( 'offcanvas' );
 ?>
-<div id="offcanvas" data-uk-offcanvas="<?php echo $offcanvas->attrs; ?>">
+<aside id="offcanvas" data-uk-offcanvas="<?php echo $offcanvas->attrs; ?>">
     <div class="uk-offcanvas-bar<?php echo $offcanvas->class; ?>">
         <a class="uk-offcanvas-close" data-uk-close></a>
         <jdoc:include type="modules" name="offcanvas" style="master3" />
     </div>
-</div>
+</aside>
 <?php } ?>
 
 
@@ -346,12 +347,12 @@ if ( $this->countModules( 'offcanvas-menu' ) )
 {
     $offcanvas = $config->getOffcanvasParams( 'offcanvas-menu' );
 ?>
-<div id="offcanvas-menu" data-uk-offcanvas="<?php echo $offcanvas->attrs; ?>">
+<aside id="offcanvas-menu" data-uk-offcanvas="<?php echo $offcanvas->attrs; ?>">
     <div class="uk-offcanvas-bar<?php echo $offcanvas->class; ?>">
         <a class="uk-offcanvas-close" data-uk-close></a>
         <jdoc:include type="modules" name="offcanvas-menu" style="master3" />
     </div>
-</div>
+</aside>
 <?php } ?>
 
 

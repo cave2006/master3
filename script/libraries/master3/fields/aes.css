@@ -1,5 +1,9 @@
 /* Custom CSS for admin panel */
 
+#menu-assignment .menu-links > li {
+    display: inline-block;
+}
+
 .control-label > label > p {
     margin-bottom: 0px;
 }

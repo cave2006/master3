@@ -35,11 +35,6 @@ final class Master3Config
     public $name = 'master3';
 
     /*
-     * string
-     */
-    public $layout = 'default';
-
-    /*
      * Registry object
      */
     private $params = null;
@@ -93,16 +88,6 @@ final class Master3Config
         
         $this->doc = Factory::getDocument();
 
-        $this->layout = ApplicationHelper::stringURLSafe( Factory::getApplication()->getMenu( 'site' )->getActive()->alias );
-        if ( !file_exists( realpath( JPATH_ROOT . "/templates/{$this->name}/layouts/template.{$this->layout}.php" ) ) )
-        {
-            $this->layout = 'default';
-        }
-        if ( !file_exists( realpath( JPATH_ROOT . "/templates/{$this->name}/layouts/template.{$this->layout}.php" ) ) )
-        {
-            $this->layout = 'default-original';
-        }
-        
         $this->params = $this->doc->params;
 
         if ( !isset( $this->params ) )
@@ -110,6 +95,20 @@ final class Master3Config
             $template = Factory::getApplication()->getTemplate( true );
             $this->params = $template->params;
         }
+
+        
+        // param temlateLayouts recompose
+        $layouts = [];
+        
+        $prmLayouts = $this->params->get( 'templateLayouts', [] );
+        foreach ( $prmLayouts as $item )
+        {
+            $ma = isset( $item->form->menuassign ) ? $item->form->menuassign : [];
+            $layouts[ $item->form->name ] = $ma;
+        }
+        
+        $this->params->set( 'templateLayouts', $layouts );
+
 
         // param sections recompose
         $sections = [];
@@ -125,7 +124,7 @@ final class Master3Config
             $section->class[] = $item->form->style;
             $section->class[] = $item->form->light ? 'uk-light' : '';
             $section->class[] = htmlspecialchars( $item->form->class, ENT_COMPAT, 'UTF-8' );
-            $section->class = implode( ' ', $section->class );
+            $section->class = trim( implode( ' ', $section->class ) );
             
             $section->image = $item->form->image && Path::clean( JPATH_BASE . '/' . $item->form->image ) ? $item->form->image : '';
             if ( $section->image )
@@ -163,7 +162,7 @@ final class Master3Config
             $module->class[] = $item->form->moduleBox !== 'uk-panel' ? $item->form->modulePadding : '';
             $module->class[] = $item->form->light ? 'uk-light' : '';
             $module->class[] = htmlspecialchars( $item->form->moduleClass, ENT_COMPAT, 'UTF-8' );
-            $module->class = implode( ' ', $module->class );
+            $module->class = trim( implode( ' ', $module->class ) );
             
             $module->display = $item->form->display;
             $module->align = $item->form->moduleAlign;
@@ -470,6 +469,41 @@ final class Master3Config
 
 
     /*
+     * Get template layout
+     * 
+     * @return string
+     */
+    public function getLayout()
+    {
+        $layouts = $this->params->get( 'templateLayouts' );
+        
+        $ma_id = Factory::getApplication()->getMenu( 'site' )->getActive()->id;
+        
+        $layout = 'default';
+        
+        foreach ( $layouts as $name => $items )
+        {
+            if ( in_array( $ma_id, $items ) )
+            {
+                $layout = $name;
+                break;
+            }
+        }
+
+        if ( !file_exists( realpath( JPATH_ROOT . "/templates/{$this->name}/layouts/template.{$layout}.php" ) ) )
+        {
+            $layout = 'default';
+        }
+        if ( !file_exists( realpath( JPATH_ROOT . "/templates/{$this->name}/layouts/template.{$layout}.php" ) ) )
+        {
+            $layout = 'default-original';
+        }
+
+        return $layout;
+    }
+
+
+    /*
      * Logo position render
      * 
      * @return text/html
@@ -695,6 +729,7 @@ final class Master3Config
             }
         }
         
+        $section->class = trim( $section->class );
         $section->id = $sectionName;
 
         return $section;

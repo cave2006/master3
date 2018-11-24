@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.9" type="template" client="site" method="upgrade">
     <name>Master3</name>
-    <version>0.8.1-beta</version>
+    <version>0.9.0-beta</version>
     <creationDate>November 2018</creationDate>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -72,6 +72,9 @@
                 <field name="versions" type="versions" label="TPL_MASTER3_VERSIONS_LABEL" />
                 <field name="spacerVersions" type="spacer" hr="true" />
 
+                <field name="templateLayouts" type="subformlayouts" label="TPL_MASTER3_TEMPLATELAYOUTS_LABEL" formsource="libraries/master3/forms/layouts.xml" groupByFieldset="false" multiple="true" layout="joomla.form.field.subform.repeatable-table" buttons="none" />
+                <field name="spacerLauouts" type="spacer" hr="true" />
+                
                 <field name="noteLogo" type="note" label="TPL_MASTER3_SUBTITLE_LOGO" />
                 <field name="logoFile" type="media" label="TPL_MASTER3_LOGO_LABEL" description="TPL_MASTER3_LOGO_DESC" class="input-xlarge" />
                 <field name="siteTitle" type="text" label="TPL_MASTER3_TITLE_LABEL" description="TPL_MASTER3_TITLE_DESC" class="input-xlarge" default="" filter="string" />

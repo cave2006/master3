@@ -30,7 +30,7 @@ $config = \Master3Config::getInstance();
      * layout name === active menu item alias
      * if no layer is found for the active menu item, the default layer is used
      */
-    include( realpath( __DIR__ . '/layouts/template.' . $config->layout . '.php' ) );
+    include( realpath( __DIR__ . '/layouts/template.' . $config->getLayout() . '.php' ) );
     ?>
 
 
