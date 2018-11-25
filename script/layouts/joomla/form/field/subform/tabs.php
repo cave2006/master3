@@ -42,14 +42,19 @@ HTMLHelper::_( 'stylesheet', 'system/subform-tabs.css', [ 'version' => 'auto', '
 
 $sublayout = 'section';
 
-$fieldset = $forms[0]->getFieldset('');
-$keyField = array_shift( $fieldset );
+if ( !$forms )
+{
+	echo '<div class="alert alert-warning uk-alert uk-alert-warning">Subform elements not found.</div>';
+}
+else
+{
+	$fieldset = $forms[0]->getFieldset('');
+	$keyField = array_shift( $fieldset );
 
-$this->tab_name = 'subform-tabset-' . $fieldname;
-
-?>
-<div class="subform-tabs tabs-left">
-	<?php
+	$this->tab_name = 'subform-tabset-' . $fieldname;
+	
+	echo '<div class="subform-tabs tabs-left">';
+	
 	echo HTMLHelper::_( 'bootstrap.startTabSet', $this->tab_name, [ 'active' => (string)'subform-tab-' . $fieldname. '-' . $keyField->fieldname . '-0' ] );
 	
 	foreach ($forms as $k => $form)
@@ -61,5 +66,6 @@ $this->tab_name = 'subform-tabset-' . $fieldname;
 	}
 	
 	echo HTMLHelper::_( 'bootstrap.endTabSet' );
-	?>
-</div>
+	
+	echo '</div>';
+}

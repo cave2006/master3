@@ -65,15 +65,28 @@ final class Master3Config
     {
         if ( Factory::getApplication()->isAdmin() === false )
         {
-            $template = Factory::getApplication()->getTemplate( 'site' );
+            return Factory::getApplication()->getTemplate( 'site' )->template;
         }
 
+        $input = Factory::getApplication()->input;
+        
+        $id = ( $input->get( 'option' ) == 'com_templates' && (int)$input->get( 'id' ) !== 0 ) ? (int)$id = $input->get( 'id' ) : 0;
+        
         $db = Factory::getDbo();
         $query = $db->getQuery( true )
             ->select( 'template' )
-            ->from( '#__template_styles' )
-            ->where( 'client_id=0' )
-            ->where( 'home=1' );
+            ->from( '#__template_styles' );
+        if ( $id )
+        {
+            $query
+                ->where( 'id=' . $id );
+        }
+        else
+        {
+            $query
+                ->where( 'client_id=0' )
+                ->where( 'home=1' );
+        }
         $templateName = $db->setQuery( $query )->loadResult();
         return $templateName;
     }
